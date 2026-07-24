@@ -1,0 +1,359 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Vendors API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Vendors
+paths:
+  /vendors:
+    get:
+      tags:
+      - Vendors
+      operationId: list-all-vendors
+      summary: Lists all vendors
+      description: 'Returns vendors with pagination and optional status or currency filters.
+
+        Vendor ids feed bill creation, vendor credits, and payment workflows.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter vendors updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - vendors
+                - pagination
+                type: object
+                properties:
+                  vendors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VendorResponse'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Vendors
+      operationId: create-a-vendor
+      summary: Creates a vendor
+      description: 'Adds a vendor master record the accounts-payable team can select on bills, vendor credits, and payments.
+
+        Capture legal name, remit-to address, default currency, and payment terms so downstream bills inherit correct due dates and banking instructions.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /vendors/{vendor_id}:
+    get:
+      tags:
+      - Vendors
+      operationId: retrieve-a-vendor
+      summary: Retrieves a vendor
+      description: 'Fetches the full vendor profile including identifiers you must echo back on PUT updates.
+
+        Use before editing to avoid wiping optional fields, and when validating tax or payment metadata during bill entry.
+
+        '
+      parameters:
+      - name: vendor_id
+        in: path
+        description: UUID of the vendor to be used in this operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Vendors
+      operationId: update-a-vendor
+      summary: Updates a vendor
+      description: 'IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be
+
+        included in the request body — omitting any field will set it to null, wiping
+
+        existing data. Always call retrieve-a-vendor first to fetch the current record,
+
+        then include ALL existing fields in your update request along with your changes.
+
+        '
+      parameters:
+      - name: vendor_id
+        in: path
+        description: UUID of the vendor to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Vendors
+      operationId: delete-a-vendor
+      summary: Deletes a vendor
+      description: 'Removes a vendor you no longer expect to pay. Confirm no open bills, credits, or scheduled payments still reference this vendor to avoid orphaned payables.
+
+        '
+      parameters:
+      - name: vendor_id
+        in: path
+        description: UUID of the vendor to be used in this operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    VendorRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: MyVendor
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 180
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        ten_ninety_nine_eligible:
+          type: boolean
+        tax_id:
+          type: string
+          example: '123'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    VendorResponse:
+      allOf:
+      - $ref: '#/components/schemas/VendorRequest'
+      - type: object
+        required:
+        - id
+        - updated_at
+        properties:
+          id:
+            type: string
+            format: uuid
+          updated_at:
+            type: string
+            format: date-time
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    Address:
+      type: object
+      required:
+      - city
+      - country
+      - line1
+      - state
+      - zip_code
+      properties:
+        line1:
+          type: string
+          example: 123 Main St
+        line2:
+          type: string
+          example: Apt 4B
+        city:
+          type: string
+          example: Nashville
+        state:
+          type: string
+          example: TN
+          description: State or province code (e.g. 'TN', 'CA' for US; 'ON' for Canada). Required when address is provided.
+        zip_code:
+          type: string
+          example: '37201'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

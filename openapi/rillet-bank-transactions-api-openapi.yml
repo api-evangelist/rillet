@@ -1,0 +1,445 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Bank Transactions API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Bank Transactions
+paths:
+  /bank-transactions:
+    get:
+      tags:
+      - Bank Transactions
+      operationId: list-all-bank-transactions
+      summary: Lists all bank transactions
+      description: 'Streams imported or manually entered cash activity for reconciliation, optionally scoped by bank account, subsidiary, or updated-since filters.
+
+        Pair results with retrieve-a-bank-transaction when you need memo-level detail before marking items cleared.
+
+        '
+      parameters:
+      - name: bank_account_id
+        in: query
+        required: false
+        description: Filter by bank account
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/subsidiary_id'
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter bank transactions updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      - name: date.gte
+        in: query
+        required: false
+        description: Filter bank transactions with date on or after this date
+        schema:
+          type: string
+          format: date
+          example: '2023-01-01'
+      - name: date.lte
+        in: query
+        required: false
+        description: Filter bank transactions with date on or before this date
+        schema:
+          type: string
+          format: date
+          example: '2023-12-31'
+      - name: sort_by
+        in: query
+        description: Field to sort results by (see enum values).
+        required: false
+        schema:
+          type: string
+          enum:
+          - created
+          - updated
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - bank_transactions
+                - pagination
+                type: object
+                properties:
+                  bank_transactions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BankTransaction'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Bank Transactions
+      operationId: create-a-bank-transaction
+      summary: Creates a bank transaction
+      description: 'Inserts a single bank feed line such as a wire, ACH, or adjustment when automated imports miss a statement row.
+
+        Specify the hosting bank account and value dates so cash reporting matches what treasury already booked externally.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBankTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankTransaction'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /bank-transactions/{bank_transaction_id}:
+    get:
+      tags:
+      - Bank Transactions
+      operationId: retrieve-a-bank-transaction
+      summary: Retrieves a bank transaction
+      description: 'Fetches one bank transaction with counterparty text, amounts, and reconciliation flags used by cash teams during month-end.
+
+        Use before update-a-bank-transaction to preserve memos or matched invoice references embedded in the payload.
+
+        '
+      parameters:
+      - name: bank_transaction_id
+        in: path
+        description: UUID of the bank transaction to be used in this operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankTransaction'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Bank Transactions
+      operationId: update-a-bank-transaction
+      summary: Updates a bank transaction
+      description: 'Adjusts memo, categorization, or reconciliation metadata on an existing bank transaction without re-importing the entire feed batch.
+
+        Supply the full body expected by the schema so optional fields you intend to keep are not unintentionally cleared.
+
+        '
+      parameters:
+      - name: bank_transaction_id
+        in: path
+        description: UUID of the bank transaction to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBankTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankTransaction'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Bank Transactions
+      operationId: delete-a-bank-transaction
+      summary: Deletes a bank transaction
+      description: 'Removes a bank transaction row that was imported twice or created in error before it affects reconciled cash balances.
+
+        Confirm treasury agrees the underlying bank activity will not return on the next feed pull before deleting.
+
+        '
+      parameters:
+      - name: bank_transaction_id
+        in: path
+        description: UUID of the bank transaction to be used in this operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    BankTransaction:
+      type: object
+      required:
+      - id
+      - bank_account_id
+      - subsidiary_id
+      - date
+      - name
+      - merchant
+      - net_amount
+      - fee
+      - pending
+      - excluded
+      properties:
+        id:
+          type: string
+          format: uuid
+        bank_account_id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+          description: Transaction description
+        merchant:
+          type: string
+          description: Merchant or counterparty name
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Transaction amount with fees subtracted
+        fee:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Fee amount
+        pending:
+          type: boolean
+          description: Whether the transaction is still pending
+        excluded:
+          type: boolean
+          description: Whether the transaction is excluded from reconciliation
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    UpdateBankTransactionRequest:
+      type: object
+      required:
+      - bank_account_id
+      - date
+      - name
+      - merchant
+      - net_amount
+      properties:
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+          description: Transaction description
+        merchant:
+          type: string
+          description: Merchant or counterparty name
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Transaction amount with fees subtracted
+        fee:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Fee amount
+        pending:
+          type: boolean
+          description: Whether the transaction is still pending
+        excluded:
+          type: boolean
+          description: Whether the transaction is excluded from reconciliation
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    CreateBankTransactionRequest:
+      type: object
+      required:
+      - bank_account_id
+      - date
+      - name
+      - merchant
+      - net_amount
+      properties:
+        bank_account_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+          description: Transaction description
+        merchant:
+          type: string
+          description: Merchant or counterparty name
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Transaction amount with fees subtracted
+        fee:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Fee amount. Defaults to zero in the currency of net_amount.
+        pending:
+          type: boolean
+          description: Whether the transaction is still pending
+          default: false
+        excluded:
+          type: boolean
+          description: Whether the transaction is excluded from reconciliation
+          default: false
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+  parameters:
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

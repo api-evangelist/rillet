@@ -1,0 +1,357 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Invoice payments API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Invoice payments
+paths:
+  /invoice-payments:
+    get:
+      tags:
+      - Invoice payments
+      operationId: list-all-invoices-payments
+      summary: Lists all invoice payments
+      description: 'Pages every customer payment recorded against invoices across the organization, independent of which invoice it settled.
+
+        Use updated.gt and sort_by when syncing integrations; follow the pagination cursor until no next page remains.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter payments updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - created
+          - updated
+          default: created
+        description: the field the payments should be sorted by descending (either created or updated)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - payments
+                - pagination
+                type: object
+                properties:
+                  payments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InvoicePayment'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invoices/{invoice_id}/payments:
+    get:
+      tags:
+      - Invoice payments
+      operationId: list-all-invoice-payments
+      summary: Lists payments for a given invoice
+      description: 'Returns every payment attempt tied to a single invoice, including successful, uncleared, and failed rows with their public status.
+
+        Pair with retrieve-an-invoice when reconciling an account statement against what Rillet already applied.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        description: UUID of the invoice to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - payments
+                type: object
+                properties:
+                  payments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InvoicePayment'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Invoice payments
+      operationId: create-an-invoice-payment
+      summary: Creates an invoice payment
+      description: 'Records a manual cash receipt against an open invoice by amount, effective date, and a GL account code that maps to a funded cash account.
+
+        Rillet resolves the account code to a cash account before posting, so verify chart-of-accounts mapping when automations fail validation.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        description: UUID of the invoice to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoicePaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicePayment'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invoices/{invoice_id}/payments/{payment_id}:
+    delete:
+      tags:
+      - Invoice payments
+      operationId: delete-an-invoice-payment
+      summary: Deletes an invoice payment
+      description: 'Reverses a previously recorded uncleared invoice payment, restoring the invoice balance accordingly.
+
+        Only uncleared payments can be deleted; cleared or reconciled payments are rejected.
+
+        Treat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        description: UUID of the invoice to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: payment_id
+        in: path
+        description: UUID of the payment to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Invoice payments
+      operationId: update-an-invoice-payment
+      summary: Updates an invoice payment
+      description: 'Replaces the amount, date, and cash account on an existing uncleared invoice payment.
+
+        Only uncleared payments can be updated; cleared or reconciled payments are rejected.
+
+        This is a full-replace operation (PUT semantics) — include all fields in the request body.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        description: UUID of the invoice to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: payment_id
+        in: path
+        description: UUID of the payment to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoicePaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicePayment'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    InvoicePayment:
+      type: object
+      required:
+      - id
+      - status
+      - invoice_id
+      - amount
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          enum:
+          - SUCCESSFUL
+          - FAILED
+          - UNCLEARED
+        invoice_id:
+          type: string
+          format: uuid
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        date:
+          type: string
+          format: date
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+    InvoicePaymentRequest:
+      type: object
+      required:
+      - amount
+      - date
+      - account_code
+      properties:
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        date:
+          type: string
+          format: date
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

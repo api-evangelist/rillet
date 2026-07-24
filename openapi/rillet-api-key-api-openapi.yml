@@ -1,0 +1,41 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: API Key
+paths:
+  /api-key:
+    get:
+      tags:
+      - API Key
+      operationId: get-api-key-information
+      summary: Gets API key information
+      description: 'Confirms the caller’s API key is recognized and returns basic identity metadata such as organization context when authentication succeeds.
+
+        Integrations should call this during bootstrap or rotation to distinguish invalid keys from broader connectivity failures.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      parameters: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

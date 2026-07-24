@@ -1,0 +1,651 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Draft Contracts API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Draft Contracts
+paths:
+  /draft-contracts/{draft_contract_id}:
+    parameters:
+    - name: draft_contract_id
+      in: path
+      description: UUID of the draft contract to be used in this operation.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      tags:
+      - Draft Contracts
+      operationId: retrieve-a-draft-contract
+      summary: Retrieves a draft contract
+      description: Returns a draft contract by id, including its line items and any attached external references.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+    put:
+      tags:
+      - Draft Contracts
+      operationId: update-a-draft-contract
+      summary: Updates a draft contract
+      description: 'Replaces the draft contract identified by `draft_contract_id` with the supplied payload. The body shape
+
+        matches `POST /draft-contracts` — items and external_references on the existing record are fully replaced.
+
+        Returns 404 if the id is not a draft contract in the organization.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDraftContractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+    delete:
+      tags:
+      - Draft Contracts
+      operationId: delete-a-draft-contract
+      summary: Deletes a draft contract
+      description: Permanently removes a draft contract along with its line items and external references. Use this to programmatically reject a draft contract instead of doing it from the Rillet UI.
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /draft-contracts:
+    get:
+      tags:
+      - Draft Contracts
+      operationId: list-all-draft-contracts
+      summary: Lists all draft contracts
+      description: 'Returns draft contracts with cursor pagination. Draft contracts are staged records that appear in the Rillet UI under
+
+        "Draft" for a human to approve or reject before they become active contracts.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/subsidiary_id'
+      - name: customer_id
+        in: query
+        description: Optional UUID filter by customer.
+        schema:
+          type: string
+          format: uuid
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - draft_contracts
+                type: object
+                properties:
+                  draft_contracts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DraftContract'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Draft Contracts
+      operationId: create-a-draft-contract
+      summary: Creates a draft contract
+      description: 'Stages a contract in the "draft" holding state instead of creating it directly as an active contract.
+
+        Draft contracts appear in the Rillet UI under "Draft" for a human to approve or reject.
+
+
+        ## Deduplication
+
+
+        **To prevent duplicate draft contracts on retry, supply at least one `external_references` entry with a
+
+        stable `(type, id)` pair.** When you POST again with any matching `(type, id)` pair, the prior draft record
+
+        is replaced with the new payload.
+
+
+        Draft contracts created without any `external_references` are not deduplicated — every POST creates a new
+
+        record.
+
+
+        ## External reference types
+
+
+        Each reference''s `type` must match a slug already defined under Rillet Settings → External References for
+
+        the organization; unknown slugs return a 400. References attached at create time are preserved when the
+
+        draft contract is promoted to an active contract.
+
+
+        ## Promotion
+
+
+        Promotion to an active contract happens through the Rillet UI. The public API does not currently expose a
+
+        programmatic promotion endpoint.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDraftContractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+components:
+  schemas:
+    TieredBilling:
+      type: object
+      required:
+      - type
+      - mode
+      - tiers
+      properties:
+        type:
+          type: string
+          default: TIERED
+        mode:
+          type: string
+          enum:
+          - GRADUATED
+          - METERED
+          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
+        tiers:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Tier'
+      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
+    CreateDraftContractRequest:
+      type: object
+      required:
+      - subsidiary_id
+      - customer_id
+      - name
+      - amount
+      - close_date
+      - scope
+      - items
+      properties:
+        external_references:
+          uniqueItems: true
+          type: array
+          description: 'Cross-system identifiers for this draft contract. Each reference''s `type` slug must already exist in
+
+            the org''s external reference types (configurable in Rillet Settings).
+
+
+            **Required for deduplication.** Re-posting with any matching `(type, id)` pair replaces the prior draft
+
+            record. Draft contracts created without external_references are not deduplicated.
+
+            '
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        subsidiary_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+          description: Must reference a customer that already exists in Rillet. Use `POST /customers` first if needed.
+        name:
+          type: string
+          example: Acme Corp - Annual subscription
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        close_date:
+          type: string
+          format: date
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        scope:
+          $ref: '#/components/schemas/ContractScope'
+        items:
+          type: array
+          minItems: 1
+          description: Contract line items. At least one item is required.
+          items:
+            $ref: '#/components/schemas/DraftContractItemRequest'
+    BillingScheme:
+      discriminator:
+        propertyName: type
+        mapping:
+          PER_UNIT: '#/components/schemas/PerUnitBilling'
+          TIERED: '#/components/schemas/TieredBilling'
+      oneOf:
+      - $ref: '#/components/schemas/PerUnitBilling'
+      - $ref: '#/components/schemas/TieredBilling'
+    DraftContractItem:
+      type: object
+      required:
+      - id
+      - product_id
+      - price
+      - quantity
+      properties:
+        id:
+          type: string
+          format: uuid
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+        discount:
+          $ref: '#/components/schemas/Discount'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+    Price:
+      discriminator:
+        propertyName: type
+        mapping:
+          FIXED_RECURRING: '#/components/schemas/FixedRecurringPrice'
+          ONE_TIME: '#/components/schemas/OneTimePrice'
+          USAGE: '#/components/schemas/UsagePrice'
+      oneOf:
+      - $ref: '#/components/schemas/FixedRecurringPrice'
+      - $ref: '#/components/schemas/OneTimePrice'
+      - $ref: '#/components/schemas/UsagePrice'
+      example:
+        type: FIXED_RECURRING
+        amount:
+          amount: '10.00'
+          currency: USD
+        interval_months: 1
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    Discount:
+      oneOf:
+      - $ref: '#/components/schemas/AmountDiscount'
+      - $ref: '#/components/schemas/PercentageDiscount'
+      discriminator:
+        propertyName: type
+        mapping:
+          AMOUNT: '#/components/schemas/AmountDiscount'
+          PERCENTAGE: '#/components/schemas/PercentageDiscount'
+      example:
+        type: AMOUNT
+        amount_off:
+          amount: '10.00'
+          currency: USD
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    DraftContract:
+      type: object
+      required:
+      - id
+      - subsidiary_id
+      - customer_id
+      - name
+      - amount
+      - close_date
+      - items
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        subsidiary_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        close_date:
+          type: string
+          format: date
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        scope:
+          allOf:
+          - $ref: '#/components/schemas/ContractScope'
+          nullable: true
+          description: 'The accounting scope. May be null for draft contracts imported from integrations whose internal scope (e.g.
+
+            Rillet-handles-revenue-recognition-only when an external billing system handles invoicing) is not expressible in the public API enum.
+
+            POST and PUT requests still require an explicit scope.
+
+            '
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DraftContractItem'
+    FixedRecurringPrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: FIXED_RECURRING
+    UsagePrice:
+      allOf:
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        - billing_scheme
+        properties:
+          type:
+            type: string
+            default: USAGE
+          billing_scheme:
+            $ref: '#/components/schemas/BillingScheme'
+    DraftContractItemRequest:
+      type: object
+      required:
+      - product_id
+      - price
+      - quantity
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+          minimum: 1
+          example: 1
+        discount:
+          $ref: '#/components/schemas/Discount'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    Tier:
+      type: object
+      required:
+      - up_to
+      properties:
+        up_to:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 10
+        flat_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        per_unit_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    FixedPrice:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    AmountDiscount:
+      type: object
+      required:
+      - amount_off
+      properties:
+        amount_off:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        type:
+          type: string
+          default: AMOUNT
+    OneTimePrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: ONE_TIME
+    ContractScope:
+      type: string
+      enum:
+      - FULL
+      - REVENUE_RECOGNITION_ONLY
+      description: The "FULL" scope includes revenue recognition and invoicing handled in Rillet. With the "REVENUE_RECOGNITION_ONLY" scope, invoicing is handled outside Rillet.
+    PerUnitBilling:
+      type: object
+      required:
+      - type
+      - amount
+      - units
+      properties:
+        type:
+          type: string
+          default: PER_UNIT
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        units:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 1
+    PercentageDiscount:
+      type: object
+      required:
+      - percentage_off
+      properties:
+        percentage_off:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+          example: 10
+        type:
+          type: string
+          default: PERCENTAGE
+    RecurringPrice:
+      type: object
+      required:
+      - interval_months
+      properties:
+        interval_months:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 12
+          example: 1
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

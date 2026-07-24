@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Health API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Health
+paths:
+  /health:
+    get:
+      tags:
+      - Health
+      operationId: health
+      summary: Returns service health
+      description: 'Lightweight liveness probe that returns HTTP 200 when the service process is running, without exercising downstream databases or queues.
+
+        Use for load balancer health checks where you only need to know the JVM responded.
+
+        '
+      responses:
+        '200':
+          description: OK
+      parameters: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

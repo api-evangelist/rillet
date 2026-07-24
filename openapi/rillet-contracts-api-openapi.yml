@@ -1,0 +1,1591 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Contracts API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Contracts
+paths:
+  /contracts:
+    post:
+      tags:
+      - Contracts
+      operationId: create-a-contract
+      summary: Creates a contract
+      description: 'Rillet supports two contract scope types: FULL and REVENUE_RECOGNITION_ONLY. The selected scope determines how the invoices are created and what information the user needs to provide.
+
+
+        The FULL scope is used when contract invoices are generated and sent directly from Rillet. In this case, Rillet automatically assigns the invoice numbers.
+
+
+        The REVENUE_RECOGNITION_ONLY scope is intended for situations where contracts and invoices are issued from another system and only need to be recorded in Rillet for accounting purposes. In this workflow, users must provide the invoice numbers manually. Other fields can be populated based on the data imported from the external system.
+
+
+        For example, if your organization issues invoices through an external billing platform but tracks financials in Rillet, you should select REVENUE_RECOGNITION_ONLY. If Rillet handles the entire invoicing and sending process, choose the FULL scope.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpandedContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+    get:
+      tags:
+      - Contracts
+      operationId: list-all-contracts
+      summary: Lists all contracts
+      description: 'Returns contracts with pagination and rich filters (subsidiary, customer, status, date ranges).
+
+        Use this to discover contract ids, check lifecycle state, or drive reporting extracts.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/subsidiary_id'
+      - name: status
+        in: query
+        description: Optional status filter (allowed values depend on the resource).
+        required: false
+        schema:
+          $ref: '#/components/schemas/ContractStatus'
+      - name: start_date.gt
+        in: query
+        description: Minimum start date value to filter by (exclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: start_date.gte
+        in: query
+        description: Minimum start date value to filter by (inclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: start_date.lt
+        in: query
+        description: Maximum start date value to filter by (exclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: start_date.lte
+        in: query
+        description: Maximum start date value to filter by (inclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: end_date.gt
+        in: query
+        description: Minimum end date value to filter by (exclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: end_date.gte
+        in: query
+        description: Minimum end date value to filter by (inclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: end_date.lt
+        in: query
+        description: Maximum end date value to filter by (exclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: end_date.lte
+        in: query
+        description: Maximum end date value to filter by (inclusive)
+        schema:
+          type: string
+          format: date
+        required: false
+      - name: customer_id
+        in: query
+        description: Optional UUID filter by customer.
+        schema:
+          type: string
+          format: uuid
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - contracts
+                type: object
+                properties:
+                  contracts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contract'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /contracts/{contract_id}:
+    get:
+      tags:
+      - Contracts
+      operationId: retrieve-a-contract
+      summary: Retrieves a contract
+      description: 'Returns the expanded contract including items, schedules, and metadata required before updates or amendments.
+
+        Always retrieve before issuing a full PUT update so you preserve fields you do not intend to clear.
+
+        '
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        description: UUID of the contract to retrieve.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpandedContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Contracts
+      operationId: delete-a-contract
+      summary: Deletes a contract
+      description: 'Permanently removes a contract when your business rules allow deletion.
+
+        Confirm downstream invoices, revenue schedules, and integrations no longer depend on this contract before deleting it.
+
+        '
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        description: UUID of the contract to delete.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /contracts/{contract_id}/amendments:
+    post:
+      tags:
+      - Contracts
+      operationId: amend-a-contract
+      summary: Amends a contract
+      description: 'Applies a contract amendment when you need to add items, retire items, or change pricing/invoicing after go-live.
+
+        Unlike a full PUT update, amendments model business-time changes and preserve historical billing context.
+
+
+        Use preview-contract-amendment to dry-run the financial impact before committing.
+
+        '
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        description: UUID of the contract to amend.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmendContractRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpandedContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /contracts/{contract_id}/amendments/preview:
+    post:
+      tags:
+      - Contracts
+      operationId: preview-contract-amendment
+      summary: Previews contract amendment
+      description: Preview a contract that has been amended. This has no effect on the actual contract, only provides a preview of what a contract will look like after it is amended.
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        description: UUID of the contract whose amendment you are previewing.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewContractAmendmentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpandedContract'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /contracts/{contract_id}/end:
+    put:
+      tags:
+      - Contracts
+      operationId: end-an-open-ended-contract
+      summary: Ends an open-ended contract
+      description: 'Sets an explicit end date on a contract that previously had no close date (open-ended).
+
+        Provide the final end_date in the request body; downstream invoicing and revenue recognition honor the new boundary.
+
+        '
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        description: UUID of the open-ended contract to close.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndOpenEndedContractRequest'
+        required: true
+      responses:
+        '204':
+          description: NO CONTENT
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    RevenueRecognitionOnlyContractAmendingItemRequest:
+      type: object
+      required:
+      - price
+      - amending_reference
+      properties:
+        price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        amending_reference:
+          type: string
+          description: External Reference of the contract item being amended.
+        end_date:
+          type: string
+          format: date
+          description: New end date for the amended (continuing) item. If omitted, the item keeps its current end date. Must be on or after the amendment date.
+    RevenueRecognitionOnlyContractItemRequest:
+      type: object
+      required:
+      - price
+      - product_id
+      - revenue_pattern
+      - external_reference
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        start_date:
+          type: string
+          format: date
+          description: Defaults to the contract start date.
+        end_date:
+          type: string
+          format: date
+          description: Defaults to the contract end date.
+        external_reference:
+          $ref: '#/components/schemas/ExternalReference'
+          description: A unique ID per contract item, used on the invoice schedule to refer to the contract item.
+    ContractItem:
+      type: object
+      required:
+      - id
+      - price
+      - product_id
+      - quantity
+      - revenue_pattern
+      - start_date
+      - status
+      - total_value
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+          minimum: 1
+          example: 1
+        total_value:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        tax_rate:
+          $ref: '#/components/schemas/TaxRate'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - AMENDED
+          - ACTIVE
+        amending:
+          type: string
+          format: uuid
+          description: When set, references the item this item is amending.
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        usage_minimum_commitment:
+          $ref: '#/components/schemas/UsageCommitment'
+          description: Usage Minimum commitment for this contract item.
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
+          type: string
+        date:
+          type: string
+          format: date
+    SemiAnnualInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - month_day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: SEMI_ANNUAL
+        month_day:
+          type: string
+          pattern: ^--\d{2}-\d{2}$
+          description: A string in --MM-dd format. Invoices will be created starting on that date and every 6 months.
+          example: --01-01
+    YearlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - month_day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: YEARLY
+        month_day:
+          type: string
+          pattern: ^--\d{2}-\d{2}$
+          description: A string in --MM-dd format
+          example: --01-01
+    TieredBilling:
+      type: object
+      required:
+      - type
+      - mode
+      - tiers
+      properties:
+        type:
+          type: string
+          default: TIERED
+        mode:
+          type: string
+          enum:
+          - GRADUATED
+          - METERED
+          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
+        tiers:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Tier'
+      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
+    UsageInvoiceCycle:
+      type: string
+      enum:
+      - CALENDAR
+      - SUBSCRIPTION_ANNIVERSARY
+      description: When does the invoicing pricing cycle reset and results in an invoice. Calendar option is only allowed when usage invoice frequency is Monthly, and contract does not start on the 1st of the Month.
+    BillingScheme:
+      discriminator:
+        propertyName: type
+        mapping:
+          PER_UNIT: '#/components/schemas/PerUnitBilling'
+          TIERED: '#/components/schemas/TieredBilling'
+      oneOf:
+      - $ref: '#/components/schemas/PerUnitBilling'
+      - $ref: '#/components/schemas/TieredBilling'
+    QuarterlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - month_day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: QUARTERLY
+        month_day:
+          type: string
+          pattern: ^--\d{2}-\d{2}$
+          description: A string in --MM-dd format. Invoices will be created starting on that date and every 3 months.
+          example: --01-01
+    UsageInvoiceDate:
+      type: string
+      enum:
+      - FIRST_DAY_OF_NEXT_CYCLE
+      - LAST_DAY_OF_CURRENT_CYCLE
+      description: When the usage invoice is created in relation to the usage cycle.
+    RevenueRecognitionOnlyContractNewItemInAmendmentRequest:
+      type: object
+      required:
+      - price
+      - product_id
+      - revenue_pattern
+      - external_reference
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        start_date:
+          type: string
+          format: date
+          description: By default is the amendment date. If provided, the date has to be on or after the amendment date.
+        end_date:
+          type: string
+          format: date
+          description: End date for the new item. If omitted, defaults to the contract end date. If provided, must be on or after the item's start date.
+        external_reference:
+          $ref: '#/components/schemas/ExternalReference'
+          description: null
+    Price:
+      discriminator:
+        propertyName: type
+        mapping:
+          FIXED_RECURRING: '#/components/schemas/FixedRecurringPrice'
+          ONE_TIME: '#/components/schemas/OneTimePrice'
+          USAGE: '#/components/schemas/UsagePrice'
+      oneOf:
+      - $ref: '#/components/schemas/FixedRecurringPrice'
+      - $ref: '#/components/schemas/OneTimePrice'
+      - $ref: '#/components/schemas/UsagePrice'
+      example:
+        type: FIXED_RECURRING
+        amount:
+          amount: '10.00'
+          currency: USD
+        interval_months: 1
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    Discount:
+      oneOf:
+      - $ref: '#/components/schemas/AmountDiscount'
+      - $ref: '#/components/schemas/PercentageDiscount'
+      discriminator:
+        propertyName: type
+        mapping:
+          AMOUNT: '#/components/schemas/AmountDiscount'
+          PERCENTAGE: '#/components/schemas/PercentageDiscount'
+      example:
+        type: AMOUNT
+        amount_off:
+          amount: '10.00'
+          currency: USD
+    InvoiceSchedule:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceScheduleInvoice'
+    ContractStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - IN_EFFECT
+      - CANCELLED
+      - ENDED
+      - AMENDED
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    CreateFullContractRequest:
+      type: object
+      required:
+      - close_date
+      - items
+      - name
+      - start_date
+      - customer_id
+      - scope
+      properties:
+        name:
+          type: string
+          example: New API Contract
+        close_date:
+          type: string
+          format: date
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ContractItemRequest'
+        invoicing:
+          $ref: '#/components/schemas/Invoicing'
+          description: Mandatory for contracts with scope different than REVENUE_RECOGNITION_ONLY.
+        usage_configuration:
+          $ref: '#/components/schemas/UsageConfiguration'
+          description: Configuration for contracts with usage products.
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        customer_id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+          description: Optional exchange rate for converting the contract currency to the subsidiary currency. If not provided and the contract currency differs from the subsidiary currency, a system default rate will be used.
+    Invoicing:
+      oneOf:
+      - $ref: '#/components/schemas/MonthlyInvoicing'
+      - $ref: '#/components/schemas/MonthlyProratedInvoicing'
+      - $ref: '#/components/schemas/QuarterlyInvoicing'
+      - $ref: '#/components/schemas/SemiAnnualInvoicing'
+      - $ref: '#/components/schemas/YearlyInvoicing'
+      discriminator:
+        propertyName: interval
+        mapping:
+          MONTHLY: '#/components/schemas/MonthlyInvoicing'
+          MONTHLY_PRORATED: '#/components/schemas/MonthlyProratedInvoicing'
+          QUARTERLY: '#/components/schemas/QuarterlyInvoicing'
+          SEMI_ANNUAL: '#/components/schemas/SemiAnnualInvoicing'
+          YEARLY: '#/components/schemas/YearlyInvoicing'
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    MonthlyProratedInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: MONTHLY_PRORATED
+        day:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 31
+          example: 1
+      description: 'Monthly prorated invoicing is only available for contracts with usage products and a minimum usage commitment.
+
+        '
+    FixedRecurringPrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: FIXED_RECURRING
+    InvoiceScheduleInvoice:
+      type: object
+      required:
+      - invoice_date
+      - invoice_number
+      - items
+      - external_references
+      properties:
+        due_date:
+          type: string
+          format: date
+          description: Defaults to invoice_date, if not provided
+        invoice_date:
+          type: string
+          format: date
+        invoice_number:
+          type: string
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/InvoiceScheduleInvoiceItem'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    MonthlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: MONTHLY
+        day:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 31
+          example: 1
+    PaymentTerms:
+      type: integer
+      format: int32
+      minimum: 0
+      example: 0
+    UsageCommitment:
+      type: object
+      required:
+      - amount
+      - revenue_account
+      properties:
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        revenue_account:
+          $ref: '#/components/schemas/AccountCode'
+    AmendRevenueRecognitionOnlyContractRequest:
+      type: object
+      required:
+      - items
+      - amendment_date
+      - amendment_reason
+      - invoice_schedule
+      properties:
+        amendment_date:
+          type: string
+          format: date
+          description: It cannot be earlier than the previous amendment date if the contract has already been amended.
+        amendment_reason:
+          type: string
+          example: Amendment requested by user
+        items:
+          type: array
+          minItems: 0
+          description: "List of new contract items and new versions of amended contract items. \nExisting contract items that do not appear in the list will remain unchanged. \nIf you want to delete a contract item from the amendment date onwards, use the `TERMINATED_ITEM`.\"\n"
+          items:
+            type: object
+            discriminator:
+              propertyName: type
+              mapping:
+                NEW_ITEM: '#/components/schemas/RevenueRecognitionOnlyContractNewItemInAmendmentRequest'
+                AMENDING_ITEM: '#/components/schemas/RevenueRecognitionOnlyContractAmendingItemRequest'
+                TERMINATED_ITEM: '#/components/schemas/RevenueRecognitionOnlyContractTerminatedItemRequest'
+            oneOf:
+            - $ref: '#/components/schemas/RevenueRecognitionOnlyContractNewItemInAmendmentRequest'
+            - $ref: '#/components/schemas/RevenueRecognitionOnlyContractAmendingItemRequest'
+            - $ref: '#/components/schemas/RevenueRecognitionOnlyContractTerminatedItemRequest'
+            required:
+            - type
+            properties:
+              type:
+                type: string
+        invoice_schedule:
+          $ref: '#/components/schemas/InvoiceSchedule'
+    AmendFullContractItemRequest:
+      type: object
+      required:
+      - price
+      - product_id
+      - quantity
+      - revenue_pattern
+      - start_date
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+          minimum: 1
+          example: 1
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        tax_rate:
+          $ref: '#/components/schemas/TaxRate'
+        start_date:
+          type: string
+          format: date
+          description: Must be on or after the amendment date.
+        end_date:
+          type: string
+          format: date
+          description: Defaults to the contract end date
+        effective_from:
+          $ref: '#/components/schemas/AmendmentEffectiveFrom'
+        amending:
+          type: string
+          format: uuid
+          description: Contract item ID that is being amended. If empty, a new item will be created.
+    AmendContractRequest:
+      type: object
+      discriminator:
+        propertyName: scope
+        mapping:
+          FULL: '#/components/schemas/AmendFullContractRequest'
+          REVENUE_RECOGNITION_ONLY: '#/components/schemas/AmendRevenueRecognitionOnlyContractRequest'
+      oneOf:
+      - $ref: '#/components/schemas/AmendFullContractRequest'
+      - $ref: '#/components/schemas/AmendRevenueRecognitionOnlyContractRequest'
+      required:
+      - scope
+      properties:
+        scope:
+          $ref: '#/components/schemas/ContractScope'
+    ContractInvoice:
+      type: object
+      required:
+      - id
+      - invoice_number
+      - invoice_date
+      - due_date
+      - status
+      - total
+      - taxed_amount
+      - items
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        invoice_number:
+          type: string
+          example: INV01
+        invoice_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        status:
+          $ref: '#/components/schemas/InvoiceStatus'
+        total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    EndOpenEndedContractRequest:
+      type: object
+      required:
+      - end_date
+      properties:
+        end_date:
+          type: string
+          format: date
+    Contract:
+      type: object
+      required:
+      - close_date
+      - customer_id
+      - id
+      - invoicing
+      - items
+      - name
+      - start_date
+      - status
+      - total_value
+      - subsidiary_id
+      properties:
+        id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: New API Contract
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ContractItem'
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        close_date:
+          type: string
+          format: date
+        invoicing:
+          $ref: '#/components/schemas/Invoicing'
+          description: Mandatory for contracts with scope different than REVENUE_RECOGNITION_ONLY.
+        usage_configuration:
+          $ref: '#/components/schemas/UsageConfiguration'
+          description: Configuration for contracts with usage products.
+        total_value:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+    ExpandedContract:
+      allOf:
+      - $ref: '#/components/schemas/Contract'
+      - type: object
+        properties:
+          invoices:
+            type: array
+            items:
+              $ref: '#/components/schemas/ContractInvoice'
+    CreateRevenueRecognitionOnlyContractRequest:
+      type: object
+      required:
+      - items
+      - name
+      - start_date
+      - customer_id
+      - invoice_schedule
+      - external_references
+      - scope
+      properties:
+        name:
+          type: string
+          example: New API Contract
+        close_date:
+          type: string
+          format: date
+          description: Defaults to the start date if not provided.
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RevenueRecognitionOnlyContractItemRequest'
+        invoice_schedule:
+          $ref: '#/components/schemas/InvoiceSchedule'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        customer_id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+    UsagePrice:
+      allOf:
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        - billing_scheme
+        properties:
+          type:
+            type: string
+            default: USAGE
+          billing_scheme:
+            $ref: '#/components/schemas/BillingScheme'
+    ItemRevenue:
+      type: object
+      properties:
+        period:
+          $ref: '#/components/schemas/CalendarPeriod'
+          description: Represents the period in which the service was rendered. This period is used for revenue recognition – the revenue is spread over this period. If not provided, the period starts and ends on the invoice date.
+        pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+          description: If not provided, the one from the product will be used.
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+          description: If not provided, the one from the product will be used.
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    Tier:
+      type: object
+      required:
+      - up_to
+      properties:
+        up_to:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 10
+        flat_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        per_unit_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    UsageInvoicingFrequency:
+      type: string
+      enum:
+      - MONTHLY
+      - QUARTERLY
+      - SEMI_ANNUAL
+      - YEARLY
+    MinimumCommitmentInvoicing:
+      type: object
+      required:
+      - frequency
+      - payment_terms
+      properties:
+        frequency:
+          $ref: '#/components/schemas/MinimumCommitmentInvoicingFrequency'
+        payment_terms:
+          $ref: '#/components/schemas/PaymentTerms'
+          description: Should be the same across different invoicing objects.
+    FixedPrice:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    UsageConfiguration:
+      required:
+      - usage_invoicing
+      properties:
+        usage_invoicing:
+          $ref: '#/components/schemas/UsageInvoicing'
+        minimum_commitment_invoicing:
+          $ref: '#/components/schemas/MinimumCommitmentInvoicing'
+        minimum_commitment_cycle:
+          type: string
+          enum:
+          - MONTHLY
+          - CONTRACT
+          description: Determines how often does the minimum commitment reset.
+        contract_level_minimum_commitment:
+          $ref: '#/components/schemas/UsageCommitment'
+          description: Minimum commitment that will be shared across all contract items with usage price.
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    AmountDiscount:
+      type: object
+      required:
+      - amount_off
+      properties:
+        amount_off:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        type:
+          type: string
+          default: AMOUNT
+    OneTimePrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: ONE_TIME
+    AmendmentEffectiveFrom:
+      type: string
+      enum:
+      - AS_OF_AMENDMENT_DATE
+      - END_OF_CURRENT_BILLING_CYCLE
+      description: 'Defines when the amendment takes effect. - `AS_OF_AMENDMENT_DATE`: apply changes as of the amendment date - `END_OF_CURRENT_BILLING_CYCLE`: apply at the end of the current billing cycle
+
+        '
+    UsageInvoicing:
+      type: object
+      required:
+      - frequency
+      - payment_terms
+      - invoice_date
+      - cycle
+      properties:
+        frequency:
+          $ref: '#/components/schemas/UsageInvoicingFrequency'
+        payment_terms:
+          $ref: '#/components/schemas/PaymentTerms'
+          description: Should be the same across different invoicing objects.
+        invoice_date:
+          $ref: '#/components/schemas/UsageInvoiceDate'
+        cycle:
+          $ref: '#/components/schemas/UsageInvoiceCycle'
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    AmendFullContractRequest:
+      type: object
+      required:
+      - items
+      - amendment_date
+      - amendment_reason
+      - invoicing
+      properties:
+        amendment_date:
+          type: string
+          format: date
+          description: It cannot be earlier than the previous amendment date if the contract has already been amended.
+        amendment_reason:
+          type: string
+          example: Amendment requested by user
+        items:
+          type: array
+          minItems: 0
+          description: List of new contract items and new versions of amended contract items. Existing contract items that do not appear in the list will remain unchanged.
+          items:
+            $ref: '#/components/schemas/AmendFullContractItemRequest'
+        invoicing:
+          $ref: '#/components/schemas/Invoicing'
+          description: Mandatory for contracts with scope different than REVENUE_RECOGNITION_ONLY.
+    CalendarPeriod:
+      type: object
+      required:
+      - end
+      - start
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    ContractScope:
+      type: string
+      enum:
+      - FULL
+      - REVENUE_RECOGNITION_ONLY
+      description: The "FULL" scope includes revenue recognition and invoicing handled in Rillet. With the "REVENUE_RECOGNITION_ONLY" scope, invoicing is handled outside Rillet.
+    RevenuePattern:
+      type: string
+      enum:
+      - DAILY
+      - EVEN_PERIOD
+      description: DAILY means that the revenue is divided equally per day in the revenue period. EVEN_PERIOD means that the revenue is divided equally for each calendar month in the revenue period.
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
+        description:
+          type: string
+    PerUnitBilling:
+      type: object
+      required:
+      - type
+      - amount
+      - units
+      properties:
+        type:
+          type: string
+          default: PER_UNIT
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        units:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 1
+    CreateContractRequest:
+      type: object
+      discriminator:
+        propertyName: scope
+        mapping:
+          FULL: '#/components/schemas/CreateFullContractRequest'
+          REVENUE_RECOGNITION_ONLY: '#/components/schemas/CreateRevenueRecognitionOnlyContractRequest'
+      oneOf:
+      - $ref: '#/components/schemas/CreateFullContractRequest'
+      - $ref: '#/components/schemas/CreateRevenueRecognitionOnlyContractRequest'
+      required:
+      - scope
+      properties:
+        scope:
+          $ref: '#/components/schemas/ContractScope'
+    InvoiceItem:
+      type: object
+      required:
+      - description
+      - gross_rate
+      - id
+      - quantity
+      - revenue
+      - taxed_amount
+      - total_amount
+      - total_discount
+      - product_id
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          example: Description
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total_discount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        gross_rate:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        quantity:
+          type: number
+          example: 1
+        product_id:
+          type: string
+          format: uuid
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    PercentageDiscount:
+      type: object
+      required:
+      - percentage_off
+      properties:
+        percentage_off:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+          example: 10
+        type:
+          type: string
+          default: PERCENTAGE
+    RevenueRecognitionOnlyContractTerminatedItemRequest:
+      type: object
+      required:
+      - external_reference
+      properties:
+        external_reference:
+          type: string
+          description: External Reference of the contract item being terminated.
+        end_date:
+          type: string
+          format: date
+          description: Date the item is terminated on. Revenue is recognized through this date. Must be on or after the amendment date. If omitted, the item is terminated as of the amendment date.
+    InvoiceScheduleInvoiceItem:
+      type: object
+      required:
+      - description
+      - contract_item_reference
+      - quantity
+      - total_amount
+      - external_references
+      properties:
+        description:
+          type: string
+        contract_item_reference:
+          type: string
+          description: Refers to the ID of the contract item's external_reference.
+        quantity:
+          type: number
+          minimum: 1.0e-05
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        discount_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    PreviewContractAmendmentRequest:
+      type: object
+      required:
+      - items
+      - invoicing
+      - amendment_date
+      properties:
+        amendment_date:
+          type: string
+          format: date
+          description: It cannot be earlier than the previous amendment date if the contract has already been amended.
+        items:
+          type: array
+          minItems: 0
+          description: List of new contract items and new versions of amended contract items. Existing contract items that do not appear in the list will remain unchanged.
+          items:
+            $ref: '#/components/schemas/AmendFullContractItemRequest'
+        invoicing:
+          $ref: '#/components/schemas/Invoicing'
+          description: Mandatory for contracts with scope different than REVENUE_RECOGNITION_ONLY.
+    MinimumCommitmentInvoicingFrequency:
+      type: string
+      enum:
+      - MONTHLY
+      - MONTHLY_PRORATED
+      - QUARTERLY
+      - SEMI_ANNUAL
+      - YEARLY
+      description: MONTHLY_PRORATED is only available for CALENDAR usage invoice cycle. It need to be the same as contract level invoicing frequency.
+    ContractItemRequest:
+      type: object
+      required:
+      - price
+      - product_id
+      - quantity
+      - revenue_pattern
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+          minimum: 1
+          example: 1
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        discount:
+          $ref: '#/components/schemas/Discount'
+          description: Optional discount for contracts that do not have REVENUE_RECOGNITION_ONLY scope.
+        tax_rate:
+          $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+        start_date:
+          type: string
+          format: date
+          description: Defaults to the contract start date.
+        end_date:
+          type: string
+          format: date
+          description: Defaults to the contract end date.
+        external_reference:
+          $ref: '#/components/schemas/ExternalReference'
+          description: A unique ID per contract item, used on the invoice schedule to refer to the contract item.
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+        usage_minimum_commitment:
+          $ref: '#/components/schemas/UsageCommitment'
+          description: Usage Minimum commitment for this contract item. Should be skipped if price is not USAGE or minimum commitment is defined at contract level.
+    RecurringPrice:
+      type: object
+      required:
+      - interval_months
+      properties:
+        interval_months:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 12
+          example: 1
+    InvoiceStatus:
+      type: string
+      enum:
+      - UNPAID
+      - PAID
+      - PARTIALLY_PAID
+      - UNBILLED
+      - CREDITED
+      - PARTIALLY_CREDITED
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

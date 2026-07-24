@@ -1,0 +1,375 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Fields API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Fields
+paths:
+  /fields:
+    get:
+      tags:
+      - Fields
+      operationId: get-fields
+      summary: Gets custom fields
+      description: 'Retrieves custom field definitions and their pick-list values for the organization.
+
+        Use the returned field ids with create-field-value and update-field-value when enriching core entities.
+
+        '
+      parameters:
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter fields updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Fields
+      operationId: create-field
+      summary: Creates a field
+      description: 'Defines a new custom field (text, number, pick list, etc.) that can be attached to supported Rillet entities for reporting and automation.
+
+        After creation, use create-field-value to seed allowed pick-list entries or default values teams should see in the UI.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFieldRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /fields/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: UUID of the id to be used in this operation.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    put:
+      tags:
+      - Fields
+      operationId: update-field
+      summary: Updates a field
+      description: 'Changes labels, validation rules, or visibility metadata on an existing custom field without recreating historical values.
+
+        Coordinate with stakeholders before renaming because downstream integrations often key off the human-readable label.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFieldRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /fields/{id}/values:
+    parameters:
+    - name: id
+      in: path
+      description: UUID of the id to be used in this operation.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      tags:
+      - Fields
+      operationId: create-field-value
+      summary: Creates a field value
+      description: 'Adds a selectable value to a pick-list style custom field so users and APIs can tag entities with consistent taxonomy.
+
+        Values inherit the field’s scope, so create them after the parent field exists and before importing records that reference the new code.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFieldValueRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /fields/{fieldId}/values/{fieldValueId}:
+    parameters:
+    - name: fieldId
+      in: path
+      description: UUID of the field to be used in this operation.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - name: fieldValueId
+      in: path
+      description: UUID of the fieldValue to be used in this operation.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    put:
+      tags:
+      - Fields
+      operationId: update-field-value
+      summary: Updates a field value
+      description: 'Renames or reorders a pick-list entry while preserving its underlying id so historical records stay linked to the same option.
+
+        Prefer this over delete-and-recreate when auditing requires stable references across reporting periods.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFieldValueRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+    delete:
+      tags:
+      - Fields
+      operationId: delete-field-value
+      summary: Deletes a field value
+      description: 'Retires a pick-list option that should no longer be selectable while keeping older records intact for read-only history.
+
+        Confirm no automation or validation rules still require the value before removal to avoid breaking bulk imports.
+
+        '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+components:
+  schemas:
+    FieldSettingsMap:
+      type: object
+      description: 'The settings of the field. EXPENSES: Applies to Bills, Credit Card Transactions and Manual Entries. REVENUE: Applies to Customers, Contracts, Invoices and Credit Memos.'
+      properties:
+        EXPENSES:
+          $ref: '#/components/schemas/FieldSettings'
+        REVENUE:
+          $ref: '#/components/schemas/FieldSettings'
+    CreateFieldRequestValue:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    FieldSettings:
+      type: object
+      required:
+      - mandatory
+      - display
+      properties:
+        mandatory:
+          type: boolean
+          description: Whether the field is mandatory. A free tagging field cannot be mandatory.
+        display:
+          type: string
+          description: 'The display type of the field. STANDALONE: Field values are displayed separately as a single select option. Recommended for fields that apply to all transactions. FREE_TAG: Field values are grouped and displayed as multi-selectable tags. Recommended for fields that do not apply to all transactions.'
+          enum:
+          - STANDALONE
+          - FREE_TAG
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    FieldsResponse:
+      type: object
+      required:
+      - fields
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+    FieldValue:
+      type: object
+      required:
+      - id
+      - name
+      - deactivated
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of the field value.
+        deactivated:
+          type: boolean
+          description: Whether the field value is deactivated. Deactivated values cannot be assigned to new entities but remain visible on existing entities.
+    CreateFieldValueRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    Field:
+      type: object
+      required:
+      - id
+      - name
+      - values
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of the field.
+        values:
+          type: array
+          description: All possible values for this field.
+          items:
+            $ref: '#/components/schemas/FieldValue'
+        settings:
+          $ref: '#/components/schemas/FieldSettingsMap'
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+    UpdateFieldValueRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    CreateFieldRequest:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateFieldRequestValue'
+    UpdateFieldRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        settings:
+          $ref: '#/components/schemas/FieldSettingsMap'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

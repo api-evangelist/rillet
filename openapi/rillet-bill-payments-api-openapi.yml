@@ -1,0 +1,222 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Bill Payments API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Bill Payments
+paths:
+  /bills/{bill_id}/payments:
+    get:
+      tags:
+      - Bill Payments
+      operationId: list-bill-payments
+      summary: Lists bill payments
+      description: 'Enumerates disbursements recorded against a specific bill, useful when reconciling vendor statements to internal cash movements.
+
+        Combine with retrieve-a-bill to understand remaining balance after each payment posts.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - payments
+                type: object
+                properties:
+                  payments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BillPayment'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Bill Payments
+      operationId: create-a-bill-payment
+      summary: Creates a bill payment
+      description: 'Books a cash or scheduled disbursement that settles all or part of a bill, updating the outstanding payable and linking treasury activity.
+
+        Provide funding source details consistent with your configured payment rails so downstream bank reconciliation stays accurate.
+
+
+        IMPORTANT: Notice this operation has a redundancy between the `bill_id` path parameter and the `billId` attribute in the request body, which takes precedence and is used in internal logic. When executing this operation, both IDs must match, otherwise the request will be rejected. This is a legacy redundancy and will be removed in future versions of this operation.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation. Must match the `billId` provided in the request body.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillPaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillPayment'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /bills/{bill_id}/payments/{payment_id}:
+    delete:
+      tags:
+      - Bill Payments
+      operationId: delete-a-bill-payment
+      summary: Deletes a bill payment
+      description: 'Reverses a previously recorded bill payment when the disbursement failed or was duplicated, restoring the bill balance accordingly.
+
+        Treat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: payment_id
+        in: path
+        description: UUID of the payment to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    BillPayment:
+      type: object
+      required:
+      - id
+      - status
+      - bill_id
+      - amount
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          enum:
+          - CLEARED
+          - UNCLEARED
+        bill_id:
+          type: string
+          format: uuid
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        date:
+          type: string
+          format: date
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    BillPaymentRequest:
+      type: object
+      required:
+      - amount
+      - date
+      - account_code
+      properties:
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        date:
+          type: string
+          format: date
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

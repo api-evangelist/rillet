@@ -1,0 +1,500 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Vendor Credits API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Vendor Credits
+paths:
+  /vendor-credits:
+    get:
+      tags:
+      - Vendor Credits
+      operationId: list-all-vendor-credits
+      summary: Lists all vendor credits
+      description: 'Returns vendor credits with pagination and filters for vendor, subsidiary, and freshness.
+
+        Credits represent vendor-issued balance reductions you can later apply to bills using apply-vendor-credit.
+
+        '
+      parameters:
+      - name: vendor_id
+        in: query
+        description: Optional UUID filter by vendor.
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/subsidiary_id'
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter vendor credits updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - vendor_credits
+                - pagination
+                properties:
+                  vendor_credits:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VendorCredit'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Vendor Credits
+      operationId: create-a-vendor-credit
+      summary: Creates a vendor credit
+      description: 'Records a new vendor credit memo amount that reduces future payables without yet touching specific bills.
+
+        After creation, use apply-vendor-credit to allocate the balance across one or more open bills.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVendorCreditRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorCredit'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /vendor-credits/{vendor_credit_id}:
+    get:
+      tags:
+      - Vendor Credits
+      operationId: retrieve-a-vendor-credit
+      summary: Retrieves a vendor credit
+      description: 'Loads a single vendor credit including remaining balance and application history.
+
+        Retrieve before updating or applying so you know how much capacity is left to allocate to bills.
+
+        '
+      parameters:
+      - name: vendor_credit_id
+        in: path
+        description: UUID of the vendor credit to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorCredit'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Vendor Credits
+      operationId: update-a-vendor-credit
+      summary: Updates a vendor credit
+      description: 'IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be
+
+        included in the request body — omitting any field will set it to null, wiping
+
+        existing data. Always call retrieve-a-vendor-credit first to fetch the current record,
+
+        then include ALL existing fields in your update request along with your changes.
+
+        '
+      parameters:
+      - name: vendor_credit_id
+        in: path
+        description: UUID of the vendor credit to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVendorCreditRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorCredit'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Vendor Credits
+      operationId: delete-a-vendor-credit
+      summary: Deletes a vendor credit
+      description: 'Permanently removes a vendor credit that should not remain in the subledger.
+
+        Ensure no applications or downstream reconciliations still rely on this credit before deleting.
+
+        '
+      parameters:
+      - name: vendor_credit_id
+        in: path
+        description: UUID of the vendor credit to be used in this operation.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    BaseVendorCreditRequest:
+      type: object
+      required:
+      - credit_number
+      - date
+      - gl_impact_date
+      - line_items
+      properties:
+        credit_number:
+          type: string
+          example: VC-001
+        date:
+          type: string
+          format: date
+        gl_impact_date:
+          type: string
+          format: date
+        memo:
+          type: string
+        line_items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/VendorCreditLineItemRequest'
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    CreateVendorCreditRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseVendorCreditRequest'
+      - type: object
+        required:
+        - subsidiary_id
+        - vendor_id
+        properties:
+          vendor_id:
+            type: string
+            format: uuid
+          subsidiary_id:
+            type: string
+            format: uuid
+    VendorCreditStatus:
+      type: string
+      enum:
+      - UNAPPLIED
+      - PARTIALLY_APPLIED
+      - REFUNDED
+      - APPLIED
+    VendorCreditLineItem:
+      allOf:
+      - $ref: '#/components/schemas/VendorCreditLineItemRequest'
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            format: uuid
+          net_amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
+          tax_amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    VendorCreditApplication:
+      type: object
+      required:
+      - id
+      - vendor_credit_id
+      - bill_id
+      - amount
+      - application_date
+      properties:
+        id:
+          type: string
+          format: uuid
+        vendor_credit_id:
+          type: string
+          format: uuid
+        bill_id:
+          type: string
+          format: uuid
+        bill_number:
+          type: string
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        application_date:
+          type: string
+          format: date
+    VendorCredit:
+      allOf:
+      - $ref: '#/components/schemas/CreateVendorCreditRequest'
+      - type: object
+        required:
+        - id
+        - organization_id
+        - status
+        - applied_amount
+        - remaining_amount
+        - applications
+        - updated_at
+        properties:
+          id:
+            type: string
+            format: uuid
+          organization_id:
+            type: string
+            format: uuid
+          status:
+            $ref: '#/components/schemas/VendorCreditStatus'
+          amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
+          applied_amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
+          remaining_amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
+          line_items:
+            type: array
+            items:
+              $ref: '#/components/schemas/VendorCreditLineItem'
+          applications:
+            type: array
+            items:
+              $ref: '#/components/schemas/VendorCreditApplication'
+          updated_at:
+            type: string
+            format: date-time
+            description: Timestamp when the vendor credit was last modified
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    ExpenseTaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRate'
+      - type: object
+        required:
+        - coverage
+        properties:
+          tax_code:
+            type: string
+            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
+          coverage:
+            type: string
+            enum:
+            - INCLUSIVE
+            - EXCLUSIVE
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
+        description:
+          type: string
+    UpdateVendorCreditRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseVendorCreditRequest'
+      - type: object
+        required:
+        - vendor_id
+        properties:
+          vendor_id:
+            type: string
+            format: uuid
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    VendorCreditLineItemRequest:
+      type: object
+      required:
+      - account_code
+      - amount
+      properties:
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        description:
+          type: string
+        tax_rate:
+          $ref: '#/components/schemas/ExpenseTaxRate'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

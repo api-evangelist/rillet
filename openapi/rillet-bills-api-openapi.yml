@@ -1,0 +1,576 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Bills API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Bills
+paths:
+  /bills:
+    get:
+      tags:
+      - Bills
+      operationId: list-all-bills
+      summary: Lists all bills
+      description: 'Returns AP bills with pagination plus filters for vendor, subsidiary, approval state, and balances due.
+
+        Use bill ids with retrieve-a-bill before performing full updates or attaching documents.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/subsidiary_id'
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter bills updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      - name: vendor_id
+        in: query
+        required: false
+        description: Filter bills by vendor.
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        required: false
+        description: Filter bills by payment status.
+        schema:
+          $ref: '#/components/schemas/BillStatus'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - bills
+                - pagination
+                properties:
+                  bills:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bill'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Bills
+      operationId: create-a-bill
+      summary: Creates a bill
+      description: 'Accrues a new accounts-payable bill against a vendor with subsidiary context, line items, and due dates your approval workflow consumes.
+
+        Attach supporting metadata now so matching payments, amortization schedules, and document uploads stay aligned with the payable.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBillRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /bills/{bill_id}:
+    get:
+      tags:
+      - Bills
+      operationId: retrieve-a-bill
+      summary: Retrieves a bill
+      description: 'Returns the authoritative bill record including vendor linkage, approval state, open balance, and document references.
+
+        Fetch before update-a-bill because PUT semantics require you to resubmit every field to avoid nulling omitted values.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Bills
+      operationId: update-a-bill
+      summary: Updates a bill
+      description: 'IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be
+
+        included in the request body — omitting any field will set it to null, wiping
+
+        existing data. Always call retrieve-a-bill first to fetch the current record,
+
+        then include ALL existing fields in your update request along with your changes.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBillRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Bills
+      operationId: upload-document
+      summary: Uploads a document
+      description: 'Attaches a binary file such as a PDF invoice or contract to an existing bill using multipart form data with a single file part.
+
+        Call after the bill exists so approvers and auditors can open the evidence directly from the payable record.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+            encoding:
+              file:
+                contentType: application/octet-stream
+      responses:
+        '204':
+          description: No content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Bills
+      operationId: delete-a-bill
+      summary: Deletes a bill
+      description: 'Removes a bill that should no longer drive AP balances, typically while it remains in draft or was created in error.
+
+        Verify no posted payments, accrual journals, or vendor credit applications still reference the bill before deleting.
+
+        '
+      parameters:
+      - name: bill_id
+        in: path
+        description: UUID of the bill to be used in this operation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
+          type: string
+        date:
+          type: string
+          format: date
+    Bill:
+      allOf:
+      - $ref: '#/components/schemas/CreateBillRequest'
+      - type: object
+        required:
+        - id
+        - status
+        - updated_at
+        properties:
+          id:
+            type: string
+            format: uuid
+          status:
+            $ref: '#/components/schemas/BillStatus'
+          updated_at:
+            type: string
+            format: date-time
+            description: Timestamp when the bill was last modified
+          items:
+            type: array
+            minItems: 1
+            items:
+              $ref: '#/components/schemas/BillItem'
+    CreateBillRequest:
+      type: object
+      required:
+      - vendor_id
+      - expense_number
+      - items
+      - bill_date
+      - due_date
+      properties:
+        vendor_id:
+          type: string
+          format: uuid
+        expense_number:
+          type: string
+          example: B123
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BillItemRequest'
+        bill_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        impact_date:
+          type: string
+          format: date
+        subsidiary_id:
+          type: string
+          format: uuid
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    BillStatus:
+      type: string
+      enum:
+      - UNPAID
+      - PAID
+      - PARTIALLY_PAID
+      - CREDITED
+      - PARTIALLY_CREDITED
+      - APPLIED
+    BillItemRequest:
+      type: object
+      required:
+      - account_code
+      - amount
+      properties:
+        description:
+          type: string
+          example: API Bill
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        tax_rate:
+          $ref: '#/components/schemas/ExpenseTaxRate'
+        service_period:
+          $ref: '#/components/schemas/CalendarPeriod'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    BillItem:
+      allOf:
+      - $ref: '#/components/schemas/BillItemRequest'
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            format: uuid
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    UpdateBillRequest:
+      type: object
+      required:
+      - vendor_id
+      - expense_number
+      - items
+      - bill_date
+      - due_date
+      properties:
+        vendor_id:
+          type: string
+          format: uuid
+        expense_number:
+          type: string
+          example: B123
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BillItemRequest'
+        bill_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        impact_date:
+          type: string
+          format: date
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+    CalendarPeriod:
+      type: object
+      required:
+      - end
+      - start
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    ExpenseTaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRate'
+      - type: object
+        required:
+        - coverage
+        properties:
+          tax_code:
+            type: string
+            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
+          coverage:
+            type: string
+            enum:
+            - INCLUSIVE
+            - EXCLUSIVE
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
+        description:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'

@@ -1,0 +1,1078 @@
+openapi: 3.1.0
+info:
+  title: Rillet Accounting API Key Invoices API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Invoices
+paths:
+  /invoices:
+    get:
+      tags:
+      - Invoices
+      operationId: list-all-invoices
+      summary: Lists all invoices
+      description: 'Returns AR invoices with pagination plus filters for subsidiary, customer, overdue state, and audit timestamps.
+
+        Use invoice ids from this feed with retrieve-an-invoice before performing full updates.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      - $ref: '#/components/parameters/subsidiary_id'
+      - name: overdue
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Filter for overdue invoices.
+      - name: customer_id
+        in: query
+        description: Optional UUID filter by customer.
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: updated.gt
+        in: query
+        required: false
+        description: Filter invoices updated after this timestamp
+        schema:
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+      - name: status
+        in: query
+        required: false
+        description: Filter invoices by payment status.
+        schema:
+          $ref: '#/components/schemas/InvoiceStatus'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                - invoices
+                type: object
+                properties:
+                  invoices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Invoice'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Invoices
+      operationId: create-an-invoice
+      summary: Creates an invoice
+      description: 'Rillet supports two invoice scope types: FULL and REVENUE_RECOGNITION_ONLY. The selected scope determines how the invoice is created and what information the user needs to provide.
+
+
+        The FULL scope is used when the invoice is generated and sent directly from Rillet. In this case, Rillet automatically assigns the invoice number.
+
+
+        The REVENUE_RECOGNITION_ONLY scope is intended for situations where the invoice is issued from another system and only needs to be recorded in Rillet for accounting purposes. In this workflow, users must provide the invoice number manually. Other fields can be populated based on the data imported from the external system.
+
+
+        For example, if your organization issues invoices through an external billing platform but tracks financials in Rillet, you should select REVENUE_RECOGNITION_ONLY. If Rillet handles the entire invoicing and sending process, choose the FULL scope.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvoiceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /invoices/{invoice_id}:
+    get:
+      tags:
+      - Invoices
+      operationId: retrieve-an-invoice
+      summary: Retrieves an invoice
+      description: 'Returns invoice details including line items, tax breakdown, and linkage to contracts or customers.
+
+        Use Accept application/json for structured data; application/pdf is only for human-readable exports when enabled.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        description: UUID of the invoice to retrieve.
+        schema:
+          type: string
+      - name: Accept
+        in: header
+        required: false
+        description: Response format preference; default is application/json.
+        schema:
+          enum:
+          - application/pdf
+          - application/json
+          default: application/json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Invoices
+      operationId: delete-an-invoice
+      summary: Deletes an invoice
+      description: 'Permanently removes an invoice when your policy allows it (for example draft or voided states).
+
+        Confirm no downstream payments or revenue postings still depend on this invoice.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        description: UUID of the invoice to delete.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Invoices
+      operationId: update-an-invoice
+      summary: Updates an invoice
+      description: 'IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be
+
+        included in the request body — omitting any field will set it to null, wiping
+
+        existing data. Always call retrieve-an-invoice first to fetch the current record,
+
+        then include ALL existing fields in your update request along with your changes.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        description: UUID of the invoice to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invoices/{invoice_id}/taxes:
+    post:
+      tags:
+      - Invoices
+      operationId: update-taxes-for-an-invoice
+      summary: Updates invoice taxes
+      description: 'Recalculates or replaces tax lines on an existing invoice using the supplied tax payload.
+
+        Use after changing taxable addresses or when integrating an external tax engine result.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        description: UUID of the invoice whose taxes should be recomputed.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaxesRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invoices/{invoice_id}/sent-status:
+    put:
+      tags:
+      - Invoices
+      operationId: update-invoice-sent-status
+      summary: Updates invoice sent status
+      description: 'Marks whether an invoice has been delivered to the customer, which downstream workflows use for collections cadence and compliance reporting.
+
+        Set the sent flag true after your billing system or email provider confirms delivery, or false while the document is still internal-only.
+
+        '
+      parameters:
+      - name: invoice_id
+        in: path
+        description: UUID of the invoice to be used in this operation.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceSentStatusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    UpdateRevenueRecognitionOnlyInvoiceItemRequest:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The existing invoice item ID to update. Must match an item on the original invoice.
+        description:
+          type: string
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
+          type: string
+        date:
+          type: string
+          format: date
+    CreateFullInvoiceItemRequest:
+      type: object
+      required:
+      - description
+      - price
+      properties:
+        description:
+          type: string
+        price:
+          $ref: '#/components/schemas/InvoiceItemPriceRequest'
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        tax_rate:
+          $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    UpdateInvoiceRequest:
+      type: object
+      discriminator:
+        propertyName: scope
+        mapping:
+          FULL: '#/components/schemas/UpdateFullInvoiceRequest'
+          REVENUE_RECOGNITION_ONLY: '#/components/schemas/UpdateRevenueRecognitionOnlyInvoiceRequest'
+      oneOf:
+      - $ref: '#/components/schemas/UpdateFullInvoiceRequest'
+      - $ref: '#/components/schemas/UpdateRevenueRecognitionOnlyInvoiceRequest'
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    InvoiceItem:
+      type: object
+      required:
+      - description
+      - gross_rate
+      - id
+      - quantity
+      - revenue
+      - taxed_amount
+      - total_amount
+      - total_discount
+      - product_id
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          example: Description
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total_discount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        gross_rate:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        quantity:
+          type: number
+          example: 1
+        product_id:
+          type: string
+          format: uuid
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    Discount:
+      oneOf:
+      - $ref: '#/components/schemas/AmountDiscount'
+      - $ref: '#/components/schemas/PercentageDiscount'
+      discriminator:
+        propertyName: type
+        mapping:
+          AMOUNT: '#/components/schemas/AmountDiscount'
+          PERCENTAGE: '#/components/schemas/PercentageDiscount'
+      example:
+        type: AMOUNT
+        amount_off:
+          amount: '10.00'
+          currency: USD
+    Invoice:
+      type: object
+      required:
+      - amount_due
+      - customer_id
+      - due_date
+      - id
+      - invoice_date
+      - invoice_number
+      - items
+      - net_amount
+      - overdue
+      - payment_terms
+      - status
+      - subsidiary_id
+      - subtotal
+      - taxed_amount
+      - total
+      - total_discount
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        invoice_number:
+          type: string
+          example: INV01
+        customer_id:
+          type: string
+          format: uuid
+        contract_id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+        due_date:
+          type: string
+          format: date
+        invoice_date:
+          type: string
+          format: date
+        address:
+          $ref: '#/components/schemas/Address'
+          description: Sender address
+        customer_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        bank_account:
+          $ref: '#/components/schemas/InvoicingBankAccount'
+        status:
+          $ref: '#/components/schemas/InvoiceStatus'
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        amount_due:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        subtotal:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total_discount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        purchase_order_number:
+          type: string
+          example: '1'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        memo:
+          type: string
+        overdue:
+          type: boolean
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+        sent_at:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp in UTC timezone (must end with ''Z'') marking when the invoice was first sent to the customer
+
+            from Rillet (either by a user action or by automation). Null if the invoice has never been sent from Rillet.
+
+            '
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    UpdateInvoiceSentStatusRequest:
+      type: object
+      required:
+      - sent
+      properties:
+        sent:
+          type: boolean
+    UpdateRevenueRecognitionOnlyInvoiceRequest:
+      type: object
+      required:
+      - invoice_date
+      - items
+      properties:
+        invoice_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+          description: Defaults to invoice_date if not provided
+        invoice_number:
+          type: string
+          description: Optional - updates the invoice number if provided
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UpdateRevenueRecognitionOnlyInvoiceItemRequest'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        scope:
+          type: string
+          default: REVENUE_RECOGNITION_ONLY
+    Address:
+      type: object
+      required:
+      - city
+      - country
+      - line1
+      - state
+      - zip_code
+      properties:
+        line1:
+          type: string
+          example: 123 Main St
+        line2:
+          type: string
+          example: Apt 4B
+        city:
+          type: string
+          example: Nashville
+        state:
+          type: string
+          example: TN
+          description: State or province code (e.g. 'TN', 'CA' for US; 'ON' for Canada). Required when address is provided.
+        zip_code:
+          type: string
+          example: '37201'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+    InvoiceItemPriceRequest:
+      type: object
+      required:
+      - product_id
+      - quantity
+      - amount_per_unit
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        quantity:
+          type: number
+        discount:
+          $ref: '#/components/schemas/Discount'
+        amount_per_unit:
+          $ref: '#/components/schemas/MonetaryAmount'
+          description: This amount shows up a *rate* on the invoice, after applying the discount.
+    ItemRevenue:
+      type: object
+      properties:
+        period:
+          $ref: '#/components/schemas/CalendarPeriod'
+          description: Represents the period in which the service was rendered. This period is used for revenue recognition – the revenue is spread over this period. If not provided, the period starts and ends on the invoice date.
+        pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+          description: If not provided, the one from the product will be used.
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+          description: If not provided, the one from the product will be used.
+    UpdateItemTaxesRequest:
+      type: object
+      required:
+      - id
+      - tax_rate
+      properties:
+        id:
+          type: string
+          format: uuid
+        tax_rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxRate'
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    UpdateFullInvoiceRequest:
+      type: object
+      required:
+      - invoice_date
+      - items
+      - bank_account_id
+      properties:
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateFullInvoiceItemRequest'
+        due_date:
+          type: string
+          format: date
+          description: If not provided, defaults to the invoice date.
+        invoice_date:
+          type: string
+          format: date
+        purchase_order_number:
+          type: string
+          example: '1'
+        memo:
+          type: string
+        bank_account_id:
+          type: string
+          format: uuid
+          description: The ID for the bank account that should be shown on the invoice. You can also find the ID in the Rillet UI at /settings/bank-accounts.
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        scope:
+          type: string
+          default: FULL
+    CreateRevenueRecognitionOnlyInvoiceItemRequest:
+      type: object
+      required:
+      - product_id
+      - description
+      - quantity
+      - total_amount
+      - external_references
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        description:
+          type: string
+        quantity:
+          type: number
+          minimum: 1.0e-05
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    CreateRevenueRecognitionOnlyInvoiceRequest:
+      type: object
+      required:
+      - customer_id
+      - invoice_date
+      - invoice_number
+      - items
+      - external_references
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+        due_date:
+          type: string
+          format: date
+          description: Defaults to invoice_date, if not provided
+        invoice_date:
+          type: string
+          format: date
+        invoice_number:
+          type: string
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateRevenueRecognitionOnlyInvoiceItemRequest'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        subsidiary_id:
+          type: string
+          format: uuid
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        scope:
+          type: string
+          default: REVENUE_RECOGNITION_ONLY
+    CreateInvoiceRequest:
+      type: object
+      discriminator:
+        propertyName: scope
+        mapping:
+          FULL: '#/components/schemas/CreateFullInvoiceRequest'
+          REVENUE_RECOGNITION_ONLY: '#/components/schemas/CreateRevenueRecognitionOnlyInvoiceRequest'
+          AR_ONLY: '#/components/schemas/CreateArOnlyInvoiceRequest'
+      oneOf:
+      - $ref: '#/components/schemas/CreateFullInvoiceRequest'
+      - $ref: '#/components/schemas/CreateRevenueRecognitionOnlyInvoiceRequest'
+      - $ref: '#/components/schemas/CreateArOnlyInvoiceRequest'
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    InvoicingBankAccount:
+      type: object
+      required:
+      - id
+      - ach_account
+      - ach_routing
+      - bank_name
+      properties:
+        id:
+          type: string
+          format: uuid
+        ach_account:
+          type: string
+        ach_routing:
+          type: string
+        bank_name:
+          type: string
+        bank_address:
+          type: string
+        swift_code:
+          type: string
+        payment_instructions:
+          type: string
+    CalendarPeriod:
+      type: object
+      required:
+      - end
+      - start
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    AmountDiscount:
+      type: object
+      required:
+      - amount_off
+      properties:
+        amount_off:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        type:
+          type: string
+          default: AMOUNT
+    UpdateTaxesRequest:
+      type: object
+      required:
+      - taxes_calculated_at
+      - items
+      properties:
+        taxes_calculated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UpdateItemTaxesRequest'
+    CreateArOnlyInvoiceRequest:
+      type: object
+      required:
+      - customer_id
+      - invoice_date
+      - invoice_number
+      - items
+      - external_references
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+        due_date:
+          type: string
+          format: date
+          description: Defaults to invoice_date, if not provided
+        invoice_date:
+          type: string
+          format: date
+        invoice_number:
+          type: string
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateRevenueRecognitionOnlyInvoiceItemRequest'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        subsidiary_id:
+          type: string
+          format: uuid
+        scope:
+          type: string
+          default: AR_ONLY
+    RevenuePattern:
+      type: string
+      enum:
+      - DAILY
+      - EVEN_PERIOD
+      description: DAILY means that the revenue is divided equally per day in the revenue period. EVEN_PERIOD means that the revenue is divided equally for each calendar month in the revenue period.
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
+        description:
+          type: string
+    InvoiceStatus:
+      type: string
+      enum:
+      - UNPAID
+      - PAID
+      - PARTIALLY_PAID
+      - UNBILLED
+      - CREDITED
+      - PARTIALLY_CREDITED
+    PercentageDiscount:
+      type: object
+      required:
+      - percentage_off
+      properties:
+        percentage_off:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+          example: 10
+        type:
+          type: string
+          default: PERCENTAGE
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    CreateFullInvoiceRequest:
+      type: object
+      required:
+      - invoice_date
+      - items
+      - customer_id
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateFullInvoiceItemRequest'
+        due_date:
+          type: string
+          format: date
+          description: If not provided, defaults to the invoice date.
+        invoice_date:
+          type: string
+          format: date
+        purchase_order_number:
+          type: string
+          example: '1'
+        memo:
+          type: string
+        bank_account_id:
+          type: string
+          format: uuid
+          description: The ID for the bank account that, should be shown on the invoice. You can find the ID in the UI at /settings/bank-accounts.
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        scope:
+          type: string
+          default: FULL
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'
