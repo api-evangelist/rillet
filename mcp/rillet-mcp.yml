@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+status: published
+source: https://docs.api.rillet.com/docs/mcp
+server:
+  name: rillet-mcp
+  transport: http
+  url: https://api.rillet.com/mcp
+  auth:
+    - oauth2   # recommended; browser authorization of the Rillet organization
+    - bearer   # API key as Authorization: Bearer <api_key>
+description: >-
+  Rillet's official remote MCP server exposes the same features as the Rillet
+  Public API, letting AI assistants (Claude Desktop, Claude Code, Cursor)
+  operate on a Rillet account. Tool access is scoped to the connected user's
+  permissions within Rillet. OAuth 2.0 is discoverable via
+  /.well-known/oauth-authorization-server (PKCE S256, mTLS/DPoP-bound tokens).
+install:
+  claude_code: claude mcp add --transport http rillet-mcp https://api.rillet.com/mcp
+  claude_desktop: Settings -> Connectors -> Browse connectors -> "Rillet" -> Authorize
+  cursor:
+    mcpServers:
+      rillet-mcp:
+        command: npx
+        args: ["-y", "mcp-remote", "https://api.rillet.com/mcp"]
+tools_note: >-
+  The server implements the same operations exposed by the Rillet Public API
+  (110 operations across accounts, customers, vendors, invoices, bills,
+  journal entries, contracts, reports, and more). See openapi/ for the full
+  operation surface the tools mirror.

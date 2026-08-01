@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.api.rillet.com/docs/getting-started
+description: >-
+  Cross-cutting request/response semantics for the Rillet Accounting API,
+  captured from the developer docs and the OpenAPI. Cross-links: errors/,
+  lifecycle/, authentication/, scopes/.
+authentication:
+  style: bearer
+  header: Authorization
+  note: API key as Bearer token; OAuth2 for MCP/connectors (see authentication/).
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  scope: POST requests
+  retention: 24 hours
+  behavior: >-
+    Duplicate requests carrying the same Idempotency-Key within the retention
+    window return the original saved response instead of re-executing.
+pagination:
+  style: keyset
+  params:
+    limit: {default: 25, max: 100}
+    cursor: cursor
+  order: reverse chronological
+  cursor_ttl: 2 hours
+  response_field: next_cursor
+  schema: openapi/rillet-accounting-api-openapi.json#/components/schemas/Pagination
+filtering:
+  note: >-
+    List endpoints support field filters and updated.gt-style timestamp filters
+    for incremental sync (e.g. GET /accounts?updated.gt=..., GET /invoices?customer_id=...).
+versioning:
+  style: header
+  header: X-Rillet-API-Version
+  current_default: '1'
+  note: Default version changes to latest on 2026-08-01. See lifecycle/.
+rate_limiting:
+  limit: 60 requests
+  window: 60 seconds (rolling)
+  exceeded_status: 429
+error_envelope:
+  format: rfc9457
+  media_type: application/problem+json
+  fields: [type, title, status, detail]
+  ref: errors/rillet-problem-types.yml
+webhooks:
+  ref: asyncapi/rillet-webhooks.yml
+  signature_header: X-Rillet-Signature

@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.api.rillet.com/docs/getting-started
+versioning:
+  scheme: header
+  header: X-Rillet-API-Version
+  current_default: '1'
+  latest_major: v4.0
+  docs: https://docs.api.rillet.com/docs/getting-started
+deprecation:
+  policy: >-
+    Callers pin a version via the X-Rillet-API-Version header. The default
+    version advances to the latest on 2026-08-01; unversioned callers are
+    migrated to the newest version on that date.
+  default_version_change_date: '2026-08-01'
+  docs: https://docs.api.rillet.com/changelog
+changelog: https://docs.api.rillet.com/changelog
+status_page: null
+sla: null
+deprecated_operations: []
+notes: >-
+  No public status page or published SLA was found. Versioning is header-based
+  with a dated default-version cutover. See changelog/ for the dated release
+  history.

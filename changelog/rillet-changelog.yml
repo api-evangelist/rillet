@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.api.rillet.com/changelog
+scheme: dated-major
+current_version: v4.0
+current_default_api_version: '1'
+notes: >-
+  Rillet publishes a dated changelog. Major version v4 was released
+  2026-06-15. The default X-Rillet-API-Version advances to latest on
+  2026-08-01. Recent window captured below; full history at the source.
+entries:
+- date: '2026-07-14'
+  type: addition
+  highlight: Delete and Update Invoice Payments
+- date: '2026-07-08'
+  type: addition
+  highlight: Filter Journal Entries by GL Account
+- date: '2026-06-24'
+  type: addition
+  highlight: Original Transaction Amount on Journal Entry responses
+- date: '2026-06-15'
+  type: breaking
+  highlight: API v4 released as a new major version
+- date: '2026-06-12'
+  type: addition
+  highlight: VAT fields on Journal Entry line items
+- date: '2026-06-11'
+  type: addition
+  highlight: Account ID on Journal Entry responses
+- date: '2026-05-27'
+  type: addition
+  highlight: Bank Account transactions_start_date field
+- date: '2026-05-07'
+  type: addition
+  highlight: List Draft Contracts
+- date: '2026-05-01'
+  type: addition
+  highlight: Draft Contracts API and Create Reimbursement released

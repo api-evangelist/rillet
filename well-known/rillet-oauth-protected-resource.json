@@ -1,0 +1,1 @@
+{"resource":"https://api.rillet.com","bearer_methods_supported":["header"],"tls_client_certificate_bound_access_tokens":true,"authorization_servers":["https://api.rillet.com"],"scopes_supported":["read","write"]}

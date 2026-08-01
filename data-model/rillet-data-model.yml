@@ -1,0 +1,98 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/rillet-accounting-api-openapi.json
+description: >-
+  Entity-relationship graph derived from OpenAPI schema id-reference fields
+  (*_id) across the Rillet Accounting API. Every organization scopes to one or
+  more subsidiaries (legal entities); most financial documents belong to a
+  subsidiary and, on the AR side, a customer.
+entities:
+- name: Organization
+  note: Root tenant; retrieved via /organizations/self.
+- name: Subsidiary
+  note: Legal entity with its own currency/timezone.
+- name: Account
+  note: Chart-of-accounts GL account.
+- name: Customer
+- name: Vendor
+- name: Product
+- name: Contract
+- name: DraftContract
+- name: Invoice
+- name: CreditMemo
+- name: Bill
+- name: VendorCredit
+- name: JournalEntry
+- name: BankAccount
+- name: BankTransaction
+- name: Charge
+- name: Reimbursement
+relationships:
+- from: Subsidiary
+  to: Organization
+  type: belongs_to
+  via: organization
+- from: Contract
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: Contract
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: Invoice
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: Invoice
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: Invoice
+  to: Contract
+  type: belongs_to
+  via: contract_id
+- from: InvoiceItem
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: InvoicePayment
+  to: Invoice
+  type: belongs_to
+  via: invoice_id
+- from: CreditMemo
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: CreditMemo
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: ContractItem
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: DraftContract
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: DraftContract
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: BankAccount
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: BankTransaction
+  to: BankAccount
+  type: belongs_to
+  via: bank_account_id
+- from: BankTransaction
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: JournalEntry
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id

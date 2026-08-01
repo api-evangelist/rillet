@@ -1,8 +1,29 @@
 aid: rillet
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rillet.png
 name: Rillet
-description: 'Rillet is a company surfaced as a portfolio company of creandum, first-round-capital, iconiq-capital
-  and added to the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a
-  lead awaiting the enrichment pipeline.'
+description: >-
+  Rillet is an AI-native, cloud enterprise resource planning (ERP) and general-ledger
+  platform built for modern finance teams. It automates core accounting workflows —
+  general ledger, accounts receivable and payable, bank reconciliation, revenue and
+  contract management, month-end close, and financial reporting — and layers on "Aura AI"
+  for natural-language querying and workflow automation. The Rillet Accounting API (OpenAPI
+  3.1, 110 operations) exposes accounts, subsidiaries, customers, vendors, products,
+  contracts, invoices, credit memos, bills, journal entries, bank accounts/transactions,
+  reimbursements, and financial-statement reports, with bearer/OAuth2 auth, RFC 9457
+  errors, idempotency, keyset pagination, signed webhooks, and an official hosted MCP
+  server. Rillet is backed by Creandum, First Round Capital, and ICONIQ.
 url: https://raw.githubusercontent.com/api-evangelist/rillet/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,20 +31,488 @@ x-backed-by:
 - creandum
 - first-round-capital
 - iconiq-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: has-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Fintech
-apis: []
+- ERP
+- Accounting
+- Finance
+- General Ledger
+- Accounts Receivable
+- Accounts Payable
+- Invoicing
+- SaaS
+apis:
+- aid: rillet:rillet-api-key-api
+  name: Rillet API Key API
+  description: The API Key API from Rillet — 1 operation(s) for api key.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - API Key
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-api-key-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-bank-accounts-api
+  name: Rillet Bank accounts API
+  description: The Bank accounts API from Rillet — 2 operation(s) for bank accounts.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Bank accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-bank-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-bank-transactions-api
+  name: Rillet Bank Transactions API
+  description: The Bank Transactions API from Rillet — 2 operation(s) for bank transactions.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Bank Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-bank-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-bill-payments-api
+  name: Rillet Bill Payments API
+  description: The Bill Payments API from Rillet — 2 operation(s) for bill payments.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Bill Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-bill-payments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-bills-api
+  name: Rillet Bills API
+  description: The Bills API from Rillet — 2 operation(s) for bills.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Bills
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-bills-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-books-periods-api
+  name: Rillet Books periods API
+  description: The Books periods API from Rillet — 1 operation(s) for books periods.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Books periods
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-books-periods-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-charges-api
+  name: Rillet Charges API
+  description: The Charges API from Rillet — 2 operation(s) for charges.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Charges
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-charges-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-chart-of-accounts-api
+  name: Rillet Chart of Accounts API
+  description: The Chart of Accounts API from Rillet — 1 operation(s) for chart of accounts.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Chart of Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-chart-of-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-contract-items-api
+  name: Rillet Contract Items API
+  description: The Contract Items API from Rillet — 1 operation(s) for contract items.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Contract Items
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-contract-items-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-contracts-api
+  name: Rillet Contracts API
+  description: The Contracts API from Rillet — 5 operation(s) for contracts.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-credit-memos-api
+  name: Rillet Credit Memos API
+  description: The Credit Memos API from Rillet — 4 operation(s) for credit memos.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Credit Memos
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-credit-memos-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-customer-payments-api
+  name: Rillet Customer Payments API
+  description: The Customer Payments API from Rillet — 1 operation(s) for customer payments.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Customer Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-customer-payments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-customers-api
+  name: Rillet Customers API
+  description: The Customers API from Rillet — 2 operation(s) for customers.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-draft-contracts-api
+  name: Rillet Draft Contracts API
+  description: The Draft Contracts API from Rillet — 2 operation(s) for draft contracts.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Draft Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-draft-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-fields-api
+  name: Rillet Fields API
+  description: The Fields API from Rillet — 4 operation(s) for fields.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-fields-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-health-api
+  name: Rillet Health API
+  description: The Health API from Rillet — 1 operation(s) for health.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-invoice-payments-api
+  name: Rillet Invoice payments API
+  description: The Invoice payments API from Rillet — 3 operation(s) for invoice payments.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Invoice payments
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-invoice-payments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-invoices-api
+  name: Rillet Invoices API
+  description: The Invoices API from Rillet — 4 operation(s) for invoices.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-journal-entries-api
+  name: Rillet Journal Entries API
+  description: The Journal Entries API from Rillet — 2 operation(s) for journal entries.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Journal Entries
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-journal-entries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-organizations-api
+  name: Rillet Organizations API
+  description: The Organizations API from Rillet — 1 operation(s) for organizations.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-products-api
+  name: Rillet Products API
+  description: The Products API from Rillet — 2 operation(s) for products.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-products-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-reimbursements-api
+  name: Rillet Reimbursements API
+  description: The Reimbursements API from Rillet — 2 operation(s) for reimbursements.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Reimbursements
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-reimbursements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-reports-api
+  name: Rillet Reports API
+  description: The Reports API from Rillet — 7 operation(s) for reports.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-subsidiaries-api
+  name: Rillet Subsidiaries API
+  description: The Subsidiaries API from Rillet — 2 operation(s) for subsidiaries.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Subsidiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-subsidiaries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-tax-rates-api
+  name: Rillet Tax rates API
+  description: The Tax rates API from Rillet — 1 operation(s) for tax rates.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Tax rates
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-tax-rates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-vendor-credit-applications-api
+  name: Rillet Vendor Credit Applications API
+  description: >-
+    The Vendor Credit Applications API from Rillet — 1 operation(s) for vendor credit applications.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Vendor Credit Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-vendor-credit-applications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-vendor-credits-api
+  name: Rillet Vendor Credits API
+  description: The Vendor Credits API from Rillet — 2 operation(s) for vendor credits.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Vendor Credits
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-vendor-credits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-vendors-api
+  name: Rillet Vendors API
+  description: The Vendors API from Rillet — 2 operation(s) for vendors.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-vendors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.api.rillet.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.api.rillet.com/reference
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://docs.api.rillet.com/docs/getting-started
+- type: Documentation
+  url: https://docs.api.rillet.com/
+- type: APIReference
+  url: https://docs.api.rillet.com/reference
+- type: GettingStarted
+  url: https://docs.api.rillet.com/docs/getting-started
+- type: Blog
+  url: https://rillet.com/blog
+- type: Support
+  url: https://rillet.com/help-center
+- type: SignUp
+  url: https://rillet.com/talk-to-sales
+- type: Login
+  url: https://app.rillet.io/
+- type: TermsOfService
+  url: https://rillet.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://rillet.com/privacy-policy
+- type: Compliance
+  url: https://rillet.com/product/security-and-permissions
+- type: ChangeLog
+  url: https://docs.api.rillet.com/changelog
+- type: ChangeLog
+  url: changelog/rillet-changelog.yml
+- type: MCPServer
+  url: mcp/rillet-mcp.yml
+- type: LLMsTxt
+  url: llms/rillet-llms.txt
+- type: WellKnown
+  url: well-known/rillet-well-known.yml
+- type: Authentication
+  url: authentication/rillet-authentication.yml
+- type: OAuthScopes
+  url: scopes/rillet-scopes.yml
+- type: DomainSecurity
+  url: security/rillet-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/rillet-agentic-access.yml
+- type: Conventions
+  url: conventions/rillet-conventions.yml
+- type: Idempotency
+  url: conventions/rillet-conventions.yml
+- type: ErrorCatalog
+  url: errors/rillet-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/rillet-lifecycle.yml
+- type: Deprecation
+  url: https://docs.api.rillet.com/docs/getting-started
+- type: Conformance
+  url: conformance/rillet-conformance.yml
+- type: Sandbox
+  url: sandbox/rillet-sandbox.yml
+- type: DataModel
+  url: data-model/rillet-data-model.yml
+- type: Webhooks
+  url: asyncapi/rillet-webhooks.yml
+- type: Overlay
+  url: overlays/rillet-accounting-api-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://rillet.com/
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v1

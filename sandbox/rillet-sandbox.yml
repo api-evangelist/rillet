@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.api.rillet.com/docs/getting-started
+description: >-
+  Rillet exposes a dedicated test environment with its own host, separate from
+  production. Test and live are separated by base URL (not by key prefix).
+environments:
+- mode: live
+  base_url: https://api.rillet.com
+- mode: test
+  base_url: https://sandbox.api.rillet.com
+keys:
+  note: >-
+    API keys are issued per organization from Organization Settings; the same
+    Bearer-token scheme is used against the sandbox host. No published static
+    test key or magic-value fixtures were found in the docs.
+test_values: []
+notes: >-
+  Sandbox is a full-environment mirror addressed via sandbox.api.rillet.com.
+  The OpenAPI lists both servers (production + test). No test card numbers or
+  magic identifiers are published (Rillet is an ERP/AR/AP system, not a card
+  acquirer), so none are fabricated here.

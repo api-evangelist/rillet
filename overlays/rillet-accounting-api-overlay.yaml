@@ -1,0 +1,44 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Rillet Accounting API
+  version: 1.0.0
+extends: openapi/rillet-accounting-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-rating: 5
+    x-apievangelist-notes: >-
+      Rillet Accounting API — 110 operations, OpenAPI 3.1, bearer/OAuth2 auth,
+      RFC 9457 errors, Idempotency-Key on POST, keyset pagination, header
+      versioning (X-Rillet-API-Version), hosted MCP server, signed webhooks.
+    x-api-conventions: conventions/rillet-conventions.yml
+    x-error-catalog: errors/rillet-problem-types.yml
+    x-mcp-server: https://api.rillet.com/mcp
+- target: $.info
+  update:
+    x-idempotency:
+      header: Idempotency-Key
+      scope: POST
+      retention: 24h
+    x-rate-limit:
+      limit: 60
+      window: 60s
+      exceeded_status: 429
+    x-pagination:
+      style: keyset
+      params: [limit, cursor]
+      response_field: next_cursor
+- target: $.components.securitySchemes
+  update:
+    oauth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0 authorization-code (PKCE S256) for MCP/connectors; discovered
+        via RFC 8414 metadata. mTLS/DPoP sender-constrained tokens. Scopes: read, write.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.rillet.com/oauth2/authorize
+          tokenUrl: https://api.rillet.com/oauth2/token
+          scopes:
+            read: Read access to Rillet resources
+            write: Write access to Rillet resources

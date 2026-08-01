@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+host: https://api.rillet.com
+documents:
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  file: rillet-oauth-authorization-server.json
+  standard: RFC 8414
+- path: /.well-known/oauth-protected-resource
+  status: 200
+  file: rillet-oauth-protected-resource.json
+  standard: RFC 9728
+- path: /.well-known/openid-configuration
+  status: 401
+- path: /.well-known/security.txt
+  status: 401
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+notes: >-
+  api.rillet.com publishes RFC 8414 OAuth authorization-server metadata and
+  RFC 9728 protected-resource metadata (scopes_supported: read, write;
+  mutual-TLS + DPoP sender-constrained access tokens). No public security.txt,
+  api-catalog, or ai-plugin.json. rillet.com / rillet.io return 404 for all
+  probed paths.

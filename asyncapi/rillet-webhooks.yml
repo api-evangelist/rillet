@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.api.rillet.com/docs/webhooks
+spec_type: Webhooks
+description: >-
+  Rillet delivers real-time events as HTTP POST callbacks to organization-
+  configured HTTPS endpoints. Events are modeled as (entity, action) pairs.
+  Configured in the dashboard under Organization Settings -> Webhooks (max 5
+  per organization). No AsyncAPI document is published; this is the captured
+  webhook catalog.
+transport: https-post
+delivery:
+  timeout_seconds: 30
+  success: 2xx response required
+  retries: exponential backoff, groups of 3, up to 5 groups
+  max_webhooks_per_org: 5
+signing:
+  algorithm: HMAC-SHA256
+  encoding: base64
+  signed_payload: "$timestamp.$id.$entity.$event.$body"
+  key: per-webhook token (rotatable; up to 10 signatures per header)
+headers:
+- name: X-Rillet-Signature
+  description: Base64 HMAC-SHA256 signature(s) of the signed payload
+- name: X-Rillet-Timestamp
+  description: ISO-8601 event timestamp
+- name: X-Rillet-Id
+  description: Unique event UUID (use for idempotency)
+- name: X-Rillet-Entity
+  description: Object type, e.g. INVOICE
+- name: X-Rillet-Event
+  description: Action type, e.g. CREATED
+entities:
+  documented_examples: [INVOICE, CREDIT_MEMO]
+  actions: [CREATED, UPDATED]
+  note: >-
+    The OpenAPI (webhook components, e.g. WebhookContract, WebhookContractItem)
+    is the single source of truth for the full entity/action matrix and payload
+    schemas. See https://docs.api.rillet.com/reference/webhooks
+reference: https://docs.api.rillet.com/reference/webhooks

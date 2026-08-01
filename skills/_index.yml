@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/rillet-accounting-api-openapi.json
+skills:
+- file: rillet-invoice-customer-and-collect-payment.md
+  name: Invoice a customer and record a payment
+  api: openapi/rillet-accounting-api-openapi.json
+  operations: [list-all-customers, create-a-customer, create-an-invoice, create-an-invoice-payment]
+- file: rillet-record-and-pay-a-bill.md
+  name: Record a vendor bill and pay it
+  api: openapi/rillet-accounting-api-openapi.json
+  operations: [list-all-vendors, create-a-vendor, create-a-bill, create-a-bill-payment]
+- file: rillet-post-journal-entry-and-pull-reports.md
+  name: Post a journal entry and pull financial reports
+  api: openapi/rillet-accounting-api-openapi.json
+  operations: [list-all-accounts, create-a-journal-entry, retrieve-trial-balance-report, retrieve-balance-sheet-report, retrieve-income-statement-report]

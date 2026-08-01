@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.api.rillet.com/docs/getting-started
+derived_from: openapi/rillet-accounting-api-openapi.json#/components/schemas/Error
+format: rfc9457
+media_type: application/problem+json
+envelope:
+  schema: Error
+  fields:
+    type: A URI reference identifying the error type (e.g. https://rillet.io/forbidden)
+    title: Short human-readable summary of the problem
+    status: HTTP status code for this occurrence
+    detail: Explanation specific to this occurrence
+notes: >-
+  Rillet documents RFC 9457 problem+json error responses. The OpenAPI declares a
+  shared Error schema referenced by 'default' responses across operations; the
+  concrete HTTP statuses below are the standard set the API returns.
+problems:
+- status: 400
+  title: Bad Request
+  detail: The request was malformed or failed validation.
+- status: 401
+  type: https://rillet.io/unauthorized
+  title: Unauthorized
+  detail: Missing or invalid API key / access token.
+- status: 403
+  type: https://rillet.io/forbidden
+  title: Forbidden
+  detail: The authenticated principal lacks permission for this operation.
+- status: 404
+  title: Not Found
+  detail: The requested resource does not exist.
+- status: 409
+  title: Conflict
+  detail: The request conflicts with the current state of the resource.
+- status: 422
+  title: Unprocessable Entity
+  detail: Semantically invalid request (e.g. accounting rule violation).
+- status: 429
+  title: Too Many Requests
+  detail: Rate limit of 60 requests per rolling minute exceeded.
+- status: 500
+  title: Internal Server Error
+  detail: An unexpected error occurred on the Rillet side.

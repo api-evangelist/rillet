@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+source: well-known/rillet-oauth-protected-resource.json
+docs: https://docs.api.rillet.com/docs/mcp
+schemes:
+- name: oauth2
+  source: well-known/rillet-oauth-authorization-server.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.rillet.com/oauth2/authorize
+    tokenUrl: https://api.rillet.com/oauth2/token
+    pkce: S256
+scopes:
+- scope: read
+  description: Read access to Rillet resources (list/retrieve operations).
+  flows: [authorizationCode]
+  sources: [well-known/rillet-oauth-protected-resource.json]
+- scope: write
+  description: Write access to Rillet resources (create/update/delete operations).
+  flows: [authorizationCode]
+  sources: [well-known/rillet-oauth-protected-resource.json]
+notes: >-
+  Coarse-grained read/write scopes advertised in RFC 9728 protected-resource
+  metadata. Effective authorization is further constrained by the connected
+  user's role within Rillet (Owner / Admin / Accountant / view-only). Direct
+  API-key (Bearer) access is not scope-limited at the token level.
