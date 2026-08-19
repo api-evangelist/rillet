@@ -1,0 +1,310 @@
+{
+  "item": [
+    {
+      "id": "f19eddb4-b88a-46b8-a0cf-d72ca9de6f3a",
+      "name": "Subsidiaries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23a49bd7-937a-447e-8b24-46c8461e7d11",
+          "name": "Lists all subsidiaries",
+          "request": {
+            "name": "Lists all subsidiaries",
+            "description": {
+              "content": "Returns legal-entity subsidiaries for the authenticated organization.\nUse this to discover subsidiary UUIDs before calling endpoints that accept subsidiary_id (contracts, invoices, reports).\nEach subsidiary carries currency and timezone used for localized accounting and reporting.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subsidiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "482fab75-e713-453f-bffc-b05d5d2349b5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subsidiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subsidiaries\": [\n    {\n      \"id\": \"dd6802bb-87c0-53e7-063e-557eea39da1e\",\n      \"currency\": \"USD\",\n      \"timezone\": \"America/New_York\",\n      \"trade_name\": \"Rillet Inc.\",\n      \"type\": \"LEGAL_ENTITY\"\n    },\n    {\n      \"id\": \"27d9bce9-7f87-838e-690a-0cff7e78c603\",\n      \"currency\": \"USD\",\n      \"timezone\": \"America/New_York\",\n      \"trade_name\": \"Rillet Inc.\",\n      \"type\": \"LEGAL_ENTITY\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "484d5e40-177c-40b9-a1c0-77460983c432",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subsidiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b89f82b6-07af-4f9f-8ff5-ec83ec7f9554",
+          "name": "Retrieves a subsidiary",
+          "request": {
+            "name": "Retrieves a subsidiary",
+            "description": {
+              "content": "Returns one subsidiary by id for the authenticated organization.\nCall list-all-subsidiaries first if you need to resolve which subsidiary id to use.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subsidiaries",
+                ":subsidiary_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subsidiary_id",
+                  "description": "(Required) UUID of the subsidiary to retrieve (must belong to the organization)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c891be6-c9e5-4438-b1fb-c2fdafa2b1f2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subsidiaries",
+                    ":subsidiary_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subsidiary_id",
+                      "description": "(Required) UUID of the subsidiary to retrieve (must belong to the organization)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"705d51f5-c439-7e16-1b45-daec1b349cb5\",\n  \"currency\": \"USD\",\n  \"timezone\": \"America/New_York\",\n  \"trade_name\": \"Rillet Inc.\",\n  \"type\": \"LEGAL_ENTITY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bef55a79-92c1-4f71-add3-09a0129e452b",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subsidiaries",
+                    ":subsidiary_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subsidiary_id",
+                      "description": "(Required) UUID of the subsidiary to retrieve (must belong to the organization)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "085a34f4-09cf-43f5-92fa-44ace40aade5",
+    "name": "Rillet Accounting API Key Subsidiaries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

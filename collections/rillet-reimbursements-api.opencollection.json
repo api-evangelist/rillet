@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Reimbursements API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reimbursements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all reimbursements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/reimbursements",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter reimbursements updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Surfaces reimbursement requests created from approved charges or manual submissions, including subsidiary and freshness filters for payroll sync.\nUse pagination cursors for large populations and pair with retrieve-a-reimbursement when a row needs detailed audit context.\n"
+        },
+        {
+          "info": {
+            "name": "Create a reimbursement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/reimbursements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a reimbursement"
+        },
+        {
+          "info": {
+            "name": "Retrieves a reimbursement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/reimbursements/:reimbursement_id",
+            "params": [
+              {
+                "name": "reimbursement_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the reimbursement to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Returns the full reimbursement packet with employee linkage, funding instructions, and approval history for a single id.\nHelpful when validating totals before releasing ACH batches or answering employee support tickets.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a reimbursement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/reimbursements/:reimbursement_id",
+            "params": [
+              {
+                "name": "reimbursement_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the reimbursement to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes a reimbursement that was created prematurely or duplicated during intake so it no longer blocks payroll totals.\nConfirm no outbound payments or GL accruals were posted against the reimbursement before deleting it.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

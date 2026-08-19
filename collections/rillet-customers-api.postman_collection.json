@@ -1,0 +1,882 @@
+{
+  "item": [
+    {
+      "id": "f05eb613-6217-4ce0-8897-ff9175d66e7b",
+      "name": "Customers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee53c5f6-5bac-4102-8745-8f4f15cdb05d",
+          "name": "Lists all customers",
+          "request": {
+            "name": "Lists all customers",
+            "description": {
+              "content": "Returns customers for accounts receivable with pagination and optional search or external-reference filters.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter customer by name."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_reference_id",
+                  "value": "<string>",
+                  "description": "If this is provided, `external_reference_type` must also be provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_reference_type",
+                  "value": "<string>",
+                  "description": "If this is provided, `external_reference_id` must also be provided.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter customers updated after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created",
+                  "description": "the field the customers should be sorted by descending (either created or updated)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38c944f8-ca0e-4a90-98a5-5576d6edfe78",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_reference_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_reference_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customers\": [\n    {\n      \"id\": \"2f7b5750-3e81-4881-960a-39a7c5596daf\",\n      \"name\": \"Bob\",\n      \"updated_at\": \"1982-07-14T05:43:06.903Z\",\n      \"name_on_invoice\": \"Bob Johnson\",\n      \"address\": {\n        \"city\": \"Nashville\",\n        \"country\": \"US\",\n        \"line1\": \"123 Main St\",\n        \"state\": \"TN\",\n        \"zip_code\": \"37201\",\n        \"line2\": \"Apt 4B\"\n      },\n      \"shipping_address\": {\n        \"city\": \"Nashville\",\n        \"country\": \"US\",\n        \"line1\": \"123 Main St\",\n        \"state\": \"TN\",\n        \"zip_code\": \"37201\",\n        \"line2\": \"Apt 4B\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"bobjohnson@somedomain.com\",\n          \"type\": \"BCC\"\n        },\n        {\n          \"email\": \"bobjohnson@somedomain.com\",\n          \"type\": \"MAIN_SENDER\"\n        }\n      ],\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"payment_terms\": 0,\n      \"send_invoices_automatically\": false,\n      \"send_payment_reminders\": false,\n      \"fields\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"5b7d6d09-dad3-b433-e707-9d7553bb0cb6\",\n      \"name\": \"Bob\",\n      \"updated_at\": \"1977-12-24T15:02:19.022Z\",\n      \"name_on_invoice\": \"Bob Johnson\",\n      \"address\": {\n        \"city\": \"Nashville\",\n        \"country\": \"US\",\n        \"line1\": \"123 Main St\",\n        \"state\": \"TN\",\n        \"zip_code\": \"37201\",\n        \"line2\": \"Apt 4B\"\n      },\n      \"shipping_address\": {\n        \"city\": \"Nashville\",\n        \"country\": \"US\",\n        \"line1\": \"123 Main St\",\n        \"state\": \"TN\",\n        \"zip_code\": \"37201\",\n        \"line2\": \"Apt 4B\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"bobjohnson@somedomain.com\",\n          \"type\": \"MAIN_SENDER\"\n        },\n        {\n          \"email\": \"bobjohnson@somedomain.com\",\n          \"type\": \"CC\"\n        }\n      ],\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"payment_terms\": 0,\n      \"send_invoices_automatically\": false,\n      \"send_payment_reminders\": false,\n      \"fields\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "982ccef1-2416-479e-b96a-2c254da07749",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_reference_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_reference_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0bd17b9-0520-4324-8476-85afbea771da",
+          "name": "Creates a customer",
+          "request": {
+            "name": "Creates a customer",
+            "description": {
+              "content": "Creates a new customer in the Accounts Receivable catalog.\nRequired fields: name. When providing an address, all of these fields are required:\nline1, city, state (2-letter code e.g. 'TN', 'CA'), zip_code, country.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"name_on_invoice\": \"<string>\",\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip_code\": \"<string>\",\n    \"line2\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip_code\": \"<string>\",\n    \"line2\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"payment_terms\": \"<integer>\",\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    },\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13362879-d0e7-49a9-b752-507a721b450e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Bob\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"CC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"5d880c2c-6b01-9aa3-4654-024851f77dcd\",\n      \"field_value_id\": \"adf6ace2-cf07-6c7a-117b-5c9c636f2c05\"\n    },\n    {\n      \"field_id\": \"d080f462-929c-93fe-9150-73575635b151\",\n      \"field_value_id\": \"4de8e950-6613-d3c7-0294-4495fe4fde9b\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1ff96f52-4baf-ba48-361e-5d2b196cfe20\",\n  \"name\": \"Bob\",\n  \"updated_at\": \"2023-07-15T23:54:25.410Z\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"MAIN_SENDER\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"6959c33f-fe19-21f7-95a2-d303ad6f3237\",\n      \"field_value_id\": \"28e12234-3de8-e9e9-cf83-31bd24177d9a\"\n    },\n    {\n      \"field_id\": \"38902c46-a610-7ed6-bcf2-cefc0388b3e7\",\n      \"field_value_id\": \"ea1259f4-7ed4-3080-1af7-792b86e8743c\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed7ffed5-b1d1-4cea-9e8d-a307543731a5",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Bob\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"CC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"5d880c2c-6b01-9aa3-4654-024851f77dcd\",\n      \"field_value_id\": \"adf6ace2-cf07-6c7a-117b-5c9c636f2c05\"\n    },\n    {\n      \"field_id\": \"d080f462-929c-93fe-9150-73575635b151\",\n      \"field_value_id\": \"4de8e950-6613-d3c7-0294-4495fe4fde9b\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49a7ecf6-43c6-4b3e-9f16-94b29ecfa784",
+          "name": "Retrieves a customer",
+          "request": {
+            "name": "Retrieves a customer",
+            "description": {
+              "content": "Returns a single customer record including billing profile details, which are needed for updates.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) UUID of the customer to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ebe496ec-e325-4097-892c-519f839194c8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) UUID of the customer to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1ff96f52-4baf-ba48-361e-5d2b196cfe20\",\n  \"name\": \"Bob\",\n  \"updated_at\": \"2023-07-15T23:54:25.410Z\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"MAIN_SENDER\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"6959c33f-fe19-21f7-95a2-d303ad6f3237\",\n      \"field_value_id\": \"28e12234-3de8-e9e9-cf83-31bd24177d9a\"\n    },\n    {\n      \"field_id\": \"38902c46-a610-7ed6-bcf2-cefc0388b3e7\",\n      \"field_value_id\": \"ea1259f4-7ed4-3080-1af7-792b86e8743c\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e407532-2891-4347-af85-a1955c5c09a5",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) UUID of the customer to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37cbc6da-9875-45a7-9fd1-6ba5e01da0e8",
+          "name": "Updates a customer",
+          "request": {
+            "name": "Updates a customer",
+            "description": {
+              "content": "Updates a single customer record in the catalog.\nIMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-customer first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) UUID of the customer to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"name_on_invoice\": \"<string>\",\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip_code\": \"<string>\",\n    \"line2\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip_code\": \"<string>\",\n    \"line2\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"payment_terms\": \"<integer>\",\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    },\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "856b60a3-64b1-49e7-8cda-feddbfa46f63",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) UUID of the customer to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Bob\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"CC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"5d880c2c-6b01-9aa3-4654-024851f77dcd\",\n      \"field_value_id\": \"adf6ace2-cf07-6c7a-117b-5c9c636f2c05\"\n    },\n    {\n      \"field_id\": \"d080f462-929c-93fe-9150-73575635b151\",\n      \"field_value_id\": \"4de8e950-6613-d3c7-0294-4495fe4fde9b\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"1ff96f52-4baf-ba48-361e-5d2b196cfe20\",\n  \"name\": \"Bob\",\n  \"updated_at\": \"2023-07-15T23:54:25.410Z\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"MAIN_SENDER\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"6959c33f-fe19-21f7-95a2-d303ad6f3237\",\n      \"field_value_id\": \"28e12234-3de8-e9e9-cf83-31bd24177d9a\"\n    },\n    {\n      \"field_id\": \"38902c46-a610-7ed6-bcf2-cefc0388b3e7\",\n      \"field_value_id\": \"ea1259f4-7ed4-3080-1af7-792b86e8743c\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e038e49-66c4-4f0f-ae37-b4e2ae4dd905",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) UUID of the customer to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Bob\",\n  \"name_on_invoice\": \"Bob Johnson\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"emails\": [\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"BCC\"\n    },\n    {\n      \"email\": \"bobjohnson@somedomain.com\",\n      \"type\": \"CC\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"payment_terms\": 0,\n  \"send_invoices_automatically\": false,\n  \"send_payment_reminders\": false,\n  \"fields\": [\n    {\n      \"field_id\": \"5d880c2c-6b01-9aa3-4654-024851f77dcd\",\n      \"field_value_id\": \"adf6ace2-cf07-6c7a-117b-5c9c636f2c05\"\n    },\n    {\n      \"field_id\": \"d080f462-929c-93fe-9150-73575635b151\",\n      \"field_value_id\": \"4de8e950-6613-d3c7-0294-4495fe4fde9b\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aee4e0b8-fdc8-4d8a-bfc4-73fe9e500e3d",
+          "name": "Deletes a customer",
+          "request": {
+            "name": "Deletes a customer",
+            "description": {
+              "content": "Permanently deletes a customer. Verify no active contracts or open invoices reference this customer first.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) UUID of the customer to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a366ef36-e3ad-440b-9589-98ce6d457bdb",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) UUID of the customer to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da5cefc5-de2c-438c-843c-d4467001d386",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) UUID of the customer to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8bfb9781-e249-4dbe-95b1-7808a2f3e57d",
+    "name": "Rillet Accounting API Key Customers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

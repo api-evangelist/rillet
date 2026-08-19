@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Bills API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all bills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bills",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter bills updated after this timestamp"
+              },
+              {
+                "name": "vendor_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter bills by vendor."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter bills by payment status."
+              }
+            ]
+          },
+          "docs": "Returns AP bills with pagination plus filters for vendor, subsidiary, approval state, and balances due.\nUse bill ids with retrieve-a-bill before performing full updates or attaching documents.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/bills",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accrues a new accounts-payable bill against a vendor with subsidiary context, line items, and due dates your approval workflow consumes.\nAttach supporting metadata now so matching payments, amortization schedules, and document uploads stay aligned with the payable.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bills/:bill_id",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Returns the authoritative bill record including vendor linkage, approval state, open balance, and document references.\nFetch before update-a-bill because PUT semantics require you to resubmit every field to avoid nulling omitted values.\n"
+        },
+        {
+          "info": {
+            "name": "Uploads a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/bills/:bill_id",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Attaches a binary file such as a PDF invoice or contract to an existing bill using multipart form data with a single file part.\nCall after the bill exists so approvers and auditors can open the evidence directly from the payable record.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/bills/:bill_id",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-bill first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/bills/:bill_id",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes a bill that should no longer drive AP balances, typically while it remains in draft or was created in error.\nVerify no posted payments, accrual journals, or vendor credit applications still reference the bill before deleting.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

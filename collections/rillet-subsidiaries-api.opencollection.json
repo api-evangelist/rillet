@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Subsidiaries API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subsidiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all subsidiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/subsidiaries"
+          },
+          "docs": "Returns legal-entity subsidiaries for the authenticated organization.\nUse this to discover subsidiary UUIDs before calling endpoints that accept subsidiary_id (contracts, invoices, reports).\nEach subsidiary carries currency and timezone used for localized accounting and reporting.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a subsidiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/subsidiaries/:subsidiary_id",
+            "params": [
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the subsidiary to retrieve (must belong to the organization)."
+              }
+            ]
+          },
+          "docs": "Returns one subsidiary by id for the authenticated organization.\nCall list-all-subsidiaries first if you need to resolve which subsidiary id to use.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

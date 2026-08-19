@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Invoices API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/invoices",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "overdue",
+                "value": "",
+                "type": "query",
+                "description": "Filter for overdue invoices."
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional UUID filter by customer."
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices updated after this timestamp"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices by payment status."
+              }
+            ]
+          },
+          "docs": "Returns AR invoices with pagination plus filters for subsidiary, customer, overdue state, and audit timestamps.\nUse invoice ids from this feed with retrieve-an-invoice before performing full updates.\n"
+        },
+        {
+          "info": {
+            "name": "Creates an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/invoices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rillet supports two invoice scope types: FULL and REVENUE_RECOGNITION_ONLY. The selected scope determines how the invoice is created and what information the user needs to provide.\n\nThe FULL scope is used when the invoice is generated and sent directly from Rillet. In this case, Rillet automatically assigns the invoice number.\n\nThe REVENUE_RECOGNITION_ONLY scope is intended for situations where the invoice is issued from another system and only needs to be recorded in Rillet for accounting purpo"
+        },
+        {
+          "info": {
+            "name": "Retrieves an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/invoices/:invoice_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns invoice details including line items, tax breakdown, and linkage to contracts or customers.\nUse Accept application/json for structured data; application/pdf is only for human-readable exports when enabled.\n"
+        },
+        {
+          "info": {
+            "name": "Updates an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/invoices/:invoice_id",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-an-invoice first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/invoices/:invoice_id",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to delete."
+              }
+            ]
+          },
+          "docs": "Permanently removes an invoice when your policy allows it (for example draft or voided states).\nConfirm no downstream payments or revenue postings still depend on this invoice.\n"
+        },
+        {
+          "info": {
+            "name": "Updates invoice taxes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/invoices/:invoice_id/taxes",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice whose taxes should be recomputed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Recalculates or replaces tax lines on an existing invoice using the supplied tax payload.\nUse after changing taxable addresses or when integrating an external tax engine result.\n"
+        },
+        {
+          "info": {
+            "name": "Updates invoice sent status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/invoices/:invoice_id/sent-status",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks whether an invoice has been delivered to the customer, which downstream workflows use for collections cadence and compliance reporting.\nSet the sent flag true after your billing system or email provider confirms delivery, or false while the document is still internal-only.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

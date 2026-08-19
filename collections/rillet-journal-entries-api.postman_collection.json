@@ -1,0 +1,896 @@
+{
+  "item": [
+    {
+      "id": "d18909e7-463c-4d68-be84-6cb026bfedf5",
+      "name": "Journal Entries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "619e5ac4-6835-4022-99c2-89256379fa49",
+          "name": "Creates a journal entry",
+          "request": {
+            "name": "Creates a journal entry",
+            "description": {
+              "content": "Posts a balanced manual journal entry with explicit debit and credit lines, posting date, and subsidiary scope for GL corrections.\nPrefer dedicated AR or AP APIs when the business event already exists; reserve this for adjustments your automation cannot model yet.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "journal-entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"items\": [\n    {\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"account_code\": \"<string>\",\n      \"side\": \"<string>\",\n      \"description\": \"<string>\",\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ],\n      \"vat_code\": \"<string>\",\n      \"vat_type\": \"<string>\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"account_code\": \"<string>\",\n      \"side\": \"<string>\",\n      \"description\": \"<string>\",\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ],\n      \"vat_code\": \"<string>\",\n      \"vat_type\": \"<string>\"\n    }\n  ],\n  \"reversal_date\": \"<date>\",\n  \"attachmentUrl\": \"<uri>\",\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  },\n  \"subsidiary_id\": \"<uuid>\",\n  \"related_entity\": {\n    \"id\": \"<uuid>\",\n    \"type\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0560961-dbf7-4b4f-b87f-392bba9a773c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"1952-01-09\",\n  \"name\": \"string\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"35fcd671-6f65-133c-0350-798d53285371\",\n          \"field_value_id\": \"96c488d9-11fc-518d-4054-ce686737ad7d\"\n        },\n        {\n          \"field_id\": \"b62e255f-6115-888f-661d-8559210b071e\",\n          \"field_value_id\": \"3eb8d4c3-75a6-bb40-6f84-70081d2d1ef7\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"CREDIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"ae710f21-3aff-2525-13fe-3f346d006a15\",\n          \"field_value_id\": \"16108023-eb33-3e4b-c8e0-0b93c5fd977e\"\n        },\n        {\n          \"field_id\": \"6f134c20-6d10-5c53-3b03-38acdc7c658d\",\n          \"field_value_id\": \"2d8fe330-b31e-d2f7-9ba7-56cd141d3d6c\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    }\n  ],\n  \"reversal_date\": \"1981-06-08\",\n  \"attachmentUrl\": \"http://bCfNvxqIdMnqHDGcStQlr.yrqdtEocaO2D8QRkWIr13IpV\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2000-02-26\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"subsidiary_id\": \"<uuid>\",\n  \"related_entity\": {\n    \"id\": \"a5c6ae00-2874-bb3e-4515-ce8e05a9ea44\",\n    \"type\": \"VENDOR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"97667a8c-d501-8326-d5c3-2cd8fc5bf460\",\n  \"date\": \"1953-05-25\",\n  \"name\": \"string\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"id\": \"b61c252f-27c2-0f33-226e-bcf13fd15c89\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_id\": \"2ddb5056-f8de-5373-7ba2-ac5e61304bde\",\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"original_transaction_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"046f02b5-d323-5589-860a-58dc47291881\",\n          \"field_value_id\": \"437cc0a9-92e3-05e2-8b83-f50dfc2a18a1\"\n        },\n        {\n          \"field_id\": \"4180dbd3-f6d8-82de-dca0-aa9bc912944e\",\n          \"field_value_id\": \"920b90a7-d544-5364-6e3b-ace60a6fdf8c\"\n        }\n      ]\n    },\n    {\n      \"id\": \"b7ed6163-6104-c364-3330-fb465aad983d\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_id\": \"b679038b-dc65-66c8-3e53-ab1ec01ada32\",\n      \"account_code\": \"11112\",\n      \"side\": \"CREDIT\",\n      \"description\": \"string\",\n      \"original_transaction_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"c9a71203-50f0-fcdc-2cd0-861b636b8c5d\",\n          \"field_value_id\": \"2c7e3167-e010-fdde-5f93-25540d32a1e3\"\n        },\n        {\n          \"field_id\": \"699217c3-d7cb-513b-92ef-a0b7a3024811\",\n          \"field_value_id\": \"b8491192-bd47-0fa2-4b2c-b7899b249f61\"\n        }\n      ]\n    }\n  ],\n  \"updated_at\": \"2005-03-26T05:29:39.598Z\",\n  \"subsidiary_id\": \"69cd135e-d53b-4262-1814-cae7f7e9938a\",\n  \"related_entity\": {\n    \"id\": \"a98599ee-1a21-369f-3d70-cf4158ae3cf7\",\n    \"type\": \"CUSTOMER\"\n  },\n  \"reversal_date\": \"2011-11-04\",\n  \"attachmentUrl\": \"https://aJikmLJDwkQdRKtCBxVShTiTRJmlU.nappB5q9O\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1963-05-30\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d43e269f-bdfa-4655-8174-26e5ab429f7a",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"1952-01-09\",\n  \"name\": \"string\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"35fcd671-6f65-133c-0350-798d53285371\",\n          \"field_value_id\": \"96c488d9-11fc-518d-4054-ce686737ad7d\"\n        },\n        {\n          \"field_id\": \"b62e255f-6115-888f-661d-8559210b071e\",\n          \"field_value_id\": \"3eb8d4c3-75a6-bb40-6f84-70081d2d1ef7\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"CREDIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"ae710f21-3aff-2525-13fe-3f346d006a15\",\n          \"field_value_id\": \"16108023-eb33-3e4b-c8e0-0b93c5fd977e\"\n        },\n        {\n          \"field_id\": \"6f134c20-6d10-5c53-3b03-38acdc7c658d\",\n          \"field_value_id\": \"2d8fe330-b31e-d2f7-9ba7-56cd141d3d6c\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    }\n  ],\n  \"reversal_date\": \"1981-06-08\",\n  \"attachmentUrl\": \"http://bCfNvxqIdMnqHDGcStQlr.yrqdtEocaO2D8QRkWIr13IpV\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2000-02-26\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"subsidiary_id\": \"<uuid>\",\n  \"related_entity\": {\n    \"id\": \"a5c6ae00-2874-bb3e-4515-ce8e05a9ea44\",\n    \"type\": \"VENDOR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ca68a35-f802-43ef-896f-0141e2cad03d",
+          "name": "Lists all journal entries",
+          "request": {
+            "name": "Lists all journal entries",
+            "description": {
+              "content": "Returns GL journal entries with rich filtering (subsidiary, account, date range, reconciliation state).\nUse entry ids with retrieve-a-journal-entry before attempting updates or deletes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "journal-entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter journal entries updated after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "date.gte",
+                  "value": "<date>",
+                  "description": "Filter journal entries with a posting date on or after this date (inclusive)"
+                },
+                {
+                  "disabled": false,
+                  "key": "date.lte",
+                  "value": "<date>",
+                  "description": "Filter journal entries with a posting date on or before this date (inclusive)"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<uuid>,<uuid>",
+                  "description": "Filter journal entries that have at least one line item posting to any of these account ids (comma-separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created",
+                  "description": "the field the journal entries should be sorted by descending (either created or updated)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e534920d-72d4-4fd1-b6d0-9c6469c56ee4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "date.gte",
+                      "value": "2023-12-01"
+                    },
+                    {
+                      "key": "date.lte",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "11111111-1111-1111-1111-111111111111,22222222-2222-2222-2222-222222222222"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"journal_entries\": [\n    {\n      \"id\": \"ea09f6d6-83ff-ec77-b6a0-f5f326ed1bac\",\n      \"date\": \"1994-01-11\",\n      \"name\": \"string\",\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"e82cbdff-9d07-58b4-083b-8997eb09c07d\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"be2e6a74-9325-3c9f-c93d-b19b4e0879b5\",\n          \"account_code\": \"11112\",\n          \"side\": \"DEBIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"4afd3afb-7f15-babd-f29d-c87339bb6e8d\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"cf76b36b-3b31-203a-2d25-9cdafdaf667b\",\n          \"account_code\": \"11112\",\n          \"side\": \"DEBIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"updated_at\": \"1987-04-04T13:06:58.004Z\",\n      \"subsidiary_id\": \"955f271d-1933-b58e-4960-10827e5809c3\",\n      \"related_entity\": {\n        \"id\": \"f70ee587-86e6-4be2-e5a0-657c79ab3059\",\n        \"type\": \"VENDOR\"\n      },\n      \"reversal_date\": \"1987-12-17\",\n      \"attachmentUrl\": \"https://kYCxHLZcBlnuvaXrxrtLlWNCXN.wekekngSd+prml-hRqo+RBYPhkejgArxAJZG8XlIG\",\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"2018-03-02\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    },\n    {\n      \"id\": \"3411e1ff-3548-2ef8-ec07-e8ff27e97a5e\",\n      \"date\": \"2019-11-30\",\n      \"name\": \"string\",\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"cb90545c-10ee-ef6e-8bf2-181ef61c0e84\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"0b7586e2-df5d-f0e1-f3fb-5c3f0b8a5259\",\n          \"account_code\": \"11112\",\n          \"side\": \"CREDIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"1147aa46-e7bf-b08e-c754-7689562c77a4\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"36f46005-0554-c687-21a2-03b566770660\",\n          \"account_code\": \"11112\",\n          \"side\": \"CREDIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"updated_at\": \"1990-03-24T22:11:13.587Z\",\n      \"subsidiary_id\": \"706f5ce4-55bf-ef3b-26dd-3fd28a894040\",\n      \"related_entity\": {\n        \"id\": \"5738e73b-acd4-66e2-cbfd-52a1c8306e4a\",\n        \"type\": \"CUSTOMER\"\n      },\n      \"reversal_date\": \"2022-05-12\",\n      \"attachmentUrl\": \"https://OoTxlEAvLarryLqQstjKITMmXwInbGKbr.lnwurX1rK7xOYTrOGlbqvMCTRfHuMpQONGZEU2UHoCsJB1TA2fY\",\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"2023-06-08\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e33e9ae9-aeb5-4aea-aafa-b327bc4a474a",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "date.gte",
+                      "value": "2023-12-01"
+                    },
+                    {
+                      "key": "date.lte",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "11111111-1111-1111-1111-111111111111,22222222-2222-2222-2222-222222222222"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b1a10aa-37b3-4dd8-8baa-591843cd4fcf",
+          "name": "Retrieves a journal entry",
+          "request": {
+            "name": "Retrieves a journal entry",
+            "description": {
+              "content": "Retrieves a journal entry with every line, account reference, and reconciliation flag needed for close review or downstream edits.\nCall before update-a-journal-entry so you can merge new edits with existing lines without accidentally dropping balances.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "journal-entries",
+                ":journal_entry_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "journal_entry_id",
+                  "description": "(Required) UUID of the journal entry to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26cd5eab-7e40-41a0-8f3d-70872a38c59a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries",
+                    ":journal_entry_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "journal_entry_id",
+                      "description": "(Required) UUID of the journal entry to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"97667a8c-d501-8326-d5c3-2cd8fc5bf460\",\n  \"date\": \"1953-05-25\",\n  \"name\": \"string\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"id\": \"b61c252f-27c2-0f33-226e-bcf13fd15c89\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_id\": \"2ddb5056-f8de-5373-7ba2-ac5e61304bde\",\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"original_transaction_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"046f02b5-d323-5589-860a-58dc47291881\",\n          \"field_value_id\": \"437cc0a9-92e3-05e2-8b83-f50dfc2a18a1\"\n        },\n        {\n          \"field_id\": \"4180dbd3-f6d8-82de-dca0-aa9bc912944e\",\n          \"field_value_id\": \"920b90a7-d544-5364-6e3b-ace60a6fdf8c\"\n        }\n      ]\n    },\n    {\n      \"id\": \"b7ed6163-6104-c364-3330-fb465aad983d\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_id\": \"b679038b-dc65-66c8-3e53-ab1ec01ada32\",\n      \"account_code\": \"11112\",\n      \"side\": \"CREDIT\",\n      \"description\": \"string\",\n      \"original_transaction_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"c9a71203-50f0-fcdc-2cd0-861b636b8c5d\",\n          \"field_value_id\": \"2c7e3167-e010-fdde-5f93-25540d32a1e3\"\n        },\n        {\n          \"field_id\": \"699217c3-d7cb-513b-92ef-a0b7a3024811\",\n          \"field_value_id\": \"b8491192-bd47-0fa2-4b2c-b7899b249f61\"\n        }\n      ]\n    }\n  ],\n  \"updated_at\": \"2005-03-26T05:29:39.598Z\",\n  \"subsidiary_id\": \"69cd135e-d53b-4262-1814-cae7f7e9938a\",\n  \"related_entity\": {\n    \"id\": \"a98599ee-1a21-369f-3d70-cf4158ae3cf7\",\n    \"type\": \"CUSTOMER\"\n  },\n  \"reversal_date\": \"2011-11-04\",\n  \"attachmentUrl\": \"https://aJikmLJDwkQdRKtCBxVShTiTRJmlU.nappB5q9O\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1963-05-30\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "923a44b9-3dd7-4d3c-9d23-ed6bee491118",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries",
+                    ":journal_entry_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "journal_entry_id",
+                      "description": "(Required) UUID of the journal entry to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d72eabc9-6691-4b25-bc9e-abed374fc55c",
+          "name": "Updates a journal entry",
+          "request": {
+            "name": "Updates a journal entry",
+            "description": {
+              "content": "Replaces the lines and header metadata on an existing manual journal entry, subject to the same balancing rules as creation.\nAlways include the complete line list retrieved beforehand because partial payloads can clear fields the API treats as optional.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "journal-entries",
+                ":journal_entry_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "journal_entry_id",
+                  "description": "(Required) UUID of the journal entry to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"items\": [\n    {\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"account_code\": \"<string>\",\n      \"side\": \"<string>\",\n      \"description\": \"<string>\",\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ],\n      \"vat_code\": \"<string>\",\n      \"vat_type\": \"<string>\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"account_code\": \"<string>\",\n      \"side\": \"<string>\",\n      \"description\": \"<string>\",\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ],\n      \"vat_code\": \"<string>\",\n      \"vat_type\": \"<string>\"\n    }\n  ],\n  \"reversal_date\": \"<date>\",\n  \"attachmentUrl\": \"<uri>\",\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1bdb657-566c-4228-b7ef-a6ea20920ab0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries",
+                    ":journal_entry_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "journal_entry_id",
+                      "description": "(Required) UUID of the journal entry to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"3ae83810-e4c5-9132-b8d7-c2f1ef3f1d49\",\n          \"field_value_id\": \"2d8b9e3d-7334-0c2d-736e-8efec08a2a42\"\n        },\n        {\n          \"field_id\": \"175f7bf2-0a89-7ba9-1698-bbab6a8aac67\",\n          \"field_value_id\": \"f6fad737-d3d9-5dfb-380a-a0c8e6d2d871\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"d47270d1-9ebb-03e2-1dda-cf814ae7037f\",\n          \"field_value_id\": \"4608575d-5974-966f-a0a9-dc84aecda4b2\"\n        },\n        {\n          \"field_id\": \"bb6de4b9-1a44-7a98-9355-29d1f52cfa32\",\n          \"field_value_id\": \"b2614063-6244-2d08-f4aa-788437e7906b\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    }\n  ],\n  \"reversal_date\": \"<date>\",\n  \"attachmentUrl\": \"<uri>\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1947-05-16\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"97667a8c-d501-8326-d5c3-2cd8fc5bf460\",\n  \"date\": \"1953-05-25\",\n  \"name\": \"string\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"id\": \"b61c252f-27c2-0f33-226e-bcf13fd15c89\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_id\": \"2ddb5056-f8de-5373-7ba2-ac5e61304bde\",\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"original_transaction_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"046f02b5-d323-5589-860a-58dc47291881\",\n          \"field_value_id\": \"437cc0a9-92e3-05e2-8b83-f50dfc2a18a1\"\n        },\n        {\n          \"field_id\": \"4180dbd3-f6d8-82de-dca0-aa9bc912944e\",\n          \"field_value_id\": \"920b90a7-d544-5364-6e3b-ace60a6fdf8c\"\n        }\n      ]\n    },\n    {\n      \"id\": \"b7ed6163-6104-c364-3330-fb465aad983d\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_id\": \"b679038b-dc65-66c8-3e53-ab1ec01ada32\",\n      \"account_code\": \"11112\",\n      \"side\": \"CREDIT\",\n      \"description\": \"string\",\n      \"original_transaction_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"c9a71203-50f0-fcdc-2cd0-861b636b8c5d\",\n          \"field_value_id\": \"2c7e3167-e010-fdde-5f93-25540d32a1e3\"\n        },\n        {\n          \"field_id\": \"699217c3-d7cb-513b-92ef-a0b7a3024811\",\n          \"field_value_id\": \"b8491192-bd47-0fa2-4b2c-b7899b249f61\"\n        }\n      ]\n    }\n  ],\n  \"updated_at\": \"2005-03-26T05:29:39.598Z\",\n  \"subsidiary_id\": \"69cd135e-d53b-4262-1814-cae7f7e9938a\",\n  \"related_entity\": {\n    \"id\": \"a98599ee-1a21-369f-3d70-cf4158ae3cf7\",\n    \"type\": \"CUSTOMER\"\n  },\n  \"reversal_date\": \"2011-11-04\",\n  \"attachmentUrl\": \"https://aJikmLJDwkQdRKtCBxVShTiTRJmlU.nappB5q9O\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1963-05-30\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "677b912e-32db-426f-96ee-5dac0f49004e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries",
+                    ":journal_entry_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "journal_entry_id",
+                      "description": "(Required) UUID of the journal entry to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"3ae83810-e4c5-9132-b8d7-c2f1ef3f1d49\",\n          \"field_value_id\": \"2d8b9e3d-7334-0c2d-736e-8efec08a2a42\"\n        },\n        {\n          \"field_id\": \"175f7bf2-0a89-7ba9-1698-bbab6a8aac67\",\n          \"field_value_id\": \"f6fad737-d3d9-5dfb-380a-a0c8e6d2d871\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"account_code\": \"11112\",\n      \"side\": \"DEBIT\",\n      \"description\": \"string\",\n      \"fields\": [\n        {\n          \"field_id\": \"d47270d1-9ebb-03e2-1dda-cf814ae7037f\",\n          \"field_value_id\": \"4608575d-5974-966f-a0a9-dc84aecda4b2\"\n        },\n        {\n          \"field_id\": \"bb6de4b9-1a44-7a98-9355-29d1f52cfa32\",\n          \"field_value_id\": \"b2614063-6244-2d08-f4aa-788437e7906b\"\n        }\n      ],\n      \"vat_code\": \"string\",\n      \"vat_type\": \"string\"\n    }\n  ],\n  \"reversal_date\": \"<date>\",\n  \"attachmentUrl\": \"<uri>\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1947-05-16\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2730cc26-63d1-497c-af3d-5af84d43c669",
+          "name": "Deletes a journal entry",
+          "request": {
+            "name": "Deletes a journal entry",
+            "description": {
+              "content": "Deletes a manual journal entry that should be excluded from the ledger, typically prior to period lock while corrections remain allowed.\nVerify dependent reconciliations or downstream consolidations no longer rely on the entry before removal.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "journal-entries",
+                ":journal_entry_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "journal_entry_id",
+                  "description": "(Required) UUID of the journal entry to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c7ca096-8621-4428-8154-3ce1967fb19b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries",
+                    ":journal_entry_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "journal_entry_id",
+                      "description": "(Required) UUID of the journal entry to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c0795ca4-a225-418e-aeb4-dae677b7cca2",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "journal-entries",
+                    ":journal_entry_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "journal_entry_id",
+                      "description": "(Required) UUID of the journal entry to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "775911b9-30ac-475b-913e-027e8dc5a263",
+    "name": "Rillet Accounting API Key Journal Entries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "item": [
+    {
+      "id": "47806c18-6708-4886-8907-82a750668225",
+      "name": "Chart of Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3930d5be-c6c6-4081-8207-051ae46aec57",
+          "name": "Lists all accounts",
+          "request": {
+            "name": "Lists all accounts",
+            "description": {
+              "content": "Returns the chart of accounts for the organization tied to the API credentials.\nUse optional filters (for example updated.gt) to sync only accounts changed since a prior run.\nAccount ids are stable identifiers used when creating journal entries, bills, and other postings.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter accounts updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3245c0a7-95f9-4ca0-a741-104eed682684",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"id\": \"4d1f6d9c-77ea-e4c0-6f10-f7118e4c04af\",\n      \"code\": \"11112\",\n      \"name\": \"Mercury Savings\",\n      \"type\": \"ASSET\",\n      \"subtype\": \"Bank\",\n      \"status\": \"ACTIVE\",\n      \"intercompany\": false,\n      \"updated_at\": \"1984-01-18T04:42:18.881Z\"\n    },\n    {\n      \"id\": \"b04d6026-6d5a-6e54-beec-4dcfbd039ce6\",\n      \"code\": \"11112\",\n      \"name\": \"Mercury Savings\",\n      \"type\": \"EQUITY\",\n      \"subtype\": \"Bank\",\n      \"status\": \"ACTIVE\",\n      \"intercompany\": false,\n      \"updated_at\": \"2002-07-20T02:56:54.262Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be4e952e-6241-4739-a78d-e0b32ae60b09",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c6e5041a-c864-4df2-8dd9-1543e7c730f6",
+    "name": "Rillet Accounting API Key Chart of Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

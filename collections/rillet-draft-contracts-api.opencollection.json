@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Draft Contracts API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Draft Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a draft contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/draft-contracts/:draft_contract_id",
+            "params": [
+              {
+                "name": "draft_contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the draft contract to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Returns a draft contract by id, including its line items and any attached external references."
+        },
+        {
+          "info": {
+            "name": "Updates a draft contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/draft-contracts/:draft_contract_id",
+            "params": [
+              {
+                "name": "draft_contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the draft contract to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the draft contract identified by `draft_contract_id` with the supplied payload. The body shape\nmatches `POST /draft-contracts` — items and external_references on the existing record are fully replaced.\nReturns 404 if the id is not a draft contract in the organization.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a draft contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/draft-contracts/:draft_contract_id",
+            "params": [
+              {
+                "name": "draft_contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the draft contract to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Permanently removes a draft contract along with its line items and external references. Use this to programmatically reject a draft contract instead of doing it from the Rillet UI."
+        },
+        {
+          "info": {
+            "name": "Lists all draft contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/draft-contracts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional UUID filter by customer."
+              }
+            ]
+          },
+          "docs": "Returns draft contracts with cursor pagination. Draft contracts are staged records that appear in the Rillet UI under\n\"Draft\" for a human to approve or reject before they become active contracts.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a draft contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/draft-contracts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stages a contract in the \"draft\" holding state instead of creating it directly as an active contract.\nDraft contracts appear in the Rillet UI under \"Draft\" for a human to approve or reject.\n\n## Deduplication\n\n**To prevent duplicate draft contracts on retry, supply at least one `external_references` entry with a\nstable `(type, id)` pair.** When you POST again with any matching `(type, id)` pair, the prior draft record\nis replaced with the new payload.\n\nDraft contracts created without any `externa"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

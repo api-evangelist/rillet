@@ -1,0 +1,1420 @@
+{
+  "item": [
+    {
+      "id": "c1406d81-ca72-453b-b96a-8b7b3ab91287",
+      "name": "Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89e00a20-ab9f-4a74-9363-cfd32b75241d",
+          "name": "Retrieves ARR waterfall report",
+          "request": {
+            "name": "Retrieves ARR waterfall report",
+            "description": {
+              "content": "Returns the ARR waterfall dataset for the requested month with optional breakdown dimensions, subsidiary filters, and pagination cursors for large tenants.\nFinance teams use this to explain beginning ARR, new business, expansion, contraction, and churn between periods.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "arr-waterfall"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<yearMonth>",
+                  "description": "(Required) The month and year to export. Uses ISO-8061 format (YYYY-MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "(Required) whether to include committed or active entries"
+                },
+                {
+                  "disabled": false,
+                  "key": "breakdown",
+                  "value": "<string>",
+                  "description": "(Required) whether annual or monthly breakdowns"
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30d73317-ed60-4747-a9fd-917727c455d7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "arr-waterfall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "month",
+                      "value": "<yearMonth>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "COMMITTED"
+                    },
+                    {
+                      "key": "breakdown",
+                      "value": "MRR"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customers\": [\n    {\n      \"id\": \"67b0d3b5-3b75-b7f0-3658-87cd2aada46c\",\n      \"name\": \"string\",\n      \"total\": {\n        \"year_month\": \"string\",\n        \"amount\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      }\n    },\n    {\n      \"id\": \"5196a848-8abd-c021-9d62-be02a428dd15\",\n      \"name\": \"string\",\n      \"total\": {\n        \"year_month\": \"string\",\n        \"amount\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de7cd693-9a5a-4a51-9f09-4f9124c99e86",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "arr-waterfall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "month",
+                      "value": "<yearMonth>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "COMMITTED"
+                    },
+                    {
+                      "key": "breakdown",
+                      "value": "MRR"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f44bc240-13a2-43bb-b8c6-fa62b80e74b2",
+          "name": "Retrieves trial balance report",
+          "request": {
+            "name": "Retrieves trial balance report",
+            "description": {
+              "content": "Returns a trial balance report for the specified date range.\nRequired parameters: from_date and to_date (ISO-8601 format YYYY-MM-DD). Both must be provided or the call will fail.\nExample: from_date=2024-01-01, to_date=2024-12-31.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "trial-balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8a62e65-472a-48ca-8473-d863628f9f3d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "trial-balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"period\": {\n    \"from_date\": \"2024-01-01\",\n    \"to_date\": \"2024-01-31\"\n  },\n  \"currency\": \"USD\",\n  \"accounts\": [\n    {\n      \"id\": \"1778fffd-3fb5-c6d0-6b12-77599648fa89\",\n      \"code\": \"1000\",\n      \"name\": \"Cash\",\n      \"beginning_balance\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"debit_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"credit_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"ending_balance\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"debit_fx_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"credit_fx_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"id\": \"00704c4e-b28e-3ef0-cfb9-17b3e200c55f\",\n      \"code\": \"1000\",\n      \"name\": \"Cash\",\n      \"beginning_balance\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"debit_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"credit_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"ending_balance\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"debit_fx_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"credit_fx_total\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"totals\": {\n    \"beginning_balance\": {\n      \"amount\": \"1.01\",\n      \"currency\": \"USD\"\n    },\n    \"debit_total\": {\n      \"amount\": \"1.01\",\n      \"currency\": \"USD\"\n    },\n    \"credit_total\": {\n      \"amount\": \"1.01\",\n      \"currency\": \"USD\"\n    },\n    \"ending_balance\": {\n      \"amount\": \"1.01\",\n      \"currency\": \"USD\"\n    },\n    \"debit_fx_total\": {\n      \"amount\": \"1.01\",\n      \"currency\": \"USD\"\n    },\n    \"credit_fx_total\": {\n      \"amount\": \"1.01\",\n      \"currency\": \"USD\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1a1ad93-6089-46cc-bc9a-2815666b2bd9",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "trial-balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "774154be-e886-42a1-b450-b065528583c0",
+          "name": "Retrieves balance sheet report",
+          "request": {
+            "name": "Retrieves balance sheet report",
+            "description": {
+              "content": "Returns a balance sheet report as of the specified date.\nRequired parameter: as_of_date (ISO-8601 format YYYY-MM-DD). Must be provided or the call will fail.\nExample: as_of_date=2024-12-31.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "balance-sheet"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "as_of_date",
+                  "value": "<date>",
+                  "description": "(Required) The date for the point-in-time report. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "breakdown_by",
+                  "value": "<string>",
+                  "description": "How to break down the report columns. If not specified, returns a single total column."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a73358a0-105c-4095-884a-25dd1a362b25",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "balance-sheet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "as_of_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"as_of_date\": \"2024-01-31\",\n  \"currency\": \"USD\",\n  \"sections\": [\n    {\n      \"name\": \"Assets\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"f1bf8a00-ebe0-e4f1-28d4-b713f02f0fb1\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"bc6ee88d-9769-374c-78f5-bfac475b3904\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"groups\": [\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"accounts\": [\n        {\n          \"id\": \"9a6a64d5-7cb7-7bfd-a084-44aba4a96f51\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"dc95eea6-1119-770a-6449-be2735400fe5\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"name\": \"Assets\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"91c1e69d-50f2-8ef2-0174-8e31a601f3f4\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"03d3ec7a-32cc-85e2-23fb-7185d2ed909f\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"groups\": [\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"accounts\": [\n        {\n          \"id\": \"25754a62-dcb4-a800-c5cc-a00e53450a79\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"cb4c004a-d583-77d5-9260-c67c6648965d\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"breakdowns\": [\n    {\n      \"type\": \"PERIOD\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"2e8b2075-68cc-95dd-a8c3-1a4e8f1d4c46\"\n    },\n    {\n      \"type\": \"CUSTOM_FIELD\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"adeb322f-31ec-c831-5d2b-b7c02ae907bc\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cba46b7-13d8-477d-bb00-c40bffbd2094",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "balance-sheet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "as_of_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b09a65e-65b7-414a-b668-655c930b1e58",
+          "name": "Retrieves income statement report",
+          "request": {
+            "name": "Retrieves income statement report",
+            "description": {
+              "content": "Returns an income statement (profit and loss) report for the specified date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "income-statement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "breakdown_by",
+                  "value": "<string>",
+                  "description": "How to break down the report columns. If not specified, returns a single total column."
+                },
+                {
+                  "disabled": false,
+                  "key": "custom_field_id",
+                  "value": "<uuid>",
+                  "description": "The ID of the custom field to break down by. Required when breakdown_by is CUSTOM_FIELD."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f34aa4d-37cc-4c94-a6f1-1f56478e20e2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "income-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    },
+                    {
+                      "key": "custom_field_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"period\": {\n    \"from_date\": \"2024-01-01\",\n    \"to_date\": \"2024-01-31\"\n  },\n  \"currency\": \"USD\",\n  \"breakdowns\": [\n    {\n      \"type\": \"CUSTOM_FIELD\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"1ddf8eb1-dee6-ee29-d81b-be739ef63587\"\n    },\n    {\n      \"type\": \"PERIOD\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"12414314-d264-f020-e3fc-8492013bb7f4\"\n    }\n  ],\n  \"sections\": [\n    {\n      \"name\": \"Assets\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"db358028-20b2-5f1c-de11-e907d7545531\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"1131c6df-066a-0843-fe9a-515f505fadcd\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"groups\": [\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"accounts\": [\n        {\n          \"id\": \"c2037c43-0c6e-1400-a6fa-0fe677acdadf\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"4e8d561e-402b-4eeb-71db-39f631a3289f\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"name\": \"Assets\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"4f9a9a6a-b4da-03ee-71f3-41608f27c034\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"ad912745-9e84-51ac-97cd-5071a591523c\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"groups\": [\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Current Assets\",\n          \"totals\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"accounts\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"balances\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"groups\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"totals\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"accounts\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"accounts\": [\n        {\n          \"id\": \"d3c4b1ad-17ea-136c-59ab-3d319fcec5af\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"257d7dde-e432-6330-d7cd-8587797c9ba4\",\n          \"code\": \"1000\",\n          \"name\": \"Cash\",\n          \"balances\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"summaries\": [\n    {\n      \"name\": \"Gross Profit\",\n      \"amounts\": [\n        {\n          \"breakdown_id\": \"a3e47e5e-1ac0-ceaa-4855-861eea743217\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"33ab0718-4692-12a0-501b-9c78a4085490\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"margins\": [\n        {\n          \"breakdown_id\": \"00dd5186-f6c5-b003-2cec-805dd5d8515e\",\n          \"value\": 4788.262614488801\n        },\n        {\n          \"breakdown_id\": \"1e42dbe7-0b66-9f13-3e92-7eb0bae05477\",\n          \"value\": 7164.243713110752\n        }\n      ]\n    },\n    {\n      \"name\": \"Gross Profit\",\n      \"amounts\": [\n        {\n          \"breakdown_id\": \"9acbe0a6-f92c-8da6-9fa5-9a68d8d1b613\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"1e201dd4-2ab8-8edf-b623-35cc151a4901\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"margins\": [\n        {\n          \"breakdown_id\": \"c295eb74-ab6e-639f-b935-35933a9d5635\",\n          \"value\": 1181.1650794713469\n        },\n        {\n          \"breakdown_id\": \"1520c71a-19a8-252d-f5af-72b091d0f063\",\n          \"value\": 6745.290686976508\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1027d38-aa6d-4267-b3af-f12c34af79ed",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "income-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    },
+                    {
+                      "key": "custom_field_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f88303b-5834-4546-b83d-099d963f4a56",
+          "name": "Retrieves cash flow statement report",
+          "request": {
+            "name": "Retrieves cash flow statement report",
+            "description": {
+              "content": "Returns a cash flow statement report for the specified date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "cash-flow-statement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "breakdown_by",
+                  "value": "<string>",
+                  "description": "How to break down the report columns. If not specified, returns a single total column."
+                },
+                {
+                  "disabled": false,
+                  "key": "custom_field_id",
+                  "value": "<uuid>",
+                  "description": "The ID of the custom field to break down by. Required when breakdown_by is CUSTOM_FIELD."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08cd0081-9e91-44e8-a0e9-355d3236c472",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "cash-flow-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    },
+                    {
+                      "key": "custom_field_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"period\": {\n    \"from_date\": \"2024-01-01\",\n    \"to_date\": \"2024-01-31\"\n  },\n  \"currency\": \"USD\",\n  \"breakdowns\": [\n    {\n      \"type\": \"PERIOD\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"1386ff02-acb1-37d8-1164-a05e19babef8\"\n    },\n    {\n      \"type\": \"SUBSIDIARY\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"09ac412e-bd6b-290a-635c-6aa7b1c308c3\"\n    }\n  ],\n  \"sections\": [\n    {\n      \"name\": \"Operating Cash Flow\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"3c1fd4a3-a088-c00a-f702-fc2cfef0b1c5\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"1b0d7404-732e-f050-f08e-a8cd92308abd\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"items\": [\n        {\n          \"name\": \"Net Income\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Net Income\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"name\": \"Operating Cash Flow\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"3117c37a-6833-58dc-26ff-9eebb74c6638\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"73ea5f92-bbc4-c873-31d8-34601b5c9292\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"items\": [\n        {\n          \"name\": \"Net Income\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Net Income\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"summaries\": [\n    {\n      \"name\": \"Net Income\",\n      \"amounts\": [\n        {\n          \"breakdown_id\": \"9bd2378a-033d-a8e4-7eaa-23c2a39c29db\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"a65a0fd8-64e2-6ecc-f31f-84d0751f285a\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"Net Income\",\n      \"amounts\": [\n        {\n          \"breakdown_id\": \"ad233691-236c-1863-99c7-2f9555215565\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"74718396-64a0-bcc5-56af-41efdab9c5ca\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25e16530-9221-4294-9e49-4747ba7b3486",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "cash-flow-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    },
+                    {
+                      "key": "custom_field_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0566798f-4a1d-424e-a685-57721cd56617",
+          "name": "Retrieves executive P&L report",
+          "request": {
+            "name": "Retrieves executive P&L report",
+            "description": {
+              "content": "Returns an executive profit and loss report with margins for the specified date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "executive-pl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the report period. Uses ISO-8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "breakdown_by",
+                  "value": "<string>",
+                  "description": "How to break down the report columns. If not specified, returns a single total column."
+                },
+                {
+                  "disabled": false,
+                  "key": "custom_field_id",
+                  "value": "<uuid>",
+                  "description": "The ID of the custom field to break down by. Required when breakdown_by is CUSTOM_FIELD."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a009d3ab-3782-47fd-ad18-3bad1fc7a711",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "executive-pl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    },
+                    {
+                      "key": "custom_field_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"period\": {\n    \"from_date\": \"2024-01-01\",\n    \"to_date\": \"2024-01-31\"\n  },\n  \"currency\": \"USD\",\n  \"breakdowns\": [\n    {\n      \"type\": \"SUBSIDIARY\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"bf22a10e-87ec-d405-3c6d-022d32175d1d\"\n    },\n    {\n      \"type\": \"CUSTOM_FIELD\",\n      \"name\": \"Acme Corp US\",\n      \"id\": \"080d5fc2-ef6e-184d-ed93-721085bdf0d0\"\n    }\n  ],\n  \"sections\": [\n    {\n      \"name\": \"Revenue\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"6f22def5-f3fa-922d-607e-7ec4f52ed59d\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"ff3e9e20-1a3d-130c-b19c-4d77f564873b\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"items\": [\n        {\n          \"name\": \"Product Revenue\",\n          \"code\": \"4210\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Product Revenue\",\n          \"code\": \"4210\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"name\": \"Revenue\",\n      \"totals\": [\n        {\n          \"breakdown_id\": \"84f21e48-443c-a5cd-a474-5af38e93cf58\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"d0119c70-be75-bbca-3df1-6e9691b661f0\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"items\": [\n        {\n          \"name\": \"Product Revenue\",\n          \"code\": \"4210\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"name\": \"Product Revenue\",\n          \"code\": \"4210\",\n          \"amounts\": [\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"breakdown_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"summaries\": [\n    {\n      \"name\": \"Gross Profit\",\n      \"amounts\": [\n        {\n          \"breakdown_id\": \"15039ecb-dc9e-7c53-9cab-64f36706cfaf\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"28761d3f-d516-8163-7fb9-a212c9dec134\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"margins\": [\n        {\n          \"breakdown_id\": \"e117b4fd-6b49-72d2-658c-13761b37d543\",\n          \"value\": 5968.876666956397\n        },\n        {\n          \"breakdown_id\": \"302469e4-22d1-1bd8-e723-0cd7ccc596f0\",\n          \"value\": 8530.21188415231\n        }\n      ]\n    },\n    {\n      \"name\": \"Gross Profit\",\n      \"amounts\": [\n        {\n          \"breakdown_id\": \"5fb425dd-d873-1ad9-413a-1ffaf43a2c26\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"breakdown_id\": \"8429a4cc-838a-3b2d-0df9-dd4137997073\",\n          \"amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"margins\": [\n        {\n          \"breakdown_id\": \"94de5346-a1ee-ca98-5f68-9b2229626201\",\n          \"value\": 7451.900586972795\n        },\n        {\n          \"breakdown_id\": \"d3e98865-05eb-dcd0-94cc-c951f2697ff3\",\n          \"value\": 1009.7365188777308\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1504cb5-8f24-4b2a-bd75-229fc153007c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "executive-pl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_date",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "2024-01-31"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "breakdown_by",
+                      "value": "SUBSIDIARY"
+                    },
+                    {
+                      "key": "custom_field_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d36ed1b6-aa15-4d10-9322-bbd6fd5f6bb4",
+          "name": "Lists journal entries with reporting currency amounts",
+          "request": {
+            "name": "Lists journal entries with reporting currency amounts",
+            "description": {
+              "content": "Returns journal entries with line item amounts converted to the reporting currency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "journal-entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter journal entries updated after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "date.gte",
+                  "value": "<date>",
+                  "description": "Filter journal entries with a posting date on or after this date (inclusive)"
+                },
+                {
+                  "disabled": false,
+                  "key": "date.lte",
+                  "value": "<date>",
+                  "description": "Filter journal entries with a posting date on or before this date (inclusive)"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<uuid>,<uuid>",
+                  "description": "Filter journal entries that have at least one line item posting to any of these account ids (comma-separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created",
+                  "description": "the field the journal entries should be sorted by descending (either created or updated)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46cb904c-4c7d-4111-8219-78aaa5239311",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "journal-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "date.gte",
+                      "value": "2023-12-01"
+                    },
+                    {
+                      "key": "date.lte",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "11111111-1111-1111-1111-111111111111,22222222-2222-2222-2222-222222222222"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"journal_entries\": [\n    {\n      \"id\": \"009dd16c-bba0-a498-8489-61c3fc45c1dc\",\n      \"date\": \"1947-09-16\",\n      \"name\": \"string\",\n      \"items\": [\n        {\n          \"id\": \"0776a0f1-5809-f1bc-5765-8be44c7220fc\",\n          \"local_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"reporting_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"e773f413-742d-5860-1b81-f98c1a84d071\",\n          \"account_code\": \"11112\",\n          \"side\": \"CREDIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"exchange_rate\": \"string\",\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"d76bb97e-aca1-df65-a682-9f9734b30850\",\n          \"local_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"reporting_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"4e0c4579-fc27-d9dd-a5d6-ae08938f00ab\",\n          \"account_code\": \"11112\",\n          \"side\": \"CREDIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"exchange_rate\": \"string\",\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"subsidiary_id\": \"c43ba149-8515-e7f2-6660-d81bc3cb9603\",\n      \"related_entity\": {\n        \"id\": \"f8647722-fbd4-ffa5-911c-2a3b17b08cc9\",\n        \"type\": \"VENDOR\"\n      },\n      \"reversal_date\": \"2016-01-08\",\n      \"attachmentUrl\": \"http://iG.vklg4bmxwz7a1J5PfabUxCyj7XULK,zdBox3HNH5ZQ,0xtc\"\n    },\n    {\n      \"id\": \"dcc10988-1de5-e856-08f3-6b0f8d87a0a5\",\n      \"date\": \"2021-06-28\",\n      \"name\": \"string\",\n      \"items\": [\n        {\n          \"id\": \"caf37048-6755-ac88-d554-69ff50b5e0e0\",\n          \"local_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"reporting_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"7e8cd606-e373-0220-65ce-8690d7f61482\",\n          \"account_code\": \"11112\",\n          \"side\": \"CREDIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"exchange_rate\": \"string\",\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"id\": \"f2181960-99e7-1c07-0204-7535fbb4f297\",\n          \"local_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"reporting_amount\": {\n            \"amount\": \"1.01\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account_id\": \"38ffd5a8-e00a-1ba1-ad7a-fcd1f17fbd07\",\n          \"account_code\": \"11112\",\n          \"side\": \"DEBIT\",\n          \"description\": \"string\",\n          \"original_transaction_amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"exchange_rate\": \"string\",\n          \"fields\": [\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"field_value_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"subsidiary_id\": \"e589559e-5c0c-f52b-e795-8e36b0981b30\",\n      \"related_entity\": {\n        \"id\": \"7d58bb99-4c62-caae-9c6e-1784d300f03c\",\n        \"type\": \"VENDOR\"\n      },\n      \"reversal_date\": \"2000-06-05\",\n      \"attachmentUrl\": \"https://PWsoeXunTsuy.ofcz+ohijfvd4IakHcpXYk4Qh61XAD79ieLAfKFZiVAa+ImYBcXXa5sZwUQfRT-d0Jz\"\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c692709-f0e6-4633-b44e-7624c485361e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "journal-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "date.gte",
+                      "value": "2023-12-01"
+                    },
+                    {
+                      "key": "date.lte",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "11111111-1111-1111-1111-111111111111,22222222-2222-2222-2222-222222222222"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "312662fb-a241-4048-8e08-e25760c686b9",
+    "name": "Rillet Accounting API Key Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

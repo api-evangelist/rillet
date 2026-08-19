@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Vendor Credits API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vendor Credits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all vendor credits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/vendor-credits",
+            "params": [
+              {
+                "name": "vendor_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional UUID filter by vendor."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter vendor credits updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Returns vendor credits with pagination and filters for vendor, subsidiary, and freshness.\nCredits represent vendor-issued balance reductions you can later apply to bills using apply-vendor-credit.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a vendor credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/vendor-credits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a new vendor credit memo amount that reduces future payables without yet touching specific bills.\nAfter creation, use apply-vendor-credit to allocate the balance across one or more open bills.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a vendor credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/vendor-credits/:vendor_credit_id",
+            "params": [
+              {
+                "name": "vendor_credit_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor credit to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Loads a single vendor credit including remaining balance and application history.\nRetrieve before updating or applying so you know how much capacity is left to allocate to bills.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a vendor credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/vendor-credits/:vendor_credit_id",
+            "params": [
+              {
+                "name": "vendor_credit_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor credit to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-vendor-credit first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a vendor credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/vendor-credits/:vendor_credit_id",
+            "params": [
+              {
+                "name": "vendor_credit_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor credit to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Permanently removes a vendor credit that should not remain in the subledger.\nEnsure no applications or downstream reconciliations still rely on this credit before deleting.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

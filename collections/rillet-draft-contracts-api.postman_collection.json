@@ -1,0 +1,840 @@
+{
+  "item": [
+    {
+      "id": "66af979c-bf4c-4e1b-9b2d-48673301da5d",
+      "name": "Draft Contracts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1996d3fa-b0b3-430d-aed8-d283e0689a80",
+          "name": "Retrieves a draft contract",
+          "request": {
+            "name": "Retrieves a draft contract",
+            "description": {
+              "content": "Returns a draft contract by id, including its line items and any attached external references.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "draft-contracts",
+                ":draft_contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "draft_contract_id",
+                  "description": "(Required) UUID of the draft contract to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79296431-b6aa-41a1-ae11-32f54e39eeca",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts",
+                    ":draft_contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "draft_contract_id",
+                      "description": "(Required) UUID of the draft contract to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"80eca027-dca6-2f59-7fc1-3a7bc7ff6d7c\",\n  \"subsidiary_id\": \"1af225bb-5163-2f11-4cb1-6c6666dcd8b8\",\n  \"customer_id\": \"f5a76649-814e-e620-5862-e6f7fa5858ea\",\n  \"name\": \"string\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"1956-02-12\",\n  \"items\": [\n    {\n      \"id\": \"064594a5-ca53-21b9-fa68-b90273377d02\",\n      \"product_id\": \"0090f2ff-182f-fe3f-3094-2928ac7499da\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 965.7733806457303,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2006-03-17\",\n      \"end_date\": \"1960-09-18\"\n    },\n    {\n      \"id\": \"5e2b2405-cd7f-203d-8bbf-1ee489c54cc3\",\n      \"product_id\": \"5114ee1f-ca59-e317-b072-6247ef51041f\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 5447.431213005281,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"1955-01-01\",\n      \"end_date\": \"1980-03-17\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"1977-07-12\",\n  \"end_date\": \"1966-10-01\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f6f04e1-af2a-4455-9172-40b21a7900dd",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts",
+                    ":draft_contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "draft_contract_id",
+                      "description": "(Required) UUID of the draft contract to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2656566d-3e0e-481e-ad9a-d63fef79bea9",
+          "name": "Updates a draft contract",
+          "request": {
+            "name": "Updates a draft contract",
+            "description": {
+              "content": "Replaces the draft contract identified by `draft_contract_id` with the supplied payload. The body shape\nmatches `POST /draft-contracts` — items and external_references on the existing record are fully replaced.\nReturns 404 if the id is not a draft contract in the organization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "draft-contracts",
+                ":draft_contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "draft_contract_id",
+                  "description": "(Required) UUID of the draft contract to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subsidiary_id\": \"<uuid>\",\n  \"customer_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"close_date\": \"<date>\",\n  \"scope\": \"<string>\",\n  \"items\": [\n    {\n      \"product_id\": \"<uuid>\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": \"<number>\",\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4bc8995e-3e53-4bf4-99a5-ec5604ba11a5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts",
+                    ":draft_contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "draft_contract_id",
+                      "description": "(Required) UUID of the draft contract to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subsidiary_id\": \"<uuid>\",\n  \"customer_id\": \"<uuid>\",\n  \"name\": \"Acme Corp - Annual subscription\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"<date>\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\",\n  \"items\": [\n    {\n      \"product_id\": \"affd9dd3-cfc7-27d7-408d-e7034b2e5be2\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 1,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2025-11-26\",\n      \"end_date\": \"2003-12-28\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"80eca027-dca6-2f59-7fc1-3a7bc7ff6d7c\",\n  \"subsidiary_id\": \"1af225bb-5163-2f11-4cb1-6c6666dcd8b8\",\n  \"customer_id\": \"f5a76649-814e-e620-5862-e6f7fa5858ea\",\n  \"name\": \"string\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"1956-02-12\",\n  \"items\": [\n    {\n      \"id\": \"064594a5-ca53-21b9-fa68-b90273377d02\",\n      \"product_id\": \"0090f2ff-182f-fe3f-3094-2928ac7499da\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 965.7733806457303,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2006-03-17\",\n      \"end_date\": \"1960-09-18\"\n    },\n    {\n      \"id\": \"5e2b2405-cd7f-203d-8bbf-1ee489c54cc3\",\n      \"product_id\": \"5114ee1f-ca59-e317-b072-6247ef51041f\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 5447.431213005281,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"1955-01-01\",\n      \"end_date\": \"1980-03-17\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"1977-07-12\",\n  \"end_date\": \"1966-10-01\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cc81d71-b5e1-454d-bf0e-52e09a2b53fc",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts",
+                    ":draft_contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "draft_contract_id",
+                      "description": "(Required) UUID of the draft contract to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subsidiary_id\": \"<uuid>\",\n  \"customer_id\": \"<uuid>\",\n  \"name\": \"Acme Corp - Annual subscription\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"<date>\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\",\n  \"items\": [\n    {\n      \"product_id\": \"affd9dd3-cfc7-27d7-408d-e7034b2e5be2\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 1,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2025-11-26\",\n      \"end_date\": \"2003-12-28\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a894fc96-61c7-4930-a20c-ab130454a8b6",
+          "name": "Deletes a draft contract",
+          "request": {
+            "name": "Deletes a draft contract",
+            "description": {
+              "content": "Permanently removes a draft contract along with its line items and external references. Use this to programmatically reject a draft contract instead of doing it from the Rillet UI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "draft-contracts",
+                ":draft_contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "draft_contract_id",
+                  "description": "(Required) UUID of the draft contract to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7504d09d-b047-4646-8ec7-0bb49a73b58f",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts",
+                    ":draft_contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "draft_contract_id",
+                      "description": "(Required) UUID of the draft contract to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0451e32c-7d7e-41c2-8e01-b4d2b062d7fa",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts",
+                    ":draft_contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "draft_contract_id",
+                      "description": "(Required) UUID of the draft contract to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4db03b68-8f8e-45f6-a840-db007c191b00",
+          "name": "Lists all draft contracts",
+          "request": {
+            "name": "Lists all draft contracts",
+            "description": {
+              "content": "Returns draft contracts with cursor pagination. Draft contracts are staged records that appear in the Rillet UI under\n\"Draft\" for a human to approve or reject before they become active contracts.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "draft-contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "customer_id",
+                  "value": "<uuid>",
+                  "description": "Optional UUID filter by customer."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ff7bea8-5113-44bb-848e-b46a78e4a027",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "customer_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"draft_contracts\": [\n    {\n      \"id\": \"85505bbe-6992-f11e-445a-86b5c12d6006\",\n      \"subsidiary_id\": \"e4907405-ea8e-7eb9-8ade-6e6b7f445bf7\",\n      \"customer_id\": \"515df3b9-8e99-a5f5-5373-493638503a3d\",\n      \"name\": \"string\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"close_date\": \"1965-11-16\",\n      \"items\": [\n        {\n          \"id\": \"fe38b5f2-4353-8539-6d25-b82cdeb3a096\",\n          \"product_id\": \"08ae281c-0c35-e399-ec45-2e189d532732\",\n          \"price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"quantity\": 762.7719020376811,\n          \"discount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_date\": \"1993-10-27\",\n          \"end_date\": \"2004-04-04\"\n        },\n        {\n          \"id\": \"833f4a19-dc98-8e1c-82f7-f5f310fad9a8\",\n          \"product_id\": \"7a09e653-58b6-e958-93cd-b7397a2d806f\",\n          \"price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"quantity\": 8366.398277433675,\n          \"discount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_date\": \"2002-06-16\",\n          \"end_date\": \"1999-02-03\"\n        }\n      ],\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"start_date\": \"1950-11-20\",\n      \"end_date\": \"2024-10-12\",\n      \"scope\": \"FULL\"\n    },\n    {\n      \"id\": \"1eaa9b80-795d-4db4-4b6c-927359c18673\",\n      \"subsidiary_id\": \"f27a3904-4233-6d01-6db1-930e94f8c404\",\n      \"customer_id\": \"db3948f5-db7e-f52d-fe29-cb8f01567bfd\",\n      \"name\": \"string\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"close_date\": \"2018-05-20\",\n      \"items\": [\n        {\n          \"id\": \"233ef929-3382-23eb-234c-b156a15dca44\",\n          \"product_id\": \"c49611fd-1259-b818-3e82-5f1f5a65fd59\",\n          \"price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"quantity\": 5907.489149669162,\n          \"discount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_date\": \"2020-06-15\",\n          \"end_date\": \"1948-02-25\"\n        },\n        {\n          \"id\": \"13cc9e88-e25e-77a7-2b67-be98cf23d24f\",\n          \"product_id\": \"a5906506-0fb1-6049-9995-0d36545fd5b4\",\n          \"price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"quantity\": 4182.0714423227555,\n          \"discount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_date\": \"2007-01-13\",\n          \"end_date\": \"1970-01-15\"\n        }\n      ],\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"start_date\": \"1989-05-27\",\n      \"end_date\": \"1953-05-11\",\n      \"scope\": \"FULL\"\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7107f0fb-684d-4d88-9f35-7154e2dcecea",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "customer_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d228bf72-8fcb-49f4-9a87-8e1b3c16af5e",
+          "name": "Creates a draft contract",
+          "request": {
+            "name": "Creates a draft contract",
+            "description": {
+              "content": "Stages a contract in the \"draft\" holding state instead of creating it directly as an active contract.\nDraft contracts appear in the Rillet UI under \"Draft\" for a human to approve or reject.\n\n## Deduplication\n\n**To prevent duplicate draft contracts on retry, supply at least one `external_references` entry with a\nstable `(type, id)` pair.** When you POST again with any matching `(type, id)` pair, the prior draft record\nis replaced with the new payload.\n\nDraft contracts created without any `external_references` are not deduplicated — every POST creates a new\nrecord.\n\n## External reference types\n\nEach reference's `type` must match a slug already defined under Rillet Settings → External References for\nthe organization; unknown slugs return a 400. References attached at create time are preserved when the\ndraft contract is promoted to an active contract.\n\n## Promotion\n\nPromotion to an active contract happens through the Rillet UI. The public API does not currently expose a\nprogrammatic promotion endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "draft-contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subsidiary_id\": \"<uuid>\",\n  \"customer_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"close_date\": \"<date>\",\n  \"scope\": \"<string>\",\n  \"items\": [\n    {\n      \"product_id\": \"<uuid>\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": \"<number>\",\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "17fc0621-6a1a-4300-9515-e2d833c9f5ed",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subsidiary_id\": \"<uuid>\",\n  \"customer_id\": \"<uuid>\",\n  \"name\": \"Acme Corp - Annual subscription\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"<date>\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\",\n  \"items\": [\n    {\n      \"product_id\": \"affd9dd3-cfc7-27d7-408d-e7034b2e5be2\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 1,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2025-11-26\",\n      \"end_date\": \"2003-12-28\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"80eca027-dca6-2f59-7fc1-3a7bc7ff6d7c\",\n  \"subsidiary_id\": \"1af225bb-5163-2f11-4cb1-6c6666dcd8b8\",\n  \"customer_id\": \"f5a76649-814e-e620-5862-e6f7fa5858ea\",\n  \"name\": \"string\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"1956-02-12\",\n  \"items\": [\n    {\n      \"id\": \"064594a5-ca53-21b9-fa68-b90273377d02\",\n      \"product_id\": \"0090f2ff-182f-fe3f-3094-2928ac7499da\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 965.7733806457303,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2006-03-17\",\n      \"end_date\": \"1960-09-18\"\n    },\n    {\n      \"id\": \"5e2b2405-cd7f-203d-8bbf-1ee489c54cc3\",\n      \"product_id\": \"5114ee1f-ca59-e317-b072-6247ef51041f\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 5447.431213005281,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"1955-01-01\",\n      \"end_date\": \"1980-03-17\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"1977-07-12\",\n  \"end_date\": \"1966-10-01\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b95ff3b0-327a-48d1-aba2-0bf9fa54536f",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "draft-contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subsidiary_id\": \"<uuid>\",\n  \"customer_id\": \"<uuid>\",\n  \"name\": \"Acme Corp - Annual subscription\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"close_date\": \"<date>\",\n  \"scope\": \"REVENUE_RECOGNITION_ONLY\",\n  \"items\": [\n    {\n      \"product_id\": \"affd9dd3-cfc7-27d7-408d-e7034b2e5be2\",\n      \"price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"interval_months\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": \"FIXED_RECURRING\"\n      },\n      \"quantity\": 1,\n      \"discount\": {\n        \"amount_off\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"type\": \"AMOUNT\"\n      },\n      \"start_date\": \"2025-11-26\",\n      \"end_date\": \"2003-12-28\"\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8cc22c5e-2e34-4f5a-9757-e30ef1bded5e",
+    "name": "Rillet Accounting API Key Draft Contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

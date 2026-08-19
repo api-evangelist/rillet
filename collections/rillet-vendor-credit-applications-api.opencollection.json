@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Vendor Credit Applications API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vendor Credit Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Applies a vendor credit to bills",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/vendor-credits/:vendor_credit_id/applications",
+            "params": [
+              {
+                "name": "vendor_credit_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor credit to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allocates an existing vendor credit balance against specific open bills, reducing net amounts payable similar to a targeted vendor payment.\nUse after reviewing retrieve-a-vendor-credit so you apply only the remaining unapplied balance.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

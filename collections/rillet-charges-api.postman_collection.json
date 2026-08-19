@@ -1,0 +1,660 @@
+{
+  "item": [
+    {
+      "id": "2eedc51d-8d07-4531-82ab-5444e1f90049",
+      "name": "Charges",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b98538f4-053f-4118-8b90-20730cc7e539",
+          "name": "Lists all charges",
+          "request": {
+            "name": "Lists all charges",
+            "description": {
+              "content": "Pages card or out-of-pocket employee charges awaiting policy review, subsidiary allocation, or conversion into reimbursable payables.\nFilter by subsidiary_id or updated.gt when syncing corporate card feeds into downstream expense automation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "charges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter charges updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a62bac4-4403-4467-82aa-14702fdee2c4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"charges\": [\n    {\n      \"charge_date\": \"2007-12-12\",\n      \"credit_card_account_code\": \"11112\",\n      \"id\": \"89c5dc81-c759-5d5a-5e0b-ccd0b2db2c7e\",\n      \"items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"d285c5e9-c84a-3f72-8b66-8424d51c8c33\",\n          \"description\": \"API Charge\",\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service_period\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"PARTIALLY_PAID\",\n      \"updated_at\": \"2004-10-15T08:45:51.924Z\",\n      \"vendor_id\": \"42900e92-9169-bd53-fba4-6e6ddbda5618\",\n      \"impact_date\": \"1995-07-06\",\n      \"subsidiary_id\": \"1662e52b-8055-bcd9-1e8f-964cac64c804\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"1964-06-13\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    },\n    {\n      \"charge_date\": \"1977-09-07\",\n      \"credit_card_account_code\": \"11112\",\n      \"id\": \"c95fbebf-ab18-8055-018e-790fa2abe2a3\",\n      \"items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"53e5fbc7-b1fb-5936-a6d4-a116587b33f4\",\n          \"description\": \"API Charge\",\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service_period\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"PAID\",\n      \"updated_at\": \"2026-03-30T19:04:34.386Z\",\n      \"vendor_id\": \"53d461eb-c9e8-c28e-3d0b-caa37804e7ce\",\n      \"impact_date\": \"1987-03-31\",\n      \"subsidiary_id\": \"97fe65fa-81b8-a570-5235-f71f099217c5\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"2025-03-20\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe3ba847-99f3-4aa4-9bfd-40e2a1e0542f",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0eb47192-d57a-4f93-b907-0dfff7939eb1",
+          "name": "Create a charge",
+          "request": {
+            "name": "Create a charge",
+            "description": {},
+            "url": {
+              "path": [
+                "charges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"items\": [\n    {\n      \"account_code\": \"<string>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"<string>\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"<string>\"\n      },\n      \"service_period\": {\n        \"end\": \"<date>\",\n        \"start\": \"<date>\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"charge_date\": \"<date>\",\n  \"credit_card_account_code\": \"<string>\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c34b56df-9ca5-4914-9f94-3f22aaebdf70",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"API Charge\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"EXCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1991-11-25\",\n        \"start\": \"2019-10-12\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"39d6f89a-3ee6-5261-f27d-1195aee59496\",\n          \"field_value_id\": \"abfa5950-fbbc-aae1-1376-a5756ec9a7e3\"\n        },\n        {\n          \"field_id\": \"a11fdffb-5b11-069e-4320-ace437c5cdf5\",\n          \"field_value_id\": \"9ed270ec-9a60-5e24-5c74-66613397445f\"\n        }\n      ]\n    }\n  ],\n  \"charge_date\": \"<date>\",\n  \"credit_card_account_code\": \"11112\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1980-11-10\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"charge_date\": \"1978-08-13\",\n  \"credit_card_account_code\": \"11112\",\n  \"id\": \"6478e058-1ed6-77c6-ef7e-497d3cb4a1a8\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"644f1c64-1b57-3112-a6e8-ae642e88ebc1\",\n      \"description\": \"API Charge\",\n      \"tax_rate\": {\n        \"coverage\": \"EXCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1963-04-02\",\n        \"start\": \"1955-05-07\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"0eb0d035-4199-e683-9a7a-8973cfb65621\",\n          \"field_value_id\": \"6dce13c7-2179-cf15-7cbd-02611d02fa5b\"\n        },\n        {\n          \"field_id\": \"87bb96f4-a542-181d-f436-00366d513704\",\n          \"field_value_id\": \"c87a71fa-4c16-3e0d-ca1d-1b7b71e3b635\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"UNPAID\",\n  \"updated_at\": \"1966-10-02T21:57:35.162Z\",\n  \"vendor_id\": \"9dae8664-bb4b-68cc-30fd-da7de475c7b2\",\n  \"impact_date\": \"2009-03-20\",\n  \"subsidiary_id\": \"a0dc58cf-e57e-1711-70ae-ea4a1c0fd630\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2020-12-27\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5690ec63-e3bf-4fee-ab82-9c250527d1e8",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"API Charge\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"EXCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1991-11-25\",\n        \"start\": \"2019-10-12\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"39d6f89a-3ee6-5261-f27d-1195aee59496\",\n          \"field_value_id\": \"abfa5950-fbbc-aae1-1376-a5756ec9a7e3\"\n        },\n        {\n          \"field_id\": \"a11fdffb-5b11-069e-4320-ace437c5cdf5\",\n          \"field_value_id\": \"9ed270ec-9a60-5e24-5c74-66613397445f\"\n        }\n      ]\n    }\n  ],\n  \"charge_date\": \"<date>\",\n  \"credit_card_account_code\": \"11112\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1980-11-10\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83de3426-317d-4488-a61d-07ff995afdc4",
+          "name": "Retrieves a charge",
+          "request": {
+            "name": "Retrieves a charge",
+            "description": {
+              "content": "Fetches a single charge with merchant metadata, amounts, and workflow state so reviewers can decide coding before reimbursement.\nUse this after list-all-charges surfaces an id that needs manual inspection or attachment to a bill.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "charges",
+                ":charge_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "charge_id",
+                  "description": "(Required) UUID of the charge to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6aab2db-a394-4554-abed-ce992cab6663",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges",
+                    ":charge_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "charge_id",
+                      "description": "(Required) UUID of the charge to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"charge_date\": \"1978-08-13\",\n  \"credit_card_account_code\": \"11112\",\n  \"id\": \"6478e058-1ed6-77c6-ef7e-497d3cb4a1a8\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"644f1c64-1b57-3112-a6e8-ae642e88ebc1\",\n      \"description\": \"API Charge\",\n      \"tax_rate\": {\n        \"coverage\": \"EXCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1963-04-02\",\n        \"start\": \"1955-05-07\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"0eb0d035-4199-e683-9a7a-8973cfb65621\",\n          \"field_value_id\": \"6dce13c7-2179-cf15-7cbd-02611d02fa5b\"\n        },\n        {\n          \"field_id\": \"87bb96f4-a542-181d-f436-00366d513704\",\n          \"field_value_id\": \"c87a71fa-4c16-3e0d-ca1d-1b7b71e3b635\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"UNPAID\",\n  \"updated_at\": \"1966-10-02T21:57:35.162Z\",\n  \"vendor_id\": \"9dae8664-bb4b-68cc-30fd-da7de475c7b2\",\n  \"impact_date\": \"2009-03-20\",\n  \"subsidiary_id\": \"a0dc58cf-e57e-1711-70ae-ea4a1c0fd630\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2020-12-27\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65cc5358-d02d-428f-9231-b60d89d3dbe2",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges",
+                    ":charge_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "charge_id",
+                      "description": "(Required) UUID of the charge to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1afd6489-ec06-4737-811c-bfea6d71514a",
+          "name": "Deletes a charge",
+          "request": {
+            "name": "Deletes a charge",
+            "description": {
+              "content": "Drops a charge that should not influence spend reporting, for example duplicate imports from a card processor feed.\nEnsure finance agrees the underlying bank activity will not be re-imported before removing the charge permanently.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "charges",
+                ":charge_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "charge_id",
+                  "description": "(Required) UUID of the charge to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67a557c1-b370-4765-a47f-780dee9e6c2c",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges",
+                    ":charge_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "charge_id",
+                      "description": "(Required) UUID of the charge to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c75ce6db-debf-4361-bd70-2bbee0e3ee5a",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "charges",
+                    ":charge_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "charge_id",
+                      "description": "(Required) UUID of the charge to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "86167b30-7e04-4a86-add3-52767efb0acb",
+    "name": "Rillet Accounting API Key Charges API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Tax rates API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tax rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all tax rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/tax-rates",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Two-letter country code (ISO 3166-1 alpha-2). If provided, only tax rates for that country are returned."
+              }
+            ]
+          },
+          "docs": "Returns all available tax rates. Use the returned IDs when creating bills with specific tax codes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

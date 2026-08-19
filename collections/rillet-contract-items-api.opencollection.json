@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Contract Items API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contract Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all contract item usage records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/contract-items/:contract_item_id/usage",
+            "params": [
+              {
+                "name": "contract_item_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract line item whose usage rows are being listed."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              }
+            ]
+          },
+          "docs": "Returns historical usage quantities for a contract item, newest first, with optional pagination cursors.\nUse before upsert-a-usage-record or delete-a-usage-record to understand existing coverage for each date.\n"
+        },
+        {
+          "info": {
+            "name": "Upserts a usage record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.rillet.com/contract-items/:contract_item_id/usage",
+            "params": [
+              {
+                "name": "contract_item_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract line item that carries the usage-priced product."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates usage records on dates where previously no usage was recorded. Overwrites usage records on dates where usage was previously recorded already."
+        },
+        {
+          "info": {
+            "name": "Deletes a usage record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/contract-items/:contract_item_id/usage",
+            "params": [
+              {
+                "name": "contract_item_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract line item whose usage row should be removed."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Calendar date of the usage row to delete (ISO-8601 format)."
+              }
+            ]
+          },
+          "docs": "Removes the usage entry for a single contract item on a specific calendar date.\nThis is narrower than upsert-a-usage-record and is ideal when you need to wipe a mistaken day without resending the entire usage payload.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

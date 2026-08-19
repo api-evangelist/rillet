@@ -1,0 +1,1250 @@
+{
+  "item": [
+    {
+      "id": "5c21fc22-8cd0-4a22-bd9e-152cebd67f45",
+      "name": "Invoices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7764251b-e82e-4ce1-b44a-4a6fc4792767",
+          "name": "Lists all invoices",
+          "request": {
+            "name": "Lists all invoices",
+            "description": {
+              "content": "Returns AR invoices with pagination plus filters for subsidiary, customer, overdue state, and audit timestamps.\nUse invoice ids from this feed with retrieve-an-invoice before performing full updates.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "overdue",
+                  "value": "<boolean>",
+                  "description": "Filter for overdue invoices."
+                },
+                {
+                  "disabled": false,
+                  "key": "customer_id",
+                  "value": "<uuid>",
+                  "description": "Optional UUID filter by customer."
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter invoices updated after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter invoices by payment status."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93aa1bac-7084-4b95-b99d-94cca237b59c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "overdue",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "customer_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "status",
+                      "value": "UNPAID"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45bea18d-aa4c-4c31-ad6c-f8c19b214eaa",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "overdue",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "customer_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "status",
+                      "value": "UNPAID"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41e34753-f370-4e96-ad07-ca16fe6fd4ad",
+          "name": "Creates an invoice",
+          "request": {
+            "name": "Creates an invoice",
+            "description": {
+              "content": "Rillet supports two invoice scope types: FULL and REVENUE_RECOGNITION_ONLY. The selected scope determines how the invoice is created and what information the user needs to provide.\n\nThe FULL scope is used when the invoice is generated and sent directly from Rillet. In this case, Rillet automatically assigns the invoice number.\n\nThe REVENUE_RECOGNITION_ONLY scope is intended for situations where the invoice is issued from another system and only needs to be recorded in Rillet for accounting purposes. In this workflow, users must provide the invoice number manually. Other fields can be populated based on the data imported from the external system.\n\nFor example, if your organization issues invoices through an external billing platform but tracks financials in Rillet, you should select REVENUE_RECOGNITION_ONLY. If Rillet handles the entire invoicing and sending process, choose the FULL scope.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoice_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"price\": {\n        \"product_id\": \"<uuid>\",\n        \"quantity\": \"<number>\",\n        \"amount_per_unit\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"discount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"pattern\": \"<string>\",\n        \"account_code\": \"<string>\"\n      },\n      \"tax_rate\": {\n        \"country\": \"<string>\",\n        \"description\": \"<string>\",\n        \"percentage\": \"<number>\",\n        \"type\": \"<string>\",\n        \"tax_amount\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"customer_id\": \"<uuid>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"due_date\": \"<date>\",\n  \"purchase_order_number\": \"<string>\",\n  \"memo\": \"<string>\",\n  \"bank_account_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  },\n  \"scope\": \"FULL\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24bd15b0-0e17-499f-9b0a-20d76313fc7c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoice_date\": \"2003-12-17\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"bd3fc1ff-8a98-4e1e-bf8c-eb58de3ed9ce\",\n        \"quantity\": 4806.2137542959235,\n        \"amount_per_unit\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"discount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"SALES_TAX\",\n        \"tax_amount\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"797ed581-7203-6474-f0de-e33e432cb335\",\n          \"field_value_id\": \"208c8e96-54e9-f6c8-61a7-812ee9381eea\"\n        },\n        {\n          \"field_id\": \"e8203647-0d24-29fd-d4ad-9a084beaeccf\",\n          \"field_value_id\": \"40c2bb3b-5e29-163a-410d-e52de30bddf1\"\n        }\n      ]\n    }\n  ],\n  \"customer_id\": \"ed3f13f8-06c4-25b1-7351-71a472125be4\",\n  \"subsidiary_id\": \"6b6aa8ae-41b0-29ed-9098-a7ed46de039e\",\n  \"due_date\": \"1961-02-19\",\n  \"purchase_order_number\": \"1\",\n  \"memo\": \"string\",\n  \"bank_account_id\": \"ebfbf629-bffe-7a45-134d-c2e72dfe9f4a\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2011-07-19\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"scope\": \"FULL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount_due\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"66c4bb2c-5ef9-9aa9-0991-871d0f825e35\",\n  \"due_date\": \"2002-03-11\",\n  \"id\": \"c3736a8f-67b2-fd4a-28e8-ede48a1b9a22\",\n  \"invoice_date\": \"2012-11-19\",\n  \"invoice_number\": \"INV01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"gross_rate\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"84134ebd-82ad-245e-bda7-fcec743bcd48\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"1987-07-09\",\n          \"start\": \"2005-06-23\"\n        },\n        \"pattern\": \"DAILY\",\n        \"account_code\": \"11112\"\n      },\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_discount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"42b2d3de-ba6e-573a-e53c-50bbee27d955\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"field_id\": \"987d88d8-1b59-1c21-d46c-557436e0c5fc\",\n          \"field_value_id\": \"fd20b52f-ff9f-5ca5-84a8-b212166661c8\"\n        },\n        {\n          \"field_id\": \"e2b8c2d3-597c-b5b2-226b-75cb3bef3e36\",\n          \"field_value_id\": \"99b0c7bb-bdc9-cac5-d5ac-cc9f06adb948\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"overdue\": false,\n  \"payment_terms\": 0,\n  \"status\": \"CREDITED\",\n  \"subsidiary_id\": \"edfee089-5cef-1907-14e8-305a1d377e80\",\n  \"subtotal\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total_discount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"1973-11-18T05:04:17.053Z\",\n  \"contract_id\": \"7aefd370-14fd-aa55-d8b1-5f9ffb5b7c93\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"customer_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"bank_account\": {\n    \"id\": \"2848771a-2060-bb23-9cad-80f58095cf22\",\n    \"ach_account\": \"string\",\n    \"ach_routing\": \"string\",\n    \"bank_name\": \"string\",\n    \"bank_address\": \"string\",\n    \"swift_code\": \"string\",\n    \"payment_instructions\": \"string\"\n  },\n  \"purchase_order_number\": \"1\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1980-01-12\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"memo\": \"string\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"sent_at\": \"1949-07-29T05:07:44.525Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78d42131-3aa6-4b04-9e98-0161e965d6cc",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoice_date\": \"2003-12-17\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"bd3fc1ff-8a98-4e1e-bf8c-eb58de3ed9ce\",\n        \"quantity\": 4806.2137542959235,\n        \"amount_per_unit\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"discount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"SALES_TAX\",\n        \"tax_amount\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"797ed581-7203-6474-f0de-e33e432cb335\",\n          \"field_value_id\": \"208c8e96-54e9-f6c8-61a7-812ee9381eea\"\n        },\n        {\n          \"field_id\": \"e8203647-0d24-29fd-d4ad-9a084beaeccf\",\n          \"field_value_id\": \"40c2bb3b-5e29-163a-410d-e52de30bddf1\"\n        }\n      ]\n    }\n  ],\n  \"customer_id\": \"ed3f13f8-06c4-25b1-7351-71a472125be4\",\n  \"subsidiary_id\": \"6b6aa8ae-41b0-29ed-9098-a7ed46de039e\",\n  \"due_date\": \"1961-02-19\",\n  \"purchase_order_number\": \"1\",\n  \"memo\": \"string\",\n  \"bank_account_id\": \"ebfbf629-bffe-7a45-134d-c2e72dfe9f4a\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2011-07-19\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"scope\": \"FULL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a86e0a90-e8fe-4d6e-9721-c0e6b9d63c3e",
+          "name": "Retrieves an invoice",
+          "request": {
+            "name": "Retrieves an invoice",
+            "description": {
+              "content": "Returns invoice details including line items, tax breakdown, and linkage to contracts or customers.\nUse Accept application/json for structured data; application/pdf is only for human-readable exports when enabled.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) UUID of the invoice to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e59bdf30-76ce-4747-b27b-7d88c6881ef5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Response format preference; default is application/json.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount_due\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"66c4bb2c-5ef9-9aa9-0991-871d0f825e35\",\n  \"due_date\": \"2002-03-11\",\n  \"id\": \"c3736a8f-67b2-fd4a-28e8-ede48a1b9a22\",\n  \"invoice_date\": \"2012-11-19\",\n  \"invoice_number\": \"INV01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"gross_rate\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"84134ebd-82ad-245e-bda7-fcec743bcd48\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"1987-07-09\",\n          \"start\": \"2005-06-23\"\n        },\n        \"pattern\": \"DAILY\",\n        \"account_code\": \"11112\"\n      },\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_discount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"42b2d3de-ba6e-573a-e53c-50bbee27d955\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"field_id\": \"987d88d8-1b59-1c21-d46c-557436e0c5fc\",\n          \"field_value_id\": \"fd20b52f-ff9f-5ca5-84a8-b212166661c8\"\n        },\n        {\n          \"field_id\": \"e2b8c2d3-597c-b5b2-226b-75cb3bef3e36\",\n          \"field_value_id\": \"99b0c7bb-bdc9-cac5-d5ac-cc9f06adb948\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"overdue\": false,\n  \"payment_terms\": 0,\n  \"status\": \"CREDITED\",\n  \"subsidiary_id\": \"edfee089-5cef-1907-14e8-305a1d377e80\",\n  \"subtotal\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total_discount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"1973-11-18T05:04:17.053Z\",\n  \"contract_id\": \"7aefd370-14fd-aa55-d8b1-5f9ffb5b7c93\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"customer_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"bank_account\": {\n    \"id\": \"2848771a-2060-bb23-9cad-80f58095cf22\",\n    \"ach_account\": \"string\",\n    \"ach_routing\": \"string\",\n    \"bank_name\": \"string\",\n    \"bank_address\": \"string\",\n    \"swift_code\": \"string\",\n    \"payment_instructions\": \"string\"\n  },\n  \"purchase_order_number\": \"1\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1980-01-12\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"memo\": \"string\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"sent_at\": \"1949-07-29T05:07:44.525Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fb88908-d708-41b8-8e38-68d19b0c9a81",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Response format preference; default is application/json.",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2591a46-847f-4e12-8c50-279c5ce088e1",
+          "name": "Deletes an invoice",
+          "request": {
+            "name": "Deletes an invoice",
+            "description": {
+              "content": "Permanently removes an invoice when your policy allows it (for example draft or voided states).\nConfirm no downstream payments or revenue postings still depend on this invoice.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) UUID of the invoice to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "877ddfc8-5ab9-446b-83d6-4b0056f41d7e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c80166af-30fe-4e37-beac-1cc411233aed",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d455e46c-26a6-4258-9223-be09fcd0c051",
+          "name": "Updates an invoice",
+          "request": {
+            "name": "Updates an invoice",
+            "description": {
+              "content": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-an-invoice first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) UUID of the invoice to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoice_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"price\": {\n        \"product_id\": \"<uuid>\",\n        \"quantity\": \"<number>\",\n        \"amount_per_unit\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"discount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"pattern\": \"<string>\",\n        \"account_code\": \"<string>\"\n      },\n      \"tax_rate\": {\n        \"country\": \"<string>\",\n        \"description\": \"<string>\",\n        \"percentage\": \"<number>\",\n        \"type\": \"<string>\",\n        \"tax_amount\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"bank_account_id\": \"<uuid>\",\n  \"due_date\": \"<date>\",\n  \"purchase_order_number\": \"<string>\",\n  \"memo\": \"<string>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"scope\": \"FULL\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c08af807-4ff2-49fa-b157-46dfa0ab3153",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoice_date\": \"1982-03-03\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"1b5888e7-7886-e3f3-7a6d-70576476c08f\",\n        \"quantity\": 5098.790911434806,\n        \"amount_per_unit\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"discount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"VAT\",\n        \"tax_amount\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"34f6846f-4c33-0581-564b-bc47fbf6b67a\",\n          \"field_value_id\": \"16b6ddee-f94d-0016-25f2-fb684a34b46e\"\n        },\n        {\n          \"field_id\": \"f8960cfe-bb9d-2856-8c68-4d1391a592cb\",\n          \"field_value_id\": \"6042b22e-975c-5da5-7493-f14b6c41b76e\"\n        }\n      ]\n    }\n  ],\n  \"bank_account_id\": \"045ee0ea-7838-f408-74f8-5a8a1fe8aa12\",\n  \"due_date\": \"1970-04-02\",\n  \"purchase_order_number\": \"1\",\n  \"memo\": \"string\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"scope\": \"FULL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount_due\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"66c4bb2c-5ef9-9aa9-0991-871d0f825e35\",\n  \"due_date\": \"2002-03-11\",\n  \"id\": \"c3736a8f-67b2-fd4a-28e8-ede48a1b9a22\",\n  \"invoice_date\": \"2012-11-19\",\n  \"invoice_number\": \"INV01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"gross_rate\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"84134ebd-82ad-245e-bda7-fcec743bcd48\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"1987-07-09\",\n          \"start\": \"2005-06-23\"\n        },\n        \"pattern\": \"DAILY\",\n        \"account_code\": \"11112\"\n      },\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_discount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"42b2d3de-ba6e-573a-e53c-50bbee27d955\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"field_id\": \"987d88d8-1b59-1c21-d46c-557436e0c5fc\",\n          \"field_value_id\": \"fd20b52f-ff9f-5ca5-84a8-b212166661c8\"\n        },\n        {\n          \"field_id\": \"e2b8c2d3-597c-b5b2-226b-75cb3bef3e36\",\n          \"field_value_id\": \"99b0c7bb-bdc9-cac5-d5ac-cc9f06adb948\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"overdue\": false,\n  \"payment_terms\": 0,\n  \"status\": \"CREDITED\",\n  \"subsidiary_id\": \"edfee089-5cef-1907-14e8-305a1d377e80\",\n  \"subtotal\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total_discount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"1973-11-18T05:04:17.053Z\",\n  \"contract_id\": \"7aefd370-14fd-aa55-d8b1-5f9ffb5b7c93\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"customer_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"bank_account\": {\n    \"id\": \"2848771a-2060-bb23-9cad-80f58095cf22\",\n    \"ach_account\": \"string\",\n    \"ach_routing\": \"string\",\n    \"bank_name\": \"string\",\n    \"bank_address\": \"string\",\n    \"swift_code\": \"string\",\n    \"payment_instructions\": \"string\"\n  },\n  \"purchase_order_number\": \"1\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1980-01-12\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"memo\": \"string\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"sent_at\": \"1949-07-29T05:07:44.525Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21ab69b4-6fe4-4ad9-ae02-b3cba3ef74f8",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoice_date\": \"1982-03-03\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"1b5888e7-7886-e3f3-7a6d-70576476c08f\",\n        \"quantity\": 5098.790911434806,\n        \"amount_per_unit\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"discount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"VAT\",\n        \"tax_amount\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"34f6846f-4c33-0581-564b-bc47fbf6b67a\",\n          \"field_value_id\": \"16b6ddee-f94d-0016-25f2-fb684a34b46e\"\n        },\n        {\n          \"field_id\": \"f8960cfe-bb9d-2856-8c68-4d1391a592cb\",\n          \"field_value_id\": \"6042b22e-975c-5da5-7493-f14b6c41b76e\"\n        }\n      ]\n    }\n  ],\n  \"bank_account_id\": \"045ee0ea-7838-f408-74f8-5a8a1fe8aa12\",\n  \"due_date\": \"1970-04-02\",\n  \"purchase_order_number\": \"1\",\n  \"memo\": \"string\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"scope\": \"FULL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf020c79-2551-4355-8931-dd83373a5920",
+          "name": "Updates invoice taxes",
+          "request": {
+            "name": "Updates invoice taxes",
+            "description": {
+              "content": "Recalculates or replaces tax lines on an existing invoice using the supplied tax payload.\nUse after changing taxable addresses or when integrating an external tax engine result.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "taxes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) UUID of the invoice whose taxes should be recomputed."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"taxes_calculated_at\": \"<dateTime>\",\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"tax_rates\": [\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"<string>\",\n          \"percentage\": \"<number>\",\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"<string>\"\n        },\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"<string>\",\n          \"percentage\": \"<number>\",\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8009bc0e-95d3-4d6f-bee2-88b28ca2d705",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice whose taxes should be recomputed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"taxes_calculated_at\": \"<dateTime>\",\n  \"items\": [\n    {\n      \"id\": \"b6a1a903-0fc4-7013-bea0-5738eef9ff5a\",\n      \"tax_rates\": [\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"VAT\"\n        },\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"VAT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount_due\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"66c4bb2c-5ef9-9aa9-0991-871d0f825e35\",\n  \"due_date\": \"2002-03-11\",\n  \"id\": \"c3736a8f-67b2-fd4a-28e8-ede48a1b9a22\",\n  \"invoice_date\": \"2012-11-19\",\n  \"invoice_number\": \"INV01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"gross_rate\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"84134ebd-82ad-245e-bda7-fcec743bcd48\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"1987-07-09\",\n          \"start\": \"2005-06-23\"\n        },\n        \"pattern\": \"DAILY\",\n        \"account_code\": \"11112\"\n      },\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"total_discount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"42b2d3de-ba6e-573a-e53c-50bbee27d955\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"fields\": [\n        {\n          \"field_id\": \"987d88d8-1b59-1c21-d46c-557436e0c5fc\",\n          \"field_value_id\": \"fd20b52f-ff9f-5ca5-84a8-b212166661c8\"\n        },\n        {\n          \"field_id\": \"e2b8c2d3-597c-b5b2-226b-75cb3bef3e36\",\n          \"field_value_id\": \"99b0c7bb-bdc9-cac5-d5ac-cc9f06adb948\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"overdue\": false,\n  \"payment_terms\": 0,\n  \"status\": \"CREDITED\",\n  \"subsidiary_id\": \"edfee089-5cef-1907-14e8-305a1d377e80\",\n  \"subtotal\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total_discount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"1973-11-18T05:04:17.053Z\",\n  \"contract_id\": \"7aefd370-14fd-aa55-d8b1-5f9ffb5b7c93\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"customer_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"shipping_address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"bank_account\": {\n    \"id\": \"2848771a-2060-bb23-9cad-80f58095cf22\",\n    \"ach_account\": \"string\",\n    \"ach_routing\": \"string\",\n    \"bank_name\": \"string\",\n    \"bank_address\": \"string\",\n    \"swift_code\": \"string\",\n    \"payment_instructions\": \"string\"\n  },\n  \"purchase_order_number\": \"1\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1980-01-12\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"memo\": \"string\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"sent_at\": \"1949-07-29T05:07:44.525Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46d16b27-001e-4664-8989-0843ee0beb98",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice whose taxes should be recomputed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"taxes_calculated_at\": \"<dateTime>\",\n  \"items\": [\n    {\n      \"id\": \"b6a1a903-0fc4-7013-bea0-5738eef9ff5a\",\n      \"tax_rates\": [\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"VAT\"\n        },\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"VAT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "261b7e51-2c83-47fc-8e52-f8b833da07e6",
+          "name": "Updates invoice sent status",
+          "request": {
+            "name": "Updates invoice sent status",
+            "description": {
+              "content": "Marks whether an invoice has been delivered to the customer, which downstream workflows use for collections cadence and compliance reporting.\nSet the sent flag true after your billing system or email provider confirms delivery, or false while the document is still internal-only.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "sent-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) UUID of the invoice to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sent\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d54def44-eb0b-4961-b8f9-c1c475bb56ba",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "sent-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sent\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "238f5fc6-464c-4326-834b-f89011e292b8",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "sent-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) UUID of the invoice to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sent\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dfb1e57c-60dc-415a-b6da-3b6b47723cae",
+    "name": "Rillet Accounting API Key Invoices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

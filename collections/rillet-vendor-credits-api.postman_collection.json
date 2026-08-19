@@ -1,0 +1,854 @@
+{
+  "item": [
+    {
+      "id": "a17ab3b6-5f90-4057-91c5-5fe6eede6871",
+      "name": "Vendor Credits",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f9b20e4-441a-48ed-9a7d-73fb520d820d",
+          "name": "Lists all vendor credits",
+          "request": {
+            "name": "Lists all vendor credits",
+            "description": {
+              "content": "Returns vendor credits with pagination and filters for vendor, subsidiary, and freshness.\nCredits represent vendor-issued balance reductions you can later apply to bills using apply-vendor-credit.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendor-credits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "vendor_id",
+                  "value": "<uuid>",
+                  "description": "Optional UUID filter by vendor."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter vendor credits updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48e3fbe5-ae95-47ee-9669-1916206f7309",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vendor_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vendor_credits\": [\n    {\n      \"applications\": [\n        {\n          \"id\": \"231d230a-9cbb-3111-3aa5-61a76d28343c\",\n          \"vendor_credit_id\": \"3ad0dca4-4546-e5c2-37f8-f124f0cd3317\",\n          \"bill_id\": \"1b98256d-84d9-7c9b-5ed5-b113c2fbd1c0\",\n          \"amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"application_date\": \"1964-11-01\",\n          \"bill_number\": \"string\"\n        },\n        {\n          \"id\": \"5a463b1b-367c-e204-fb58-11ebc155d09f\",\n          \"vendor_credit_id\": \"06a89563-18d3-e3b0-e303-fd1eb8369ce9\",\n          \"bill_id\": \"34a0f193-49bc-c764-7497-36285e723a43\",\n          \"amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"application_date\": \"1979-06-20\",\n          \"bill_number\": \"string\"\n        }\n      ],\n      \"applied_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"credit_number\": \"VC-001\",\n      \"date\": \"1960-12-21\",\n      \"gl_impact_date\": \"2014-06-30\",\n      \"id\": \"b2a29fce-6841-8d2a-a362-b733219938a4\",\n      \"line_items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"7c5d3127-4635-80f8-e203-0a239f1841f1\",\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"net_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"organization_id\": \"3fe0e3fa-101a-2c45-edd3-17116eb5ed33\",\n      \"remaining_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"status\": \"PARTIALLY_APPLIED\",\n      \"subsidiary_id\": \"9b053a99-3a8a-4c25-c423-24cba899a49a\",\n      \"updated_at\": \"1975-11-03T01:17:56.755Z\",\n      \"vendor_id\": \"d7fa4563-54ef-1ffd-b57b-45424f51eba4\",\n      \"memo\": \"string\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"applications\": [\n        {\n          \"id\": \"c9780a51-b27e-ff2c-49b4-75c42f53340e\",\n          \"vendor_credit_id\": \"90dbafb0-8136-45b9-ea45-11a1072f6e64\",\n          \"bill_id\": \"8c358b6e-7894-5352-26b4-2a3ebc76e4eb\",\n          \"amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"application_date\": \"1995-10-23\",\n          \"bill_number\": \"string\"\n        },\n        {\n          \"id\": \"439179ec-c35f-6b54-cb95-e71970753abc\",\n          \"vendor_credit_id\": \"44ffaa18-0a55-96d9-54a8-afeec8530935\",\n          \"bill_id\": \"a4ead33a-ce02-cd6e-f4f7-bf3bf906afd8\",\n          \"amount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"application_date\": \"1987-02-22\",\n          \"bill_number\": \"string\"\n        }\n      ],\n      \"applied_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"credit_number\": \"VC-001\",\n      \"date\": \"2005-07-12\",\n      \"gl_impact_date\": \"1984-04-03\",\n      \"id\": \"dcf2ca1a-3855-019e-ace7-d4ffde1c0b0d\",\n      \"line_items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"46fd601a-79b6-98d9-d365-1b8ac3c4fae7\",\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"net_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"organization_id\": \"e0ffe260-10c2-4ab7-e588-81d8e9bed619\",\n      \"remaining_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"status\": \"UNAPPLIED\",\n      \"subsidiary_id\": \"cf397382-e408-78b4-3864-6ab5a35cb33e\",\n      \"updated_at\": \"1984-12-10T07:55:17.669Z\",\n      \"vendor_id\": \"ce59f76b-8ecc-b6ea-0a56-8e748609bb55\",\n      \"memo\": \"string\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d2677f9-2bc8-4644-a12c-9b054457a130",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vendor_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d67c6dae-a7d8-4384-a5c3-b8469ebce172",
+          "name": "Creates a vendor credit",
+          "request": {
+            "name": "Creates a vendor credit",
+            "description": {
+              "content": "Records a new vendor credit memo amount that reduces future payables without yet touching specific bills.\nAfter creation, use apply-vendor-credit to allocate the balance across one or more open bills.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendor-credits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_number\": \"<string>\",\n  \"date\": \"<date>\",\n  \"gl_impact_date\": \"<date>\",\n  \"line_items\": [\n    {\n      \"account_code\": \"<string>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"tax_rate\": {\n        \"coverage\": \"<string>\",\n        \"tax_code\": \"<string>\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"subsidiary_id\": \"<uuid>\",\n  \"vendor_id\": \"<uuid>\",\n  \"memo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5fda64f8-696f-411c-bc56-b9f6c4bf2057",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1997-03-12\",\n  \"gl_impact_date\": \"1985-10-03\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": \"EXCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"6be45475-6269-bde4-105a-fb6db5eaef82\",\n          \"field_value_id\": \"0fc90dc3-ac53-582e-0e4c-2e3ca99ae665\"\n        },\n        {\n          \"field_id\": \"5095e0c8-6923-fa0a-225e-1ce8c9636a87\",\n          \"field_value_id\": \"cbd60cf7-bba3-ae7b-3e77-6e548084552d\"\n        }\n      ]\n    }\n  ],\n  \"subsidiary_id\": \"<uuid>\",\n  \"vendor_id\": \"<uuid>\",\n  \"memo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applications\": [\n    {\n      \"id\": \"8fb6c31d-5745-c62e-cba6-2b688c1b965a\",\n      \"vendor_credit_id\": \"9f9861a1-d956-25cf-3783-49782da108be\",\n      \"bill_id\": \"cfc8f9bb-acb9-2a9f-c87d-dd7e76912ad2\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1976-10-06\",\n      \"bill_number\": \"string\"\n    },\n    {\n      \"id\": \"32208b10-41b5-0e8e-0f23-188354d3a5ea\",\n      \"vendor_credit_id\": \"5f43f918-4a0f-138a-c2b3-b7d4d23ca762\",\n      \"bill_id\": \"34ffb1d4-863f-6372-0972-6c4a6727db85\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1951-10-09\",\n      \"bill_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1947-05-11\",\n  \"gl_impact_date\": \"1962-10-22\",\n  \"id\": \"4d89fc1f-2a73-b615-c3d8-de6a90166761\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"id\": \"68e9ad9c-ddd0-f29a-b748-094fcf68c3c6\",\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"organization_id\": \"25fa0cc7-31a9-572f-03d9-f321b3321635\",\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"PARTIALLY_APPLIED\",\n  \"subsidiary_id\": \"0a1cfe36-699d-e9bf-93ca-1ae5e3833904\",\n  \"updated_at\": \"1995-03-23T22:34:15.971Z\",\n  \"vendor_id\": \"9b8a5d76-aa0f-ff72-dbc4-97ecb4621fce\",\n  \"memo\": \"string\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a327ef68-6f5a-4468-b74b-78aac8c95fdc",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1997-03-12\",\n  \"gl_impact_date\": \"1985-10-03\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": \"EXCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"6be45475-6269-bde4-105a-fb6db5eaef82\",\n          \"field_value_id\": \"0fc90dc3-ac53-582e-0e4c-2e3ca99ae665\"\n        },\n        {\n          \"field_id\": \"5095e0c8-6923-fa0a-225e-1ce8c9636a87\",\n          \"field_value_id\": \"cbd60cf7-bba3-ae7b-3e77-6e548084552d\"\n        }\n      ]\n    }\n  ],\n  \"subsidiary_id\": \"<uuid>\",\n  \"vendor_id\": \"<uuid>\",\n  \"memo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89d04f10-4046-4df0-9187-d867271fd26d",
+          "name": "Retrieves a vendor credit",
+          "request": {
+            "name": "Retrieves a vendor credit",
+            "description": {
+              "content": "Loads a single vendor credit including remaining balance and application history.\nRetrieve before updating or applying so you know how much capacity is left to allocate to bills.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendor-credits",
+                ":vendor_credit_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "vendor_credit_id",
+                  "description": "(Required) UUID of the vendor credit to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8e1f797-3869-417a-8273-a682fd42b95d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits",
+                    ":vendor_credit_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "vendor_credit_id",
+                      "description": "(Required) UUID of the vendor credit to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applications\": [\n    {\n      \"id\": \"8fb6c31d-5745-c62e-cba6-2b688c1b965a\",\n      \"vendor_credit_id\": \"9f9861a1-d956-25cf-3783-49782da108be\",\n      \"bill_id\": \"cfc8f9bb-acb9-2a9f-c87d-dd7e76912ad2\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1976-10-06\",\n      \"bill_number\": \"string\"\n    },\n    {\n      \"id\": \"32208b10-41b5-0e8e-0f23-188354d3a5ea\",\n      \"vendor_credit_id\": \"5f43f918-4a0f-138a-c2b3-b7d4d23ca762\",\n      \"bill_id\": \"34ffb1d4-863f-6372-0972-6c4a6727db85\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1951-10-09\",\n      \"bill_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1947-05-11\",\n  \"gl_impact_date\": \"1962-10-22\",\n  \"id\": \"4d89fc1f-2a73-b615-c3d8-de6a90166761\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"id\": \"68e9ad9c-ddd0-f29a-b748-094fcf68c3c6\",\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"organization_id\": \"25fa0cc7-31a9-572f-03d9-f321b3321635\",\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"PARTIALLY_APPLIED\",\n  \"subsidiary_id\": \"0a1cfe36-699d-e9bf-93ca-1ae5e3833904\",\n  \"updated_at\": \"1995-03-23T22:34:15.971Z\",\n  \"vendor_id\": \"9b8a5d76-aa0f-ff72-dbc4-97ecb4621fce\",\n  \"memo\": \"string\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "159d40ad-62af-48d4-af5b-e36d2a9211d4",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits",
+                    ":vendor_credit_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "vendor_credit_id",
+                      "description": "(Required) UUID of the vendor credit to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a1722f4-be4e-42a5-9250-809a4664bf7e",
+          "name": "Updates a vendor credit",
+          "request": {
+            "name": "Updates a vendor credit",
+            "description": {
+              "content": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-vendor-credit first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendor-credits",
+                ":vendor_credit_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "vendor_credit_id",
+                  "description": "(Required) UUID of the vendor credit to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_number\": \"<string>\",\n  \"date\": \"<date>\",\n  \"gl_impact_date\": \"<date>\",\n  \"line_items\": [\n    {\n      \"account_code\": \"<string>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"tax_rate\": {\n        \"coverage\": \"<string>\",\n        \"tax_code\": \"<string>\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"vendor_id\": \"<uuid>\",\n  \"memo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e918350-da4e-4974-9759-a05c0780d6f9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits",
+                    ":vendor_credit_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "vendor_credit_id",
+                      "description": "(Required) UUID of the vendor credit to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1970-01-17\",\n  \"gl_impact_date\": \"1949-12-28\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": \"INCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"0b664c10-4b9c-74f4-7051-aa4bfd40c073\",\n          \"field_value_id\": \"7618a2aa-f550-62dd-466b-a9d28ac11d24\"\n        },\n        {\n          \"field_id\": \"064668af-596a-f183-8bba-8c27e21b8d2a\",\n          \"field_value_id\": \"4dd2b9ee-3f42-b341-b488-8d41c85ff0f8\"\n        }\n      ]\n    }\n  ],\n  \"vendor_id\": \"<uuid>\",\n  \"memo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applications\": [\n    {\n      \"id\": \"8fb6c31d-5745-c62e-cba6-2b688c1b965a\",\n      \"vendor_credit_id\": \"9f9861a1-d956-25cf-3783-49782da108be\",\n      \"bill_id\": \"cfc8f9bb-acb9-2a9f-c87d-dd7e76912ad2\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1976-10-06\",\n      \"bill_number\": \"string\"\n    },\n    {\n      \"id\": \"32208b10-41b5-0e8e-0f23-188354d3a5ea\",\n      \"vendor_credit_id\": \"5f43f918-4a0f-138a-c2b3-b7d4d23ca762\",\n      \"bill_id\": \"34ffb1d4-863f-6372-0972-6c4a6727db85\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1951-10-09\",\n      \"bill_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1947-05-11\",\n  \"gl_impact_date\": \"1962-10-22\",\n  \"id\": \"4d89fc1f-2a73-b615-c3d8-de6a90166761\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"id\": \"68e9ad9c-ddd0-f29a-b748-094fcf68c3c6\",\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"field_value_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"tax_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"organization_id\": \"25fa0cc7-31a9-572f-03d9-f321b3321635\",\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"PARTIALLY_APPLIED\",\n  \"subsidiary_id\": \"0a1cfe36-699d-e9bf-93ca-1ae5e3833904\",\n  \"updated_at\": \"1995-03-23T22:34:15.971Z\",\n  \"vendor_id\": \"9b8a5d76-aa0f-ff72-dbc4-97ecb4621fce\",\n  \"memo\": \"string\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4acf8884-27ed-4b44-acd4-5ec6aba183f0",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits",
+                    ":vendor_credit_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "vendor_credit_id",
+                      "description": "(Required) UUID of the vendor credit to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_number\": \"VC-001\",\n  \"date\": \"1970-01-17\",\n  \"gl_impact_date\": \"1949-12-28\",\n  \"line_items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"string\",\n      \"tax_rate\": {\n        \"coverage\": \"INCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"0b664c10-4b9c-74f4-7051-aa4bfd40c073\",\n          \"field_value_id\": \"7618a2aa-f550-62dd-466b-a9d28ac11d24\"\n        },\n        {\n          \"field_id\": \"064668af-596a-f183-8bba-8c27e21b8d2a\",\n          \"field_value_id\": \"4dd2b9ee-3f42-b341-b488-8d41c85ff0f8\"\n        }\n      ]\n    }\n  ],\n  \"vendor_id\": \"<uuid>\",\n  \"memo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5e5f1a8-7d22-4259-b82d-1f57efee94c8",
+          "name": "Deletes a vendor credit",
+          "request": {
+            "name": "Deletes a vendor credit",
+            "description": {
+              "content": "Permanently removes a vendor credit that should not remain in the subledger.\nEnsure no applications or downstream reconciliations still rely on this credit before deleting.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendor-credits",
+                ":vendor_credit_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "vendor_credit_id",
+                  "description": "(Required) UUID of the vendor credit to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bb3691f-a0d2-4b9a-a2aa-6ee786b21d04",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits",
+                    ":vendor_credit_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "vendor_credit_id",
+                      "description": "(Required) UUID of the vendor credit to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6fb6caf-9319-4477-b676-dfd48ee9f30a",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendor-credits",
+                    ":vendor_credit_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "vendor_credit_id",
+                      "description": "(Required) UUID of the vendor credit to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0c7f6376-5c06-4e25-92a9-5af74fbb9867",
+    "name": "Rillet Accounting API Key Vendor Credits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,826 @@
+{
+  "item": [
+    {
+      "id": "e082b184-52a9-4d6f-8702-3d38db3a4c57",
+      "name": "Vendors",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "47751588-6238-438f-9de1-491da5f08b20",
+          "name": "Lists all vendors",
+          "request": {
+            "name": "Lists all vendors",
+            "description": {
+              "content": "Returns vendors with pagination and optional status or currency filters.\nVendor ids feed bill creation, vendor credits, and payment workflows.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter vendors updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bd7cc07-7eb4-4d19-acbd-b1c5bb833058",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vendors\": [\n    {\n      \"id\": \"72b2ddfd-c001-c070-8874-426afe8ac92a\",\n      \"name\": \"MyVendor\",\n      \"updated_at\": \"1996-10-03T03:31:50.613Z\",\n      \"account_code\": \"11112\",\n      \"address\": {\n        \"city\": \"Nashville\",\n        \"country\": \"US\",\n        \"line1\": \"123 Main St\",\n        \"state\": \"TN\",\n        \"zip_code\": \"37201\",\n        \"line2\": \"Apt 4B\"\n      },\n      \"email\": \"FyiKeh@WOxTqmjirVCvtvoRcEXNNIyBGU.bot\",\n      \"payment_terms\": 18,\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"ten_ninety_nine_eligible\": false,\n      \"tax_id\": \"123\",\n      \"fields\": [\n        {\n          \"field_id\": \"53903b01-8af1-5de3-64a1-5db00ae15d93\",\n          \"field_value_id\": \"aa4aa648-8396-5bd4-9e3c-ebcc4f5878ac\"\n        },\n        {\n          \"field_id\": \"9f9fcea4-4a31-1edb-9d63-2d945e845616\",\n          \"field_value_id\": \"2581315b-d754-7248-88e2-632bad1649f9\"\n        }\n      ]\n    },\n    {\n      \"id\": \"226f1694-1bfe-8c0c-2837-b42dc1f0fc69\",\n      \"name\": \"MyVendor\",\n      \"updated_at\": \"1994-03-08T10:14:04.295Z\",\n      \"account_code\": \"11112\",\n      \"address\": {\n        \"city\": \"Nashville\",\n        \"country\": \"US\",\n        \"line1\": \"123 Main St\",\n        \"state\": \"TN\",\n        \"zip_code\": \"37201\",\n        \"line2\": \"Apt 4B\"\n      },\n      \"email\": \"yBZEsMoxd@ktRYvNniHPXMknFFpZHymz.vs\",\n      \"payment_terms\": 55,\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"ten_ninety_nine_eligible\": true,\n      \"tax_id\": \"123\",\n      \"fields\": [\n        {\n          \"field_id\": \"c07da01a-4aae-b656-a3d8-ced180434c2b\",\n          \"field_value_id\": \"0617ea82-ad59-d2f5-40f3-0df7080270e2\"\n        },\n        {\n          \"field_id\": \"073de7db-d87a-9990-f3be-d011e3526262\",\n          \"field_value_id\": \"15ab008b-2408-093a-b149-411ee033da43\"\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19f56423-7151-48f2-9128-090c12845b43",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aaefb239-69dc-493b-97db-73f225e122f6",
+          "name": "Creates a vendor",
+          "request": {
+            "name": "Creates a vendor",
+            "description": {
+              "content": "Adds a vendor master record the accounts-payable team can select on bills, vendor credits, and payments.\nCapture legal name, remit-to address, default currency, and payment terms so downstream bills inherit correct due dates and banking instructions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"account_code\": \"<string>\",\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip_code\": \"<string>\",\n    \"line2\": \"<string>\"\n  },\n  \"email\": \"<email>\",\n  \"payment_terms\": \"<integer>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": \"<boolean>\",\n  \"tax_id\": \"<string>\",\n  \"fields\": [\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    },\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccc94641-a352-4faa-8de7-dc89eb84c151",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MyVendor\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"<email>\",\n  \"payment_terms\": \"<integer>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": \"<boolean>\",\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"692517ff-0bf3-f402-7aa0-8bd2f509defe\",\n      \"field_value_id\": \"67d08745-e26b-f49d-1943-220642a23ded\"\n    },\n    {\n      \"field_id\": \"ceee64cb-cd59-53e1-1e65-3cca099830ed\",\n      \"field_value_id\": \"9a004565-1b3e-c537-7676-db7823a312d2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"03b0960b-84cf-6148-8356-dfcd97844288\",\n  \"name\": \"MyVendor\",\n  \"updated_at\": \"1972-06-24T07:22:16.889Z\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"YIroyl85F2-Cz3Y@rFUKthUXqhFcEHs.pkvw\",\n  \"payment_terms\": 44,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": true,\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"4748fbdc-87ce-c0f5-fa2c-7f90bd5354c6\",\n      \"field_value_id\": \"79e00b1f-237b-962c-dc76-e1fd22d7a41c\"\n    },\n    {\n      \"field_id\": \"2f53ecec-1e4c-7ed3-da6d-b9c33434cf86\",\n      \"field_value_id\": \"eb341296-3709-fe75-d74e-a045ed0ded40\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ae85d44-e1f1-4d1f-bc18-1912e7a6237d",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MyVendor\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"<email>\",\n  \"payment_terms\": \"<integer>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": \"<boolean>\",\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"692517ff-0bf3-f402-7aa0-8bd2f509defe\",\n      \"field_value_id\": \"67d08745-e26b-f49d-1943-220642a23ded\"\n    },\n    {\n      \"field_id\": \"ceee64cb-cd59-53e1-1e65-3cca099830ed\",\n      \"field_value_id\": \"9a004565-1b3e-c537-7676-db7823a312d2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c46404dd-764e-4609-b4c5-afbea6c3977f",
+          "name": "Retrieves a vendor",
+          "request": {
+            "name": "Retrieves a vendor",
+            "description": {
+              "content": "Fetches the full vendor profile including identifiers you must echo back on PUT updates.\nUse before editing to avoid wiping optional fields, and when validating tax or payment metadata during bill entry.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors",
+                ":vendor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vendor_id",
+                  "description": "(Required) UUID of the vendor to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f61dbb51-05a6-4a03-b3bb-01d023084d4e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors",
+                    ":vendor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor_id",
+                      "description": "(Required) UUID of the vendor to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"03b0960b-84cf-6148-8356-dfcd97844288\",\n  \"name\": \"MyVendor\",\n  \"updated_at\": \"1972-06-24T07:22:16.889Z\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"YIroyl85F2-Cz3Y@rFUKthUXqhFcEHs.pkvw\",\n  \"payment_terms\": 44,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": true,\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"4748fbdc-87ce-c0f5-fa2c-7f90bd5354c6\",\n      \"field_value_id\": \"79e00b1f-237b-962c-dc76-e1fd22d7a41c\"\n    },\n    {\n      \"field_id\": \"2f53ecec-1e4c-7ed3-da6d-b9c33434cf86\",\n      \"field_value_id\": \"eb341296-3709-fe75-d74e-a045ed0ded40\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "826bbc21-bfa7-4e01-8159-ba33ac65fc28",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors",
+                    ":vendor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor_id",
+                      "description": "(Required) UUID of the vendor to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad4f17af-547f-4ea9-a903-7e13f3cb3555",
+          "name": "Updates a vendor",
+          "request": {
+            "name": "Updates a vendor",
+            "description": {
+              "content": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-vendor first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors",
+                ":vendor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vendor_id",
+                  "description": "(Required) UUID of the vendor to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"account_code\": \"<string>\",\n  \"address\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip_code\": \"<string>\",\n    \"line2\": \"<string>\"\n  },\n  \"email\": \"<email>\",\n  \"payment_terms\": \"<integer>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": \"<boolean>\",\n  \"tax_id\": \"<string>\",\n  \"fields\": [\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    },\n    {\n      \"field_id\": \"<uuid>\",\n      \"field_value_id\": \"<uuid>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c694cb19-d453-48b3-9b86-43267383f119",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors",
+                    ":vendor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor_id",
+                      "description": "(Required) UUID of the vendor to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MyVendor\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"<email>\",\n  \"payment_terms\": \"<integer>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": \"<boolean>\",\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"692517ff-0bf3-f402-7aa0-8bd2f509defe\",\n      \"field_value_id\": \"67d08745-e26b-f49d-1943-220642a23ded\"\n    },\n    {\n      \"field_id\": \"ceee64cb-cd59-53e1-1e65-3cca099830ed\",\n      \"field_value_id\": \"9a004565-1b3e-c537-7676-db7823a312d2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"03b0960b-84cf-6148-8356-dfcd97844288\",\n  \"name\": \"MyVendor\",\n  \"updated_at\": \"1972-06-24T07:22:16.889Z\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"YIroyl85F2-Cz3Y@rFUKthUXqhFcEHs.pkvw\",\n  \"payment_terms\": 44,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": true,\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"4748fbdc-87ce-c0f5-fa2c-7f90bd5354c6\",\n      \"field_value_id\": \"79e00b1f-237b-962c-dc76-e1fd22d7a41c\"\n    },\n    {\n      \"field_id\": \"2f53ecec-1e4c-7ed3-da6d-b9c33434cf86\",\n      \"field_value_id\": \"eb341296-3709-fe75-d74e-a045ed0ded40\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2304e6f5-0eab-4a95-9a71-d2e47f49b51c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors",
+                    ":vendor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor_id",
+                      "description": "(Required) UUID of the vendor to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MyVendor\",\n  \"account_code\": \"11112\",\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"email\": \"<email>\",\n  \"payment_terms\": \"<integer>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"ten_ninety_nine_eligible\": \"<boolean>\",\n  \"tax_id\": \"123\",\n  \"fields\": [\n    {\n      \"field_id\": \"692517ff-0bf3-f402-7aa0-8bd2f509defe\",\n      \"field_value_id\": \"67d08745-e26b-f49d-1943-220642a23ded\"\n    },\n    {\n      \"field_id\": \"ceee64cb-cd59-53e1-1e65-3cca099830ed\",\n      \"field_value_id\": \"9a004565-1b3e-c537-7676-db7823a312d2\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3747b95e-7a3a-4671-a487-8456b939eddf",
+          "name": "Deletes a vendor",
+          "request": {
+            "name": "Deletes a vendor",
+            "description": {
+              "content": "Removes a vendor you no longer expect to pay. Confirm no open bills, credits, or scheduled payments still reference this vendor to avoid orphaned payables.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors",
+                ":vendor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vendor_id",
+                  "description": "(Required) UUID of the vendor to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0acf13b2-ed6f-4c38-91a1-066efcc605b5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors",
+                    ":vendor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor_id",
+                      "description": "(Required) UUID of the vendor to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5eb4de5a-c759-4e3f-aa08-fef038223e44",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors",
+                    ":vendor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor_id",
+                      "description": "(Required) UUID of the vendor to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "de7daf81-3b90-40f5-a7ed-3622ba5eac53",
+    "name": "Rillet Accounting API Key Vendors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Customers API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/customers",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter customer by name."
+              },
+              {
+                "name": "external_reference_id",
+                "value": "",
+                "type": "query",
+                "description": "If this is provided, `external_reference_type` must also be provided.\n"
+              },
+              {
+                "name": "external_reference_type",
+                "value": "",
+                "type": "query",
+                "description": "If this is provided, `external_reference_id` must also be provided.\n"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter customers updated after this timestamp"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "the field the customers should be sorted by descending (either created or updated)"
+              }
+            ]
+          },
+          "docs": "Returns customers for accounts receivable with pagination and optional search or external-reference filters.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer in the Accounts Receivable catalog.\nRequired fields: name. When providing an address, all of these fields are required:\nline1, city, state (2-letter code e.g. 'TN', 'CA'), zip_code, country.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/customers/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the customer to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns a single customer record including billing profile details, which are needed for updates.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/customers/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the customer to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a single customer record in the catalog.\nIMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-customer first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/customers/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the customer to delete."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a customer. Verify no active contracts or open invoices reference this customer first.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

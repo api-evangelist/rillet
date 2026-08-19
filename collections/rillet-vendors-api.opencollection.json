@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Vendors API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vendors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all vendors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/vendors",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter vendors updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Returns vendors with pagination and optional status or currency filters.\nVendor ids feed bill creation, vendor credits, and payment workflows.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/vendors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a vendor master record the accounts-payable team can select on bills, vendor credits, and payments.\nCapture legal name, remit-to address, default currency, and payment terms so downstream bills inherit correct due dates and banking instructions.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/vendors/:vendor_id",
+            "params": [
+              {
+                "name": "vendor_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Fetches the full vendor profile including identifiers you must echo back on PUT updates.\nUse before editing to avoid wiping optional fields, and when validating tax or payment metadata during bill entry.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/vendors/:vendor_id",
+            "params": [
+              {
+                "name": "vendor_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-vendor first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/vendors/:vendor_id",
+            "params": [
+              {
+                "name": "vendor_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the vendor to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes a vendor you no longer expect to pay. Confirm no open bills, credits, or scheduled payments still reference this vendor to avoid orphaned payables.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Credit Memos API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit Memos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all credit memos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/credit-memos",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter credit memos updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Returns customer credit memos with pagination and filters for application state, customer, and subsidiaries.\nUse credit memo ids with retrieve-a-credit-memo before updates or when applying credits to invoices.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a credit memo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/credit-memos",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Opens a customer credit memo that reduces receivable exposure before you allocate it to specific invoices.\nCapture subsidiary, customer, line-level reasons, and tax treatment so finance can audit why the balance changed.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a credit memo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/credit-memos/:credit_memo_id",
+            "params": [
+              {
+                "name": "credit_memo_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the credit memo to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Loads the full credit memo payload, including remaining balance, applications, and tax metadata you must echo on PUT updates.\nAlways retrieve before editing because update-a-credit-memo replaces the entire resource when fields are omitted.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a credit memo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/credit-memos/:credit_memo_id",
+            "params": [
+              {
+                "name": "credit_memo_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the credit memo to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-credit-memo first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a credit memo",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/credit-memos/:credit_memo_id",
+            "params": [
+              {
+                "name": "credit_memo_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the credit memo to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes a credit memo that should no longer affect AR balances, typically while it is still draft or unused.\nConfirm no invoice applications or downstream revenue adjustments depend on this memo before calling delete.\n"
+        },
+        {
+          "info": {
+            "name": "Updates credit memo taxes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/credit-memos/:credit_memo_id/taxes",
+            "params": [
+              {
+                "name": "credit_memo_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the credit memo to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refreshes tax quotes on an existing credit memo using the same structured payload as invoice tax updates, stamped with taxesCalculatedAt for auditability.\nUse after line items change or when your tax engine recomputes jurisdiction-specific amounts before issuing the credit to the customer.\n"
+        },
+        {
+          "info": {
+            "name": "Reconciles credit memo applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/credit-memos/:credit_memo_id/applications",
+            "params": [
+              {
+                "name": "credit_memo_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the credit memo to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Full reconcile of credit memo applications. The request body represents the desired set: missing applications are removed, new applications inserted, and existing applications updated when amount or application_date differ.\n"
+        },
+        {
+          "info": {
+            "name": "Unapplies all credit memo applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/credit-memos/:credit_memo_id/applications",
+            "params": [
+              {
+                "name": "credit_memo_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the credit memo to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes every application from this credit memo, reverting all invoice allocations.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

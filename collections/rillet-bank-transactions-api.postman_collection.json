@@ -1,0 +1,896 @@
+{
+  "item": [
+    {
+      "id": "38c10a30-73c3-4676-8ec4-6c2070e48c76",
+      "name": "Bank Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ae8879c-5cd8-43f3-aa1b-ffd63031b52e",
+          "name": "Lists all bank transactions",
+          "request": {
+            "name": "Lists all bank transactions",
+            "description": {
+              "content": "Streams imported or manually entered cash activity for reconciliation, optionally scoped by bank account, subsidiary, or updated-since filters.\nPair results with retrieve-a-bank-transaction when you need memo-level detail before marking items cleared.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bank-transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bank_account_id",
+                  "value": "<uuid>",
+                  "description": "Filter by bank account"
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter bank transactions updated after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "date.gte",
+                  "value": "<date>",
+                  "description": "Filter bank transactions with date on or after this date"
+                },
+                {
+                  "disabled": false,
+                  "key": "date.lte",
+                  "value": "<date>",
+                  "description": "Filter bank transactions with date on or before this date"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by (see enum values)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82a73c3c-e65b-4c4b-bf56-a20f92da2afa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bank_account_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "date.gte",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "date.lte",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bank_transactions\": [\n    {\n      \"id\": \"c0af31e4-70da-b261-e42d-6c085674bd89\",\n      \"bank_account_id\": \"51ff4a9c-bf0b-92fc-9d71-b22a997bf179\",\n      \"subsidiary_id\": \"d7da2828-5d72-8e9f-1c4c-8a117cd4f328\",\n      \"date\": \"1958-09-15\",\n      \"name\": \"string\",\n      \"merchant\": \"string\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fee\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"pending\": false,\n      \"excluded\": false,\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ]\n    },\n    {\n      \"id\": \"63430fe8-3054-9335-3a7e-83f8dc591c49\",\n      \"bank_account_id\": \"9b08386a-00e4-594c-d222-580efc3a589d\",\n      \"subsidiary_id\": \"dafe530a-0a8b-900b-4a3a-97f5df5ddbdc\",\n      \"date\": \"2004-02-11\",\n      \"name\": \"string\",\n      \"merchant\": \"string\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fee\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"pending\": false,\n      \"excluded\": false,\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b58aae6-54c8-4438-90be-ba0ab75a5dd4",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bank_account_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "date.gte",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "date.lte",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13b14492-114d-4a5b-b73c-eceee75d0f4c",
+          "name": "Creates a bank transaction",
+          "request": {
+            "name": "Creates a bank transaction",
+            "description": {
+              "content": "Inserts a single bank feed line such as a wire, ACH, or adjustment when automated imports miss a statement row.\nSpecify the hosting bank account and value dates so cash reporting matches what treasury already booked externally.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bank-transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bank_account_id\": \"<uuid>\",\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"merchant\": \"<string>\",\n  \"net_amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"fee\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"pending\": false,\n  \"excluded\": false,\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "00b62f54-491c-4b84-a9ea-1b447b24727d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bank_account_id\": \"<uuid>\",\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"merchant\": \"<string>\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": false,\n  \"excluded\": false,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fa01a9eb-04b7-9685-6d25-d07cca64cd68\",\n  \"bank_account_id\": \"1f6f2124-8169-0cb6-056c-18625d56b63b\",\n  \"subsidiary_id\": \"afa59458-429f-31c2-5acb-06d6daf6363f\",\n  \"date\": \"1959-08-12\",\n  \"name\": \"string\",\n  \"merchant\": \"string\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": true,\n  \"excluded\": true,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cfc98cf-c405-4dce-a12d-b52084292847",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bank_account_id\": \"<uuid>\",\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"merchant\": \"<string>\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": false,\n  \"excluded\": false,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67817084-3ef5-4248-85a6-4f174061c9ee",
+          "name": "Retrieves a bank transaction",
+          "request": {
+            "name": "Retrieves a bank transaction",
+            "description": {
+              "content": "Fetches one bank transaction with counterparty text, amounts, and reconciliation flags used by cash teams during month-end.\nUse before update-a-bank-transaction to preserve memos or matched invoice references embedded in the payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bank-transactions",
+                ":bank_transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank_transaction_id",
+                  "description": "(Required) UUID of the bank transaction to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a9bf7bb-4953-4986-ac40-d991e2ffaf71",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions",
+                    ":bank_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank_transaction_id",
+                      "description": "(Required) UUID of the bank transaction to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fa01a9eb-04b7-9685-6d25-d07cca64cd68\",\n  \"bank_account_id\": \"1f6f2124-8169-0cb6-056c-18625d56b63b\",\n  \"subsidiary_id\": \"afa59458-429f-31c2-5acb-06d6daf6363f\",\n  \"date\": \"1959-08-12\",\n  \"name\": \"string\",\n  \"merchant\": \"string\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": true,\n  \"excluded\": true,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a5c2d1a-9421-4f8b-ad4d-b9ad15bedde0",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions",
+                    ":bank_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank_transaction_id",
+                      "description": "(Required) UUID of the bank transaction to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81058ea1-bc8e-427e-aedd-21378bd70bde",
+          "name": "Updates a bank transaction",
+          "request": {
+            "name": "Updates a bank transaction",
+            "description": {
+              "content": "Adjusts memo, categorization, or reconciliation metadata on an existing bank transaction without re-importing the entire feed batch.\nSupply the full body expected by the schema so optional fields you intend to keep are not unintentionally cleared.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bank-transactions",
+                ":bank_transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank_transaction_id",
+                  "description": "(Required) UUID of the bank transaction to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"merchant\": \"<string>\",\n  \"net_amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"fee\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"pending\": \"<boolean>\",\n  \"excluded\": \"<boolean>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5fa08fae-fd20-41e9-8bc4-94255528c68d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions",
+                    ":bank_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank_transaction_id",
+                      "description": "(Required) UUID of the bank transaction to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"merchant\": \"<string>\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": \"<boolean>\",\n  \"excluded\": \"<boolean>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fa01a9eb-04b7-9685-6d25-d07cca64cd68\",\n  \"bank_account_id\": \"1f6f2124-8169-0cb6-056c-18625d56b63b\",\n  \"subsidiary_id\": \"afa59458-429f-31c2-5acb-06d6daf6363f\",\n  \"date\": \"1959-08-12\",\n  \"name\": \"string\",\n  \"merchant\": \"string\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": true,\n  \"excluded\": true,\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94b3d09d-6561-49f1-9237-2d03bd635040",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions",
+                    ":bank_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank_transaction_id",
+                      "description": "(Required) UUID of the bank transaction to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"<date>\",\n  \"name\": \"<string>\",\n  \"merchant\": \"<string>\",\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"fee\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"pending\": \"<boolean>\",\n  \"excluded\": \"<boolean>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c7f097a-557b-4ca8-bc22-a4bda55effd8",
+          "name": "Deletes a bank transaction",
+          "request": {
+            "name": "Deletes a bank transaction",
+            "description": {
+              "content": "Removes a bank transaction row that was imported twice or created in error before it affects reconciled cash balances.\nConfirm treasury agrees the underlying bank activity will not return on the next feed pull before deleting.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bank-transactions",
+                ":bank_transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank_transaction_id",
+                  "description": "(Required) UUID of the bank transaction to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5687ea2-458a-4f8b-8b48-21ade3dc62f2",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions",
+                    ":bank_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank_transaction_id",
+                      "description": "(Required) UUID of the bank transaction to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da1f0fe1-2890-4ff1-9cc6-5c7843ff5b9f",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bank-transactions",
+                    ":bank_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank_transaction_id",
+                      "description": "(Required) UUID of the bank transaction to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "668f122d-1565-4db1-b2f8-0acfca371ed1",
+    "name": "Rillet Accounting API Key Bank Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

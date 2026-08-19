@@ -1,0 +1,179 @@
+{
+  "item": [
+    {
+      "id": "2182eb31-553c-4fa5-992f-9af498ef9be0",
+      "name": "Tax rates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d6d0e86d-a5c1-4786-9554-6940f72dfce9",
+          "name": "Lists all tax rates",
+          "request": {
+            "name": "Lists all tax rates",
+            "description": {
+              "content": "Returns all available tax rates. Use the returned IDs when creating bills with specific tax codes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tax-rates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Two-letter country code (ISO 3166-1 alpha-2). If provided, only tax rates for that country are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecd23df5-90ef-4d27-af20-6c19beace281",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "US"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tax_rates\": [\n    {\n      \"id\": \"8f497732-77cc-066b-b1c9-de695d9b6c54\",\n      \"code\": \"IE_STANDARD\",\n      \"country\": \"US\",\n      \"description\": \"Standard Rate\",\n      \"percentage\": \"23.0000\"\n    },\n    {\n      \"id\": \"1ab60ce6-8993-ac8c-3783-111875413fe9\",\n      \"code\": \"IE_STANDARD\",\n      \"country\": \"US\",\n      \"description\": \"Standard Rate\",\n      \"percentage\": \"23.0000\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12c2034e-8ea0-4a6a-93dc-73ba731fba33",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tax-rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "US"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d56ecd12-8479-4ea6-aad4-06a136322cc0",
+    "name": "Rillet Accounting API Key Tax rates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

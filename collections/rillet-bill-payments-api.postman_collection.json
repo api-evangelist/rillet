@@ -1,0 +1,543 @@
+{
+  "item": [
+    {
+      "id": "b65a90e1-671c-4341-9b89-90dff1fed040",
+      "name": "Bill Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4d5d0deb-4a07-4a0c-b214-331e5a3d60da",
+          "name": "Lists bill payments",
+          "request": {
+            "name": "Lists bill payments",
+            "description": {
+              "content": "Enumerates disbursements recorded against a specific bill, useful when reconciling vendor statements to internal cash movements.\nCombine with retrieve-a-bill to understand remaining balance after each payment posts.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51a6114d-2a1d-44fe-8a8d-902d674a759a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payments\": [\n    {\n      \"id\": \"0a91ef3e-7bcc-1a3a-d267-1f1e48f090a6\",\n      \"status\": \"string\",\n      \"bill_id\": \"5f045c2f-8d47-f576-ef95-e4c6a6654323\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"date\": \"1974-06-04\",\n      \"account_code\": \"11112\"\n    },\n    {\n      \"id\": \"746bd094-a2eb-6bd2-aba2-d2c1a2f4c99e\",\n      \"status\": \"string\",\n      \"bill_id\": \"4d5f804c-7850-d294-ee9f-22553f1a623e\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"date\": \"2019-11-05\",\n      \"account_code\": \"11112\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c061ed1f-e80b-41ca-b631-01059e926b2c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "062ae19d-38db-49bb-9019-f36b1f3455c3",
+          "name": "Creates a bill payment",
+          "request": {
+            "name": "Creates a bill payment",
+            "description": {
+              "content": "Books a cash or scheduled disbursement that settles all or part of a bill, updating the outstanding payable and linking treasury activity.\nProvide funding source details consistent with your configured payment rails so downstream bank reconciliation stays accurate.\n\nIMPORTANT: Notice this operation has a redundancy between the `bill_id` path parameter and the `billId` attribute in the request body, which takes precedence and is used in internal logic. When executing this operation, both IDs must match, otherwise the request will be rejected. This is a legacy redundancy and will be removed in future versions of this operation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation. Must match the `billId` provided in the request body."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"date\": \"<date>\",\n  \"account_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdf0c04b-4760-4db9-a7d1-5d087acfaf24",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation. Must match the `billId` provided in the request body."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"date\": \"<date>\",\n  \"account_code\": \"11112\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"caa5f324-5298-8387-9d4e-84fbc554f56c\",\n  \"status\": \"string\",\n  \"bill_id\": \"19710db1-cd32-30b7-4ff1-be53ee3a0e52\",\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"date\": \"1968-02-16\",\n  \"account_code\": \"11112\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0934dc71-5dae-4e79-992f-39162c698107",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation. Must match the `billId` provided in the request body."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"date\": \"<date>\",\n  \"account_code\": \"11112\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "076f271b-6bf1-4839-b486-015946fc9c48",
+          "name": "Deletes a bill payment",
+          "request": {
+            "name": "Deletes a bill payment",
+            "description": {
+              "content": "Reverses a previously recorded bill payment when the disbursement failed or was duplicated, restoring the bill balance accordingly.\nTreat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id",
+                "payments",
+                ":payment_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "payment_id",
+                  "description": "(Required) UUID of the payment to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "821d6926-f599-4b56-a6a4-82e9ce8247d5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id",
+                    "payments",
+                    ":payment_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "payment_id",
+                      "description": "(Required) UUID of the payment to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef775e31-8fe3-4ea5-b021-20f17f6de308",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id",
+                    "payments",
+                    ":payment_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "payment_id",
+                      "description": "(Required) UUID of the payment to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aae40ca3-2eed-4cb8-adb7-9c30a146b519",
+    "name": "Rillet Accounting API Key Bill Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

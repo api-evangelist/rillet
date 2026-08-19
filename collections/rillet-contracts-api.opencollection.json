@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Contracts API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/contracts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Optional status filter (allowed values depend on the resource)."
+              },
+              {
+                "name": "start_date.gt",
+                "value": "",
+                "type": "query",
+                "description": "Minimum start date value to filter by (exclusive)"
+              },
+              {
+                "name": "start_date.gte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum start date value to filter by (inclusive)"
+              },
+              {
+                "name": "start_date.lt",
+                "value": "",
+                "type": "query",
+                "description": "Maximum start date value to filter by (exclusive)"
+              },
+              {
+                "name": "start_date.lte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum start date value to filter by (inclusive)"
+              },
+              {
+                "name": "end_date.gt",
+                "value": "",
+                "type": "query",
+                "description": "Minimum end date value to filter by (exclusive)"
+              },
+              {
+                "name": "end_date.gte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum end date value to filter by (inclusive)"
+              },
+              {
+                "name": "end_date.lt",
+                "value": "",
+                "type": "query",
+                "description": "Maximum end date value to filter by (exclusive)"
+              },
+              {
+                "name": "end_date.lte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum end date value to filter by (inclusive)"
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional UUID filter by customer."
+              }
+            ]
+          },
+          "docs": "Returns contracts with pagination and rich filters (subsidiary, customer, status, date ranges).\nUse this to discover contract ids, check lifecycle state, or drive reporting extracts.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/contracts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rillet supports two contract scope types: FULL and REVENUE_RECOGNITION_ONLY. The selected scope determines how the invoices are created and what information the user needs to provide.\n\nThe FULL scope is used when contract invoices are generated and sent directly from Rillet. In this case, Rillet automatically assigns the invoice numbers.\n\nThe REVENUE_RECOGNITION_ONLY scope is intended for situations where contracts and invoices are issued from another system and only need to be recorded in Rille"
+        },
+        {
+          "info": {
+            "name": "Retrieves a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/contracts/:contract_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns the expanded contract including items, schedules, and metadata required before updates or amendments.\nAlways retrieve before issuing a full PUT update so you preserve fields you do not intend to clear.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/contracts/:contract_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract to delete."
+              }
+            ]
+          },
+          "docs": "Permanently removes a contract when your business rules allow deletion.\nConfirm downstream invoices, revenue schedules, and integrations no longer depend on this contract before deleting it.\n"
+        },
+        {
+          "info": {
+            "name": "Amends a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/contracts/:contract_id/amendments",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract to amend."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a contract amendment when you need to add items, retire items, or change pricing/invoicing after go-live.\nUnlike a full PUT update, amendments model business-time changes and preserve historical billing context.\n\nUse preview-contract-amendment to dry-run the financial impact before committing.\n"
+        },
+        {
+          "info": {
+            "name": "Previews contract amendment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/contracts/:contract_id/amendments/preview",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the contract whose amendment you are previewing."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview a contract that has been amended. This has no effect on the actual contract, only provides a preview of what a contract will look like after it is amended."
+        },
+        {
+          "info": {
+            "name": "Ends an open-ended contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/contracts/:contract_id/end",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the open-ended contract to close."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets an explicit end date on a contract that previously had no close date (open-ended).\nProvide the final end_date in the request body; downstream invoicing and revenue recognition honor the new boundary.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

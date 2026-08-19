@@ -1,0 +1,1065 @@
+{
+  "item": [
+    {
+      "id": "2279c433-4373-40f3-8dde-7b0f21a2fec2",
+      "name": "Fields",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4855550c-baa7-40e6-a605-7a50ea5e3d8e",
+          "name": "Gets custom fields",
+          "request": {
+            "name": "Gets custom fields",
+            "description": {
+              "content": "Retrieves custom field definitions and their pick-list values for the organization.\nUse the returned field ids with create-field-value and update-field-value when enriching core entities.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter fields updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16875655-1888-4756-9bf3-af36e7e961b6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fields\": [\n    {\n      \"id\": \"e5769788-a0e3-a52e-962e-cc1680e99c3b\",\n      \"name\": \"string\",\n      \"values\": [\n        {\n          \"id\": \"1035692d-7473-5c9f-16ac-fc007f4486ed\",\n          \"name\": \"string\",\n          \"deactivated\": false\n        },\n        {\n          \"id\": \"f2feeaec-aed0-b121-04ca-acb34fdfea5f\",\n          \"name\": \"string\",\n          \"deactivated\": false\n        }\n      ],\n      \"updated_at\": \"1994-08-21T02:13:17.077Z\",\n      \"settings\": {\n        \"EXPENSES\": {\n          \"mandatory\": false,\n          \"display\": \"STANDALONE\"\n        },\n        \"REVENUE\": {\n          \"mandatory\": false,\n          \"display\": \"STANDALONE\"\n        }\n      }\n    },\n    {\n      \"id\": \"69d6305d-1292-4d73-cdf6-dea8c4efa976\",\n      \"name\": \"string\",\n      \"values\": [\n        {\n          \"id\": \"5793de1d-bead-3f95-06c9-c36a3d09dbb3\",\n          \"name\": \"string\",\n          \"deactivated\": false\n        },\n        {\n          \"id\": \"8b5f96ac-cb91-1b98-e521-490fb5775471\",\n          \"name\": \"string\",\n          \"deactivated\": false\n        }\n      ],\n      \"updated_at\": \"1951-08-04T20:07:02.045Z\",\n      \"settings\": {\n        \"EXPENSES\": {\n          \"mandatory\": false,\n          \"display\": \"FREE_TAG\"\n        },\n        \"REVENUE\": {\n          \"mandatory\": false,\n          \"display\": \"FREE_TAG\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4afe29da-bce9-49fc-95ec-53dd178d0af3",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6de830bf-09df-419e-bf7a-a745b0a4927e",
+          "name": "Creates a field",
+          "request": {
+            "name": "Creates a field",
+            "description": {
+              "content": "Defines a new custom field (text, number, pick list, etc.) that can be attached to supported Rillet entities for reporting and automation.\nAfter creation, use create-field-value to seed allowed pick-list entries or default values teams should see in the UI.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"values\": [\n    {\n      \"name\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "00df23cf-4cb7-45a3-94c1-1f6f8606a418",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"values\": [\n    {\n      \"name\": \"string\"\n    },\n    {\n      \"name\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"577383d1-f059-2618-53e5-d6d12982a6f8\",\n  \"name\": \"string\",\n  \"values\": [\n    {\n      \"id\": \"898c16b7-923d-7ea5-9b17-e98a186fa39b\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    },\n    {\n      \"id\": \"1a1e4aeb-50a0-8bdb-b3ca-78a8d5b9586e\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    }\n  ],\n  \"updated_at\": \"2000-09-25T21:26:41.053Z\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": false,\n      \"display\": \"FREE_TAG\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": true,\n      \"display\": \"FREE_TAG\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9459220b-4fa3-4348-90ea-fe835572f7d2",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"values\": [\n    {\n      \"name\": \"string\"\n    },\n    {\n      \"name\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65f859c5-b0a1-4cdb-aede-ad56aaeccab1",
+          "name": "Updates a field",
+          "request": {
+            "name": "Updates a field",
+            "description": {
+              "content": "Changes labels, validation rules, or visibility metadata on an existing custom field without recreating historical values.\nCoordinate with stakeholders before renaming because downstream integrations often key off the human-readable label.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) UUID of the id to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": \"<boolean>\",\n      \"display\": \"<string>\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": \"<boolean>\",\n      \"display\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80056e57-01f7-4954-a3db-975a12c6649c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) UUID of the id to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": true,\n      \"display\": \"STANDALONE\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": false,\n      \"display\": \"STANDALONE\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"577383d1-f059-2618-53e5-d6d12982a6f8\",\n  \"name\": \"string\",\n  \"values\": [\n    {\n      \"id\": \"898c16b7-923d-7ea5-9b17-e98a186fa39b\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    },\n    {\n      \"id\": \"1a1e4aeb-50a0-8bdb-b3ca-78a8d5b9586e\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    }\n  ],\n  \"updated_at\": \"2000-09-25T21:26:41.053Z\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": false,\n      \"display\": \"FREE_TAG\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": true,\n      \"display\": \"FREE_TAG\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fc9aa70-3f89-4e0a-b0f3-b5335fd1472c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) UUID of the id to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": true,\n      \"display\": \"STANDALONE\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": false,\n      \"display\": \"STANDALONE\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c834402d-7cc0-4723-aa75-f19f03ae5d93",
+          "name": "Creates a field value",
+          "request": {
+            "name": "Creates a field value",
+            "description": {
+              "content": "Adds a selectable value to a pick-list style custom field so users and APIs can tag entities with consistent taxonomy.\nValues inherit the field’s scope, so create them after the parent field exists and before importing records that reference the new code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":id",
+                "values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) UUID of the id to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d907437b-fe3d-4e00-a51e-0303d8fcfe0d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) UUID of the id to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"577383d1-f059-2618-53e5-d6d12982a6f8\",\n  \"name\": \"string\",\n  \"values\": [\n    {\n      \"id\": \"898c16b7-923d-7ea5-9b17-e98a186fa39b\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    },\n    {\n      \"id\": \"1a1e4aeb-50a0-8bdb-b3ca-78a8d5b9586e\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    }\n  ],\n  \"updated_at\": \"2000-09-25T21:26:41.053Z\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": false,\n      \"display\": \"FREE_TAG\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": true,\n      \"display\": \"FREE_TAG\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dbd7087-3cd1-448a-90fe-1b2a1d084261",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) UUID of the id to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a191239-8a50-46e6-8442-6aafafde825e",
+          "name": "Updates a field value",
+          "request": {
+            "name": "Updates a field value",
+            "description": {
+              "content": "Renames or reorders a pick-list entry while preserving its underlying id so historical records stay linked to the same option.\nPrefer this over delete-and-recreate when auditing requires stable references across reporting periods.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":fieldId",
+                "values",
+                ":fieldValueId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "fieldId",
+                  "description": "(Required) UUID of the field to be used in this operation."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "fieldValueId",
+                  "description": "(Required) UUID of the fieldValue to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21c0fe6c-3d57-4619-89a0-06fee168dbf1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":fieldId",
+                    "values",
+                    ":fieldValueId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldId",
+                      "description": "(Required) UUID of the field to be used in this operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldValueId",
+                      "description": "(Required) UUID of the fieldValue to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"577383d1-f059-2618-53e5-d6d12982a6f8\",\n  \"name\": \"string\",\n  \"values\": [\n    {\n      \"id\": \"898c16b7-923d-7ea5-9b17-e98a186fa39b\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    },\n    {\n      \"id\": \"1a1e4aeb-50a0-8bdb-b3ca-78a8d5b9586e\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    }\n  ],\n  \"updated_at\": \"2000-09-25T21:26:41.053Z\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": false,\n      \"display\": \"FREE_TAG\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": true,\n      \"display\": \"FREE_TAG\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c7ba4de-cbd8-4cb7-a137-87d930f1a3f0",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":fieldId",
+                    "values",
+                    ":fieldValueId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldId",
+                      "description": "(Required) UUID of the field to be used in this operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldValueId",
+                      "description": "(Required) UUID of the fieldValue to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61990a51-98ba-4a62-878e-b046f45397c8",
+          "name": "Deletes a field value",
+          "request": {
+            "name": "Deletes a field value",
+            "description": {
+              "content": "Retires a pick-list option that should no longer be selectable while keeping older records intact for read-only history.\nConfirm no automation or validation rules still require the value before removal to avoid breaking bulk imports.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":fieldId",
+                "values",
+                ":fieldValueId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "fieldId",
+                  "description": "(Required) UUID of the field to be used in this operation."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "fieldValueId",
+                  "description": "(Required) UUID of the fieldValue to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3256f30-fa98-4783-80b7-97701d1dca33",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":fieldId",
+                    "values",
+                    ":fieldValueId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldId",
+                      "description": "(Required) UUID of the field to be used in this operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldValueId",
+                      "description": "(Required) UUID of the fieldValue to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"577383d1-f059-2618-53e5-d6d12982a6f8\",\n  \"name\": \"string\",\n  \"values\": [\n    {\n      \"id\": \"898c16b7-923d-7ea5-9b17-e98a186fa39b\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    },\n    {\n      \"id\": \"1a1e4aeb-50a0-8bdb-b3ca-78a8d5b9586e\",\n      \"name\": \"string\",\n      \"deactivated\": true\n    }\n  ],\n  \"updated_at\": \"2000-09-25T21:26:41.053Z\",\n  \"settings\": {\n    \"EXPENSES\": {\n      \"mandatory\": false,\n      \"display\": \"FREE_TAG\"\n    },\n    \"REVENUE\": {\n      \"mandatory\": true,\n      \"display\": \"FREE_TAG\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e99bf70-af49-497a-9090-4ce6de847e67",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":fieldId",
+                    "values",
+                    ":fieldValueId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldId",
+                      "description": "(Required) UUID of the field to be used in this operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldValueId",
+                      "description": "(Required) UUID of the fieldValue to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d06becee-e33b-484d-8a99-721897b08987",
+    "name": "Rillet Accounting API Key Fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

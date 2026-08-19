@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Invoice payments API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoice payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all invoice payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/invoice-payments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments updated after this timestamp"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "the field the payments should be sorted by descending (either created or updated)"
+              }
+            ]
+          },
+          "docs": "Pages every customer payment recorded against invoices across the organization, independent of which invoice it settled.\nUse updated.gt and sort_by when syncing integrations; follow the pagination cursor until no next page remains.\n"
+        },
+        {
+          "info": {
+            "name": "Lists payments for a given invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/invoices/:invoice_id/payments",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Returns every payment attempt tied to a single invoice, including successful, uncleared, and failed rows with their public status.\nPair with retrieve-an-invoice when reconciling an account statement against what Rillet already applied.\n"
+        },
+        {
+          "info": {
+            "name": "Creates an invoice payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/invoices/:invoice_id/payments",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a manual cash receipt against an open invoice by amount, effective date, and a GL account code that maps to a funded cash account.\nRillet resolves the account code to a cash account before posting, so verify chart-of-accounts mapping when automations fail validation.\n"
+        },
+        {
+          "info": {
+            "name": "Updates an invoice payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/invoices/:invoice_id/payments/:payment_id",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to be used in this operation."
+              },
+              {
+                "name": "payment_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payment to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the amount, date, and cash account on an existing uncleared invoice payment.\nOnly uncleared payments can be updated; cleared or reconciled payments are rejected.\nThis is a full-replace operation (PUT semantics) — include all fields in the request body.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes an invoice payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/invoices/:invoice_id/payments/:payment_id",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the invoice to be used in this operation."
+              },
+              {
+                "name": "payment_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payment to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Reverses a previously recorded uncleared invoice payment, restoring the invoice balance accordingly.\nOnly uncleared payments can be deleted; cleared or reconciled payments are rejected.\nTreat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

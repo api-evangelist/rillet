@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Products API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/products",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Optional status filter (allowed values depend on the resource)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Optional ISO currency code filter."
+              }
+            ]
+          },
+          "docs": "Returns sellable products and services for accounts receivable (contracts, invoices).\nSupports pagination and optional filters such as status and currency.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/products",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product (good or service) that can be referenced on contracts and invoices.\nChoose pricing and revenue behavior consistent with how you bill customers (one-time, recurring, usage, etc.).\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/products/:product_id",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the product to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns a single product definition including pricing configuration used on contracts and invoices.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/products/:product_id",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the product to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a single product definition in the catalog.\nIMPORTANT: This is a full-replace operation (PUT semantics). Include every field expected by ProductRequest;\nomitted fields may be cleared. Call retrieve-a-product first, merge your changes, then submit the full body.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/products/:product_id",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the product to delete."
+              }
+            ]
+          },
+          "docs": "Permanently removes a product. Ensure no in-flight contracts or invoices require this product before deleting.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

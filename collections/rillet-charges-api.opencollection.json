@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Charges API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Charges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all charges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/charges",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter charges updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Pages card or out-of-pocket employee charges awaiting policy review, subsidiary allocation, or conversion into reimbursable payables.\nFilter by subsidiary_id or updated.gt when syncing corporate card feeds into downstream expense automation.\n"
+        },
+        {
+          "info": {
+            "name": "Create a charge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/charges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a charge"
+        },
+        {
+          "info": {
+            "name": "Retrieves a charge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/charges/:charge_id",
+            "params": [
+              {
+                "name": "charge_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the charge to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Fetches a single charge with merchant metadata, amounts, and workflow state so reviewers can decide coding before reimbursement.\nUse this after list-all-charges surfaces an id that needs manual inspection or attachment to a bill.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a charge",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/charges/:charge_id",
+            "params": [
+              {
+                "name": "charge_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the charge to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Drops a charge that should not influence spend reporting, for example duplicate imports from a card processor feed.\nEnsure finance agrees the underlying bank activity will not be re-imported before removing the charge permanently.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

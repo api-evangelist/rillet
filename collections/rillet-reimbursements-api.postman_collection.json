@@ -1,0 +1,660 @@
+{
+  "item": [
+    {
+      "id": "3d4bd5d7-fdb4-4bf0-b795-62d4bad5ed1c",
+      "name": "Reimbursements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ae3e81f6-d327-468b-9194-eef571d8fd79",
+          "name": "Create a reimbursement",
+          "request": {
+            "name": "Create a reimbursement",
+            "description": {},
+            "url": {
+              "path": [
+                "reimbursements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"items\": [\n    {\n      \"account_code\": \"<string>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"<string>\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"<string>\"\n      },\n      \"service_period\": {\n        \"end\": \"<date>\",\n        \"start\": \"<date>\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"reimbursement_date\": \"<date>\",\n  \"payable_account_code\": \"<string>\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e6b9c406-099e-49c3-99b2-1be3888e4410",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"Travel reimbursement\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"INCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"2007-07-13\",\n        \"start\": \"2011-09-11\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"a51b1924-5ff7-1afe-ab98-4721ec39650a\",\n          \"field_value_id\": \"04ff3434-6fec-c17f-65f0-96b963f909ee\"\n        },\n        {\n          \"field_id\": \"62f4bfa0-d0dd-29f5-c654-abeec78b6b8a\",\n          \"field_value_id\": \"df32f88c-608c-bc03-9c61-3ae6bae5c93c\"\n        }\n      ]\n    }\n  ],\n  \"reimbursement_date\": \"<date>\",\n  \"payable_account_code\": \"11112\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"3a42d861-dea3-41b6-1c20-24efd461d5fe\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"2acb4867-4fc4-2747-434b-1012826be556\",\n      \"description\": \"API Reimbursement\",\n      \"tax_rate\": {\n        \"coverage\": \"EXCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"2011-06-22\",\n        \"start\": \"2009-02-23\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"3dedce48-d5c7-a86a-34d3-e9d65f2ca577\",\n          \"field_value_id\": \"d91fce15-f234-890f-6a46-215bc9bf1cef\"\n        },\n        {\n          \"field_id\": \"995d5ed6-69cc-93ee-baa9-a87d7d4f5f7c\",\n          \"field_value_id\": \"8783e43e-9fd2-30ca-dadc-26da8a32d0a2\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"UNPAID\",\n  \"updated_at\": \"1954-06-06T16:52:49.894Z\",\n  \"vendor_id\": \"11bb5530-f5a6-0661-fe63-3a303b2fb391\",\n  \"reimbursement_date\": \"2011-10-11\",\n  \"impact_date\": \"1961-12-19\",\n  \"subsidiary_id\": \"3484add6-8156-a6bc-da57-d00f10a0ce1a\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2019-06-16\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1267b3d3-7978-4e5a-b412-0f3448e03a69",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"Travel reimbursement\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"INCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"2007-07-13\",\n        \"start\": \"2011-09-11\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"a51b1924-5ff7-1afe-ab98-4721ec39650a\",\n          \"field_value_id\": \"04ff3434-6fec-c17f-65f0-96b963f909ee\"\n        },\n        {\n          \"field_id\": \"62f4bfa0-d0dd-29f5-c654-abeec78b6b8a\",\n          \"field_value_id\": \"df32f88c-608c-bc03-9c61-3ae6bae5c93c\"\n        }\n      ]\n    }\n  ],\n  \"reimbursement_date\": \"<date>\",\n  \"payable_account_code\": \"11112\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5199dd59-d795-4242-80e7-19bea7630028",
+          "name": "Lists all reimbursements",
+          "request": {
+            "name": "Lists all reimbursements",
+            "description": {
+              "content": "Surfaces reimbursement requests created from approved charges or manual submissions, including subsidiary and freshness filters for payroll sync.\nUse pagination cursors for large populations and pair with retrieve-a-reimbursement when a row needs detailed audit context.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reimbursements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter reimbursements updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66853fa4-50eb-48d7-a6ae-42425e02d7aa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reimbursements\": [\n    {\n      \"id\": \"72185ad2-0866-1121-0ca4-dd9801e4968e\",\n      \"items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"0b1b7636-6e50-df4d-e30b-0b4aee0ab08f\",\n          \"description\": \"API Reimbursement\",\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service_period\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"PARTIALLY_PAID\",\n      \"updated_at\": \"2013-09-19T09:28:51.195Z\",\n      \"vendor_id\": \"4aeb06d6-e530-67a2-159e-e5dabd316957\",\n      \"reimbursement_date\": \"1968-07-02\",\n      \"impact_date\": \"1977-03-07\",\n      \"subsidiary_id\": \"0df570fb-69fa-2d35-ebc4-ed1502875702\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"1976-02-04\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    },\n    {\n      \"id\": \"284fab22-c6e4-97e3-beef-75846e9b89f3\",\n      \"items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"a4abd51b-73a5-0a17-6e1c-40e59d7461ae\",\n          \"description\": \"API Reimbursement\",\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service_period\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"UNPAID\",\n      \"updated_at\": \"1998-01-01T01:36:51.001Z\",\n      \"vendor_id\": \"ffa84683-e52d-540f-10f9-0157258369b1\",\n      \"reimbursement_date\": \"1957-04-14\",\n      \"impact_date\": \"1997-04-13\",\n      \"subsidiary_id\": \"21c588c8-23ec-d224-d1cb-7e4fc99c37c4\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"1969-10-03\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a313774d-8bfc-400c-94e9-d107ed0e74ac",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6615917-d578-4f27-86d9-ef2dcaa9e24f",
+          "name": "Retrieves a reimbursement",
+          "request": {
+            "name": "Retrieves a reimbursement",
+            "description": {
+              "content": "Returns the full reimbursement packet with employee linkage, funding instructions, and approval history for a single id.\nHelpful when validating totals before releasing ACH batches or answering employee support tickets.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reimbursements",
+                ":reimbursement_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reimbursement_id",
+                  "description": "(Required) UUID of the reimbursement to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26b37f62-b678-441d-b91e-b129dd898aeb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements",
+                    ":reimbursement_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reimbursement_id",
+                      "description": "(Required) UUID of the reimbursement to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"3a42d861-dea3-41b6-1c20-24efd461d5fe\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"2acb4867-4fc4-2747-434b-1012826be556\",\n      \"description\": \"API Reimbursement\",\n      \"tax_rate\": {\n        \"coverage\": \"EXCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"2011-06-22\",\n        \"start\": \"2009-02-23\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"3dedce48-d5c7-a86a-34d3-e9d65f2ca577\",\n          \"field_value_id\": \"d91fce15-f234-890f-6a46-215bc9bf1cef\"\n        },\n        {\n          \"field_id\": \"995d5ed6-69cc-93ee-baa9-a87d7d4f5f7c\",\n          \"field_value_id\": \"8783e43e-9fd2-30ca-dadc-26da8a32d0a2\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"UNPAID\",\n  \"updated_at\": \"1954-06-06T16:52:49.894Z\",\n  \"vendor_id\": \"11bb5530-f5a6-0661-fe63-3a303b2fb391\",\n  \"reimbursement_date\": \"2011-10-11\",\n  \"impact_date\": \"1961-12-19\",\n  \"subsidiary_id\": \"3484add6-8156-a6bc-da57-d00f10a0ce1a\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"2019-06-16\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec16c19f-f62e-49b2-9c83-630dbd943244",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements",
+                    ":reimbursement_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reimbursement_id",
+                      "description": "(Required) UUID of the reimbursement to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f00c5fa-e944-48df-8a96-a061a669816a",
+          "name": "Deletes a reimbursement",
+          "request": {
+            "name": "Deletes a reimbursement",
+            "description": {
+              "content": "Removes a reimbursement that was created prematurely or duplicated during intake so it no longer blocks payroll totals.\nConfirm no outbound payments or GL accruals were posted against the reimbursement before deleting it.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reimbursements",
+                ":reimbursement_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reimbursement_id",
+                  "description": "(Required) UUID of the reimbursement to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aec74b10-6977-4321-b268-edf7e5f36059",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements",
+                    ":reimbursement_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reimbursement_id",
+                      "description": "(Required) UUID of the reimbursement to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6b643eb-5550-4564-b5ce-a25b72aad21c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reimbursements",
+                    ":reimbursement_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reimbursement_id",
+                      "description": "(Required) UUID of the reimbursement to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d96b00fd-7498-4d2d-8ec1-1778d99bf93b",
+    "name": "Rillet Accounting API Key Reimbursements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "item": [
+    {
+      "id": "e58f6ff3-a782-4af0-aed9-b5efc31295d8",
+      "name": "Books periods",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82e6cacf-2b04-40ac-a6f4-bfdb8cb4b082",
+          "name": "Retrieves last book closed period",
+          "request": {
+            "name": "Retrieves last book closed period",
+            "description": {
+              "content": "Returns the most recently closed accounting period for book-close workflows, including closed-on timestamps your automation can cache.\nWhen no period has ever been closed the API responds with HTTP 404, so treat a missing resource as \"not yet closed\" rather than an outage.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "books",
+                "periods",
+                "last-closed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c34a394b-40a4-4556-adf2-edec060ab3f7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books",
+                    "periods",
+                    "last-closed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"b3c1888d-8845-4fb1-0521-9c9939230498\",\n  \"start\": \"2025-06-01\",\n  \"end\": \"2025-06-30\",\n  \"status\": \"string\",\n  \"closed_on\": \"2025-07-05\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f95b7447-5bcf-4ab9-80b1-a33cd3f3d503",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books",
+                    "periods",
+                    "last-closed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "22a96d0a-71f6-4e21-a1d6-27940938e6a9",
+    "name": "Rillet Accounting API Key Books periods API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

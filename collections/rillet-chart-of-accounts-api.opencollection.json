@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Chart of Accounts API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chart of Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/accounts",
+            "params": [
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter accounts updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Returns the chart of accounts for the organization tied to the API credentials.\nUse optional filters (for example updated.gt) to sync only accounts changed since a prior run.\nAccount ids are stable identifiers used when creating journal entries, bills, and other postings.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

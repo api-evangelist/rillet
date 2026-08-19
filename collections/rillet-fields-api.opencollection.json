@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Fields API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/fields",
+            "params": [
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter fields updated after this timestamp"
+              }
+            ]
+          },
+          "docs": "Retrieves custom field definitions and their pick-list values for the organization.\nUse the returned field ids with create-field-value and update-field-value when enriching core entities.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/fields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Defines a new custom field (text, number, pick list, etc.) that can be attached to supported Rillet entities for reporting and automation.\nAfter creation, use create-field-value to seed allowed pick-list entries or default values teams should see in the UI.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/fields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the id to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes labels, validation rules, or visibility metadata on an existing custom field without recreating historical values.\nCoordinate with stakeholders before renaming because downstream integrations often key off the human-readable label.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a field value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/fields/:id/values",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the id to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a selectable value to a pick-list style custom field so users and APIs can tag entities with consistent taxonomy.\nValues inherit the field’s scope, so create them after the parent field exists and before importing records that reference the new code.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a field value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/fields/:fieldId/values/:fieldValueId",
+            "params": [
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the field to be used in this operation."
+              },
+              {
+                "name": "fieldValueId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the fieldValue to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renames or reorders a pick-list entry while preserving its underlying id so historical records stay linked to the same option.\nPrefer this over delete-and-recreate when auditing requires stable references across reporting periods.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a field value",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/fields/:fieldId/values/:fieldValueId",
+            "params": [
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the field to be used in this operation."
+              },
+              {
+                "name": "fieldValueId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the fieldValue to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Retires a pick-list option that should no longer be selectable while keeping older records intact for read-only history.\nConfirm no automation or validation rules still require the value before removal to avoid breaking bulk imports.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

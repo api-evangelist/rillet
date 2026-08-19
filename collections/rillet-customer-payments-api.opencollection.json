@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Customer Payments API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/customers/:customer_id/settings/payment",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the customer to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Returns the payment method configured for auto-payment for the given customer."
+        },
+        {
+          "info": {
+            "name": "Sets up auto-payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/customers/:customer_id/settings/payment",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the customer to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Kicks off the setup of auto-payment for a customer. This will return a URL that the customer must visit to complete the setup. If the customer already has a payment method, this will return a URL to update the payment method."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

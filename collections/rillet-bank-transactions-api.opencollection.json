@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Bank Transactions API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all bank transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bank-transactions",
+            "params": [
+              {
+                "name": "bank_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by bank account"
+              },
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              },
+              {
+                "name": "updated.gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter bank transactions updated after this timestamp"
+              },
+              {
+                "name": "date.gte",
+                "value": "",
+                "type": "query",
+                "description": "Filter bank transactions with date on or after this date"
+              },
+              {
+                "name": "date.lte",
+                "value": "",
+                "type": "query",
+                "description": "Filter bank transactions with date on or before this date"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by (see enum values)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in the page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to navigate through the full response."
+              }
+            ]
+          },
+          "docs": "Streams imported or manually entered cash activity for reconciliation, optionally scoped by bank account, subsidiary, or updated-since filters.\nPair results with retrieve-a-bank-transaction when you need memo-level detail before marking items cleared.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a bank transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/bank-transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inserts a single bank feed line such as a wire, ACH, or adjustment when automated imports miss a statement row.\nSpecify the hosting bank account and value dates so cash reporting matches what treasury already booked externally.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a bank transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bank-transactions/:bank_transaction_id",
+            "params": [
+              {
+                "name": "bank_transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bank transaction to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Fetches one bank transaction with counterparty text, amounts, and reconciliation flags used by cash teams during month-end.\nUse before update-a-bank-transaction to preserve memos or matched invoice references embedded in the payload.\n"
+        },
+        {
+          "info": {
+            "name": "Updates a bank transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rillet.com/bank-transactions/:bank_transaction_id",
+            "params": [
+              {
+                "name": "bank_transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bank transaction to be used in this operation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adjusts memo, categorization, or reconciliation metadata on an existing bank transaction without re-importing the entire feed batch.\nSupply the full body expected by the schema so optional fields you intend to keep are not unintentionally cleared.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a bank transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/bank-transactions/:bank_transaction_id",
+            "params": [
+              {
+                "name": "bank_transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bank transaction to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes a bank transaction row that was imported twice or created in error before it affects reconciled cash balances.\nConfirm treasury agrees the underlying bank activity will not return on the next feed pull before deleting.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

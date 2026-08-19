@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Bill Payments API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bill Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists bill payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bills/:bill_id/payments",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Enumerates disbursements recorded against a specific bill, useful when reconciling vendor statements to internal cash movements.\nCombine with retrieve-a-bill to understand remaining balance after each payment posts.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a bill payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/bills/:bill_id/payments",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation. Must match the `billId` provided in the request body."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Books a cash or scheduled disbursement that settles all or part of a bill, updating the outstanding payable and linking treasury activity.\nProvide funding source details consistent with your configured payment rails so downstream bank reconciliation stays accurate.\n\nIMPORTANT: Notice this operation has a redundancy between the `bill_id` path parameter and the `billId` attribute in the request body, which takes precedence and is used in internal logic. When executing this operation, both IDs must"
+        },
+        {
+          "info": {
+            "name": "Deletes a bill payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/bills/:bill_id/payments/:payment_id",
+            "params": [
+              {
+                "name": "bill_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bill to be used in this operation."
+              },
+              {
+                "name": "payment_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payment to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Reverses a previously recorded bill payment when the disbursement failed or was duplicated, restoring the bill balance accordingly.\nTreat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

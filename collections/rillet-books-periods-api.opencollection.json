@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Books periods API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Books periods",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves last book closed period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/books/periods/last-closed"
+          },
+          "docs": "Returns the most recently closed accounting period for book-close workflows, including closed-on timestamps your automation can cache.\nWhen no period has ever been closed the API responds with HTTP 404, so treat a missing resource as \"not yet closed\" rather than an outage.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

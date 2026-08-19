@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rillet Accounting API Key Bank accounts API",
+    "version": "v4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bank-accounts",
+            "params": [
+              {
+                "name": "subsidiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Subsidiary to be used when filtering data"
+              }
+            ]
+          },
+          "docs": "Returns cash bank accounts configured for the organization, optionally filtered by subsidiary.\nBank account ids anchor transaction import, reconciliation, and treasury automations.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rillet.com/bank-accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a treasury bank account with currency, institution identifiers, and linkage to the GL cash account used during transaction import.\nAccurate mapping here ensures invoice payments, bill payments, and bank feeds all post to the same cash subledger.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves a bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rillet.com/bank-accounts/:bank_account_id",
+            "params": [
+              {
+                "name": "bank_account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bank account to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Returns configuration and status for a single bank account, including identifiers downstream connectors need when refreshing balances.\nUse before deleting or updating metadata so you preserve institution codes and default subsidiary routing.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rillet.com/bank-accounts/:bank_account_id",
+            "params": [
+              {
+                "name": "bank_account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bank account to be used in this operation."
+              }
+            ]
+          },
+          "docs": "Removes a bank account definition when the entity closed the account or you mistakenly created a duplicate connector mapping.\nEnsure no scheduled payments or open reconciliation batches still target this bank account before deletion.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1055 @@
+{
+  "item": [
+    {
+      "id": "6e06ecbf-e24d-4c1f-aa21-aee9f05a3985",
+      "name": "Bills",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e0fcbb5a-ae28-40bd-9685-fc7805e2c5be",
+          "name": "Lists all bills",
+          "request": {
+            "name": "Lists all bills",
+            "description": {
+              "content": "Returns AP bills with pagination plus filters for vendor, subsidiary, approval state, and balances due.\nUse bill ids with retrieve-a-bill before performing full updates or attaching documents.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter bills updated after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendor_id",
+                  "value": "<uuid>",
+                  "description": "Filter bills by vendor."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter bills by payment status."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d0462b3-2474-407d-a6d9-5fb0d124e8ba",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "vendor_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "PARTIALLY_PAID"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bills\": [\n    {\n      \"bill_date\": \"1997-09-07\",\n      \"due_date\": \"1960-10-28\",\n      \"expense_number\": \"B123\",\n      \"id\": \"9ddbdced-b505-e468-599b-1e76b584ac7b\",\n      \"items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"e30d9223-3281-d9b3-2c44-6d88d40d5012\",\n          \"description\": \"API Bill\",\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service_period\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"UNPAID\",\n      \"updated_at\": \"1989-08-07T07:03:00.334Z\",\n      \"vendor_id\": \"ef3df13d-7c64-c38e-f589-c95c96a0bb8d\",\n      \"impact_date\": \"1973-10-03\",\n      \"subsidiary_id\": \"36bb0003-eb29-1366-e8dd-00a12c5d2fc3\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"1963-06-05\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    },\n    {\n      \"bill_date\": \"2015-11-06\",\n      \"due_date\": \"1954-04-25\",\n      \"expense_number\": \"B123\",\n      \"id\": \"66bccef1-7c3d-a797-dcff-e208688b238d\",\n      \"items\": [\n        {\n          \"account_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": \"a58fece4-f206-da94-96b3-544d96d765b9\",\n          \"description\": \"API Bill\",\n          \"tax_rate\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service_period\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fields\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"UNPAID\",\n      \"updated_at\": \"1950-07-20T14:30:59.327Z\",\n      \"vendor_id\": \"e09d1213-a35e-fc6f-0953-ecfdff5e7fca\",\n      \"impact_date\": \"1952-10-03\",\n      \"subsidiary_id\": \"c455e13e-410b-bc49-d67c-39fe525688c4\",\n      \"external_references\": [\n        {\n          \"type\": \"xyzSystemId\",\n          \"id\": \"234\",\n          \"url\": \"https://xyzsystempage.com/ids/234\"\n        }\n      ],\n      \"exchange_rate\": {\n        \"base\": \"USD\",\n        \"date\": \"2023-04-03\",\n        \"rate\": \"string\",\n        \"target\": \"USD\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"next_cursor\": \"iLQvkEj3sh3UiweC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "286c59a2-54f1-40d6-b197-d8669ef3dd3f",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "vendor_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "PARTIALLY_PAID"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58e80837-29b6-4d05-a3b9-24e706a1fe60",
+          "name": "Creates a bill",
+          "request": {
+            "name": "Creates a bill",
+            "description": {
+              "content": "Accrues a new accounts-payable bill against a vendor with subsidiary context, line items, and due dates your approval workflow consumes.\nAttach supporting metadata now so matching payments, amortization schedules, and document uploads stay aligned with the payable.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"expense_number\": \"<string>\",\n  \"items\": [\n    {\n      \"account_code\": \"<string>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"<string>\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"<string>\"\n      },\n      \"service_period\": {\n        \"end\": \"<date>\",\n        \"start\": \"<date>\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"bill_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "045fe685-b375-4e19-9dd6-81b92815568f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"expense_number\": \"B123\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"INCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1954-01-08\",\n        \"start\": \"1978-03-31\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"1507e0ef-4152-e3c5-77f5-c0209486f7e1\",\n          \"field_value_id\": \"94733af5-db9e-29d1-3f4c-719340eace07\"\n        },\n        {\n          \"field_id\": \"6d12f9ab-6d8f-57c9-3828-a4dd8c7b3e34\",\n          \"field_value_id\": \"17f02b15-6070-e0d2-f87a-b3ac266309dd\"\n        }\n      ]\n    }\n  ],\n  \"bill_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1954-07-18\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bill_date\": \"1977-11-23\",\n  \"due_date\": \"1953-12-31\",\n  \"expense_number\": \"B123\",\n  \"id\": \"cffb3ec8-c891-fae3-6c22-b5df60b77118\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"d37f5b81-e924-365d-8cc9-d04b4f092921\",\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"coverage\": \"INCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1995-11-15\",\n        \"start\": \"1977-04-16\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"39e59333-49c6-c8c1-730e-88ee0537a22c\",\n          \"field_value_id\": \"acee1793-389c-424d-54b5-6d95b91e3c0c\"\n        },\n        {\n          \"field_id\": \"9eadb323-4569-0a8c-6dc9-d0ca5c988f0c\",\n          \"field_value_id\": \"c6556a77-4f0f-849e-07d4-427d5d527b1c\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"PARTIALLY_PAID\",\n  \"updated_at\": \"2021-07-26T19:57:14.324Z\",\n  \"vendor_id\": \"d8f144ae-a435-c870-830f-f76468cdd890\",\n  \"impact_date\": \"2014-10-12\",\n  \"subsidiary_id\": \"6a661ce2-428d-7035-8d10-246bf006aad7\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1950-06-09\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "205fd6ed-03a4-411b-9e3e-a5feb8d3981c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"expense_number\": \"B123\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"INCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1954-01-08\",\n        \"start\": \"1978-03-31\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"1507e0ef-4152-e3c5-77f5-c0209486f7e1\",\n          \"field_value_id\": \"94733af5-db9e-29d1-3f4c-719340eace07\"\n        },\n        {\n          \"field_id\": \"6d12f9ab-6d8f-57c9-3828-a4dd8c7b3e34\",\n          \"field_value_id\": \"17f02b15-6070-e0d2-f87a-b3ac266309dd\"\n        }\n      ]\n    }\n  ],\n  \"bill_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"impact_date\": \"<date>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1954-07-18\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0770cb8-2322-411d-832a-b18edc599798",
+          "name": "Retrieves a bill",
+          "request": {
+            "name": "Retrieves a bill",
+            "description": {
+              "content": "Returns the authoritative bill record including vendor linkage, approval state, open balance, and document references.\nFetch before update-a-bill because PUT semantics require you to resubmit every field to avoid nulling omitted values.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5dc31a2d-effd-4d9a-97d8-aecbdfdb48aa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bill_date\": \"1977-11-23\",\n  \"due_date\": \"1953-12-31\",\n  \"expense_number\": \"B123\",\n  \"id\": \"cffb3ec8-c891-fae3-6c22-b5df60b77118\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"d37f5b81-e924-365d-8cc9-d04b4f092921\",\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"coverage\": \"INCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1995-11-15\",\n        \"start\": \"1977-04-16\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"39e59333-49c6-c8c1-730e-88ee0537a22c\",\n          \"field_value_id\": \"acee1793-389c-424d-54b5-6d95b91e3c0c\"\n        },\n        {\n          \"field_id\": \"9eadb323-4569-0a8c-6dc9-d0ca5c988f0c\",\n          \"field_value_id\": \"c6556a77-4f0f-849e-07d4-427d5d527b1c\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"PARTIALLY_PAID\",\n  \"updated_at\": \"2021-07-26T19:57:14.324Z\",\n  \"vendor_id\": \"d8f144ae-a435-c870-830f-f76468cdd890\",\n  \"impact_date\": \"2014-10-12\",\n  \"subsidiary_id\": \"6a661ce2-428d-7035-8d10-246bf006aad7\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1950-06-09\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecdf87c7-11e1-466b-8207-7db8bce5fc55",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f212fb2a-ad6a-42ab-942f-4e723b694029",
+          "name": "Updates a bill",
+          "request": {
+            "name": "Updates a bill",
+            "description": {
+              "content": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-bill first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"expense_number\": \"<string>\",\n  \"items\": [\n    {\n      \"account_code\": \"<string>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"<string>\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"<string>\"\n      },\n      \"service_period\": {\n        \"end\": \"<date>\",\n        \"start\": \"<date>\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"bill_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"impact_date\": \"<date>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4aecf9ab-817d-46e8-9a88-d26432a2f4f4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"expense_number\": \"B123\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"EXCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1971-04-11\",\n        \"start\": \"1965-11-07\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"f50746df-d90d-2f79-5be3-b2f2cc78df8d\",\n          \"field_value_id\": \"5758e929-1c7e-d4dc-490c-d323f5e53a1d\"\n        },\n        {\n          \"field_id\": \"cb444a17-ac1a-d0f4-7af1-6f65adea1a3f\",\n          \"field_value_id\": \"7f949d23-8d90-427a-8537-424649438c83\"\n        }\n      ]\n    }\n  ],\n  \"bill_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"impact_date\": \"<date>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1971-11-25\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bill_date\": \"1977-11-23\",\n  \"due_date\": \"1953-12-31\",\n  \"expense_number\": \"B123\",\n  \"id\": \"cffb3ec8-c891-fae3-6c22-b5df60b77118\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"d37f5b81-e924-365d-8cc9-d04b4f092921\",\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"coverage\": \"INCLUSIVE\",\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1995-11-15\",\n        \"start\": \"1977-04-16\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"39e59333-49c6-c8c1-730e-88ee0537a22c\",\n          \"field_value_id\": \"acee1793-389c-424d-54b5-6d95b91e3c0c\"\n        },\n        {\n          \"field_id\": \"9eadb323-4569-0a8c-6dc9-d0ca5c988f0c\",\n          \"field_value_id\": \"c6556a77-4f0f-849e-07d4-427d5d527b1c\"\n        }\n      ]\n    }\n  ],\n  \"status\": \"PARTIALLY_PAID\",\n  \"updated_at\": \"2021-07-26T19:57:14.324Z\",\n  \"vendor_id\": \"d8f144ae-a435-c870-830f-f76468cdd890\",\n  \"impact_date\": \"2014-10-12\",\n  \"subsidiary_id\": \"6a661ce2-428d-7035-8d10-246bf006aad7\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1950-06-09\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30a1d862-a4ee-49ab-9ae3-368e4db4e3e0",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor_id\": \"<uuid>\",\n  \"expense_number\": \"B123\",\n  \"items\": [\n    {\n      \"account_code\": \"11112\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"description\": \"API Bill\",\n      \"tax_rate\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"coverage\": \"EXCLUSIVE\",\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"percentage\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tax_code\": \"string\"\n      },\n      \"service_period\": {\n        \"end\": \"1971-04-11\",\n        \"start\": \"1965-11-07\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"f50746df-d90d-2f79-5be3-b2f2cc78df8d\",\n          \"field_value_id\": \"5758e929-1c7e-d4dc-490c-d323f5e53a1d\"\n        },\n        {\n          \"field_id\": \"cb444a17-ac1a-d0f4-7af1-6f65adea1a3f\",\n          \"field_value_id\": \"7f949d23-8d90-427a-8537-424649438c83\"\n        }\n      ]\n    }\n  ],\n  \"bill_date\": \"<date>\",\n  \"due_date\": \"<date>\",\n  \"impact_date\": \"<date>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1971-11-25\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44564c92-866b-40c5-8c30-d3fd81e44533",
+          "name": "Uploads a document",
+          "request": {
+            "name": "Uploads a document",
+            "description": {
+              "content": "Attaches a binary file such as a PDF invoice or contract to an existing bill using multipart form data with a single file part.\nCall after the bill exists so approvers and auditors can open the evidence directly from the payable record.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "contentType": "application/octet-stream",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3dd1f692-aa68-45dc-aeee-10aea7af879e",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text",
+                      "contentType": "application/octet-stream"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6accd237-f861-47f2-ae72-7ebec9a5518c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text",
+                      "contentType": "application/octet-stream"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce4d0afc-36bb-4703-89c3-647c7fca323e",
+          "name": "Deletes a bill",
+          "request": {
+            "name": "Deletes a bill",
+            "description": {
+              "content": "Removes a bill that should no longer drive AP balances, typically while it remains in draft or was created in error.\nVerify no posted payments, accrual journals, or vendor credit applications still reference the bill before deleting.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bills",
+                ":bill_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bill_id",
+                  "description": "(Required) UUID of the bill to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e15d6d9-ced8-49f2-8c8b-13218b09704f",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee8c9fe6-2000-41c4-abbf-341e005291d1",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bills",
+                    ":bill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bill_id",
+                      "description": "(Required) UUID of the bill to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7bd4dc57-c197-4904-8a0e-7f680992e9e4",
+    "name": "Rillet Accounting API Key Bills API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

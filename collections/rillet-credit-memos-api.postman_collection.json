@@ -1,0 +1,1347 @@
+{
+  "item": [
+    {
+      "id": "21550668-a7be-45d7-b801-dd1860b788ca",
+      "name": "Credit Memos",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8eca9a9b-ae6c-4b87-9c6c-f170a4eb55c0",
+          "name": "Lists all credit memos",
+          "request": {
+            "name": "Lists all credit memos",
+            "description": {
+              "content": "Returns customer credit memos with pagination and filters for application state, customer, and subsidiaries.\nUse credit memo ids with retrieve-a-credit-memo before updates or when applying credits to invoices.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of rows to return in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor to navigate through the full response."
+                },
+                {
+                  "disabled": false,
+                  "key": "subsidiary_id",
+                  "value": "<uuid>",
+                  "description": "Subsidiary to be used when filtering data"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated.gt",
+                  "value": "<dateTime>",
+                  "description": "Filter credit memos updated after this timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17edfe86-343b-4e80-b719-c081f227c4fc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1c5afa3-89f9-484c-bf5d-660682358183",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "iLQvkEj3sh3UiweC"
+                    },
+                    {
+                      "key": "subsidiary_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "updated.gt",
+                      "value": "2023-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6780975f-4ed3-4175-b319-43a9947623a0",
+          "name": "Creates a credit memo",
+          "request": {
+            "name": "Creates a credit memo",
+            "description": {
+              "content": "Opens a customer credit memo that reduces receivable exposure before you allocate it to specific invoices.\nCapture subsidiary, customer, line-level reasons, and tax treatment so finance can audit why the balance changed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_memo_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"price\": {\n        \"product_id\": \"<uuid>\",\n        \"quantity\": \"<number>\",\n        \"amount_per_unit\": {\n          \"amount\": \"<string>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"<date>\",\n          \"start\": \"<date>\"\n        },\n        \"pattern\": \"<string>\",\n        \"account_code\": \"<string>\"\n      },\n      \"tax_rate\": {\n        \"country\": \"<string>\",\n        \"description\": \"<string>\",\n        \"percentage\": \"<number>\",\n        \"type\": \"<string>\",\n        \"tax_amount\": {\n          \"amount\": \"<string>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"customer_id\": \"<uuid>\",\n  \"credit_memo_number\": \"<string>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"<string>\",\n    \"date\": \"<date>\",\n    \"rate\": \"<string>\",\n    \"target\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6fc10cd2-29ed-45f4-a781-f5ff393e0cc5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_memo_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"b38e8ee4-6fa1-8c71-3c98-f71285f143ff\",\n        \"quantity\": 1562.5201394639798,\n        \"amount_per_unit\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"1946-10-12\",\n          \"start\": \"1948-09-16\"\n        },\n        \"pattern\": \"DAILY\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"VAT\",\n        \"tax_amount\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"e2e263fb-160e-1d7b-4a4e-f9005f099cff\",\n          \"field_value_id\": \"e4679bff-26e9-ac31-c5b7-0b3150462301\"\n        },\n        {\n          \"field_id\": \"81789f62-fa97-cdd6-4baa-08c4ac6baad7\",\n          \"field_value_id\": \"49a82020-2463-8819-7e8b-38d74544fc4c\"\n        }\n      ]\n    }\n  ],\n  \"customer_id\": \"<uuid>\",\n  \"credit_memo_number\": \"<string>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1953-07-26\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"applications\": [\n    {\n      \"id\": \"ddcf2b83-f775-df22-ab04-4c65a29d0f6b\",\n      \"credit_memo_id\": \"5de53d93-784f-7ab2-4966-e9285d2e5ff3\",\n      \"invoice_id\": \"416fcd70-b297-69c3-4509-776c0fc87e88\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"2010-06-18\",\n      \"invoice_number\": \"string\"\n    },\n    {\n      \"id\": \"323657d5-12b5-2e76-7d67-c57ccf91c49d\",\n      \"credit_memo_id\": \"d5854fba-4d7e-c83c-fab2-e3bc1971890a\",\n      \"invoice_id\": \"bebc351d-c6df-ff37-aa1e-73d546c1ad02\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1947-06-01\",\n      \"invoice_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"402018c2-eed9-36d5-6794-47cb097cbe0a\",\n  \"id\": \"c35fc816-0193-601b-6380-71a5d6fcd02e\",\n  \"credit_memo_date\": \"1976-12-23\",\n  \"credit_memo_number\": \"CM01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"7cc5f646-c2c7-d2c3-814e-5121bc4d2451\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2006-05-19\",\n          \"start\": \"1995-09-21\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"43542e7c-4262-34cf-b829-ac15084118bf\",\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"8029375e-3207-24bd-359d-90ffbebce1ac\",\n          \"field_value_id\": \"02dc7b06-99b1-1cb0-4c85-b8f18461acbb\"\n        },\n        {\n          \"field_id\": \"6e47cee7-845b-b518-b0c5-074c6130d7d5\",\n          \"field_value_id\": \"f9860610-0e83-990a-ef07-cbedcc90f9f9\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"string\",\n  \"subsidiary_id\": \"dbd5ff6d-72c9-c6de-91f0-0edec993fe6c\",\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"2017-12-23T05:01:21.408Z\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1995-05-11\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03595e37-8760-4832-88af-554ae1330304",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_memo_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"b38e8ee4-6fa1-8c71-3c98-f71285f143ff\",\n        \"quantity\": 1562.5201394639798,\n        \"amount_per_unit\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"1946-10-12\",\n          \"start\": \"1948-09-16\"\n        },\n        \"pattern\": \"DAILY\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"VAT\",\n        \"tax_amount\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"e2e263fb-160e-1d7b-4a4e-f9005f099cff\",\n          \"field_value_id\": \"e4679bff-26e9-ac31-c5b7-0b3150462301\"\n        },\n        {\n          \"field_id\": \"81789f62-fa97-cdd6-4baa-08c4ac6baad7\",\n          \"field_value_id\": \"49a82020-2463-8819-7e8b-38d74544fc4c\"\n        }\n      ]\n    }\n  ],\n  \"customer_id\": \"<uuid>\",\n  \"credit_memo_number\": \"<string>\",\n  \"subsidiary_id\": \"<uuid>\",\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ],\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1953-07-26\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ef03861-2232-4e16-8284-dfb70fa61515",
+          "name": "Retrieves a credit memo",
+          "request": {
+            "name": "Retrieves a credit memo",
+            "description": {
+              "content": "Loads the full credit memo payload, including remaining balance, applications, and tax metadata you must echo on PUT updates.\nAlways retrieve before editing because update-a-credit-memo replaces the entire resource when fields are omitted.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos",
+                ":credit_memo_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "credit_memo_id",
+                  "description": "(Required) UUID of the credit memo to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d03f80da-be4a-479c-8d5b-d8bb37e789e8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"applications\": [\n    {\n      \"id\": \"ddcf2b83-f775-df22-ab04-4c65a29d0f6b\",\n      \"credit_memo_id\": \"5de53d93-784f-7ab2-4966-e9285d2e5ff3\",\n      \"invoice_id\": \"416fcd70-b297-69c3-4509-776c0fc87e88\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"2010-06-18\",\n      \"invoice_number\": \"string\"\n    },\n    {\n      \"id\": \"323657d5-12b5-2e76-7d67-c57ccf91c49d\",\n      \"credit_memo_id\": \"d5854fba-4d7e-c83c-fab2-e3bc1971890a\",\n      \"invoice_id\": \"bebc351d-c6df-ff37-aa1e-73d546c1ad02\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1947-06-01\",\n      \"invoice_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"402018c2-eed9-36d5-6794-47cb097cbe0a\",\n  \"id\": \"c35fc816-0193-601b-6380-71a5d6fcd02e\",\n  \"credit_memo_date\": \"1976-12-23\",\n  \"credit_memo_number\": \"CM01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"7cc5f646-c2c7-d2c3-814e-5121bc4d2451\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2006-05-19\",\n          \"start\": \"1995-09-21\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"43542e7c-4262-34cf-b829-ac15084118bf\",\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"8029375e-3207-24bd-359d-90ffbebce1ac\",\n          \"field_value_id\": \"02dc7b06-99b1-1cb0-4c85-b8f18461acbb\"\n        },\n        {\n          \"field_id\": \"6e47cee7-845b-b518-b0c5-074c6130d7d5\",\n          \"field_value_id\": \"f9860610-0e83-990a-ef07-cbedcc90f9f9\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"string\",\n  \"subsidiary_id\": \"dbd5ff6d-72c9-c6de-91f0-0edec993fe6c\",\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"2017-12-23T05:01:21.408Z\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1995-05-11\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d03e3395-56ad-4f78-a722-5c7006d93d72",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "400310d8-b960-43db-983c-487fa0ba18de",
+          "name": "Deletes a credit memo",
+          "request": {
+            "name": "Deletes a credit memo",
+            "description": {
+              "content": "Removes a credit memo that should no longer affect AR balances, typically while it is still draft or unused.\nConfirm no invoice applications or downstream revenue adjustments depend on this memo before calling delete.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos",
+                ":credit_memo_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "credit_memo_id",
+                  "description": "(Required) UUID of the credit memo to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9c5b22c-162f-4a70-bb12-5069df0088f0",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36c4d235-86c1-45ee-b083-b90d0e10a082",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07e1f41d-03c8-4def-9b79-e0c800875428",
+          "name": "Updates a credit memo",
+          "request": {
+            "name": "Updates a credit memo",
+            "description": {
+              "content": "IMPORTANT: This is a full-replace operation (PUT semantics). All fields must be\nincluded in the request body — omitting any field will set it to null, wiping\nexisting data. Always call retrieve-a-credit-memo first to fetch the current record,\nthen include ALL existing fields in your update request along with your changes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos",
+                ":credit_memo_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "credit_memo_id",
+                  "description": "(Required) UUID of the credit memo to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_memo_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"price\": {\n        \"product_id\": \"<uuid>\",\n        \"quantity\": \"<number>\",\n        \"amount_per_unit\": {\n          \"amount\": \"<string>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"<date>\",\n          \"start\": \"<date>\"\n        },\n        \"pattern\": \"<string>\",\n        \"account_code\": \"<string>\"\n      },\n      \"tax_rate\": {\n        \"country\": \"<string>\",\n        \"description\": \"<string>\",\n        \"percentage\": \"<number>\",\n        \"type\": \"<string>\",\n        \"tax_amount\": {\n          \"amount\": \"<string>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        },\n        {\n          \"field_id\": \"<uuid>\",\n          \"field_value_id\": \"<uuid>\"\n        }\n      ]\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02f62545-ff73-413f-a891-a3c129aa2a50",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_memo_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"3a261b78-e37d-2edc-cfa1-04b8363a5086\",\n        \"quantity\": 2041.188642834525,\n        \"amount_per_unit\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2024-07-08\",\n          \"start\": \"1964-11-04\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"SALES_TAX\",\n        \"tax_amount\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"f5266334-76f9-2cc7-9e2e-82ba0143c2b8\",\n          \"field_value_id\": \"b7db09fa-9dc1-d7c8-dc0e-dbc72b4e10ce\"\n        },\n        {\n          \"field_id\": \"1065ff89-7966-9de2-f67a-a20de8166839\",\n          \"field_value_id\": \"4933747d-d0de-fa75-7892-dc077fa6ad90\"\n        }\n      ]\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"applications\": [\n    {\n      \"id\": \"ddcf2b83-f775-df22-ab04-4c65a29d0f6b\",\n      \"credit_memo_id\": \"5de53d93-784f-7ab2-4966-e9285d2e5ff3\",\n      \"invoice_id\": \"416fcd70-b297-69c3-4509-776c0fc87e88\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"2010-06-18\",\n      \"invoice_number\": \"string\"\n    },\n    {\n      \"id\": \"323657d5-12b5-2e76-7d67-c57ccf91c49d\",\n      \"credit_memo_id\": \"d5854fba-4d7e-c83c-fab2-e3bc1971890a\",\n      \"invoice_id\": \"bebc351d-c6df-ff37-aa1e-73d546c1ad02\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1947-06-01\",\n      \"invoice_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"402018c2-eed9-36d5-6794-47cb097cbe0a\",\n  \"id\": \"c35fc816-0193-601b-6380-71a5d6fcd02e\",\n  \"credit_memo_date\": \"1976-12-23\",\n  \"credit_memo_number\": \"CM01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"7cc5f646-c2c7-d2c3-814e-5121bc4d2451\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2006-05-19\",\n          \"start\": \"1995-09-21\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"43542e7c-4262-34cf-b829-ac15084118bf\",\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"8029375e-3207-24bd-359d-90ffbebce1ac\",\n          \"field_value_id\": \"02dc7b06-99b1-1cb0-4c85-b8f18461acbb\"\n        },\n        {\n          \"field_id\": \"6e47cee7-845b-b518-b0c5-074c6130d7d5\",\n          \"field_value_id\": \"f9860610-0e83-990a-ef07-cbedcc90f9f9\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"string\",\n  \"subsidiary_id\": \"dbd5ff6d-72c9-c6de-91f0-0edec993fe6c\",\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"2017-12-23T05:01:21.408Z\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1995-05-11\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d10d9ef6-c35f-4c9b-8757-fc2be2af0daf",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_memo_date\": \"<date>\",\n  \"items\": [\n    {\n      \"description\": \"string\",\n      \"price\": {\n        \"product_id\": \"3a261b78-e37d-2edc-cfa1-04b8363a5086\",\n        \"quantity\": 2041.188642834525,\n        \"amount_per_unit\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2024-07-08\",\n          \"start\": \"1964-11-04\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"tax_rate\": {\n        \"country\": \"US\",\n        \"description\": \"string\",\n        \"percentage\": 0,\n        \"type\": \"SALES_TAX\",\n        \"tax_amount\": {\n          \"amount\": \"1.01\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"f5266334-76f9-2cc7-9e2e-82ba0143c2b8\",\n          \"field_value_id\": \"b7db09fa-9dc1-d7c8-dc0e-dbc72b4e10ce\"\n        },\n        {\n          \"field_id\": \"1065ff89-7966-9de2-f67a-a20de8166839\",\n          \"field_value_id\": \"4933747d-d0de-fa75-7892-dc077fa6ad90\"\n        }\n      ]\n    }\n  ],\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e04d7786-f15c-45cf-b3df-50d8430856dd",
+          "name": "Updates credit memo taxes",
+          "request": {
+            "name": "Updates credit memo taxes",
+            "description": {
+              "content": "Refreshes tax quotes on an existing credit memo using the same structured payload as invoice tax updates, stamped with taxesCalculatedAt for auditability.\nUse after line items change or when your tax engine recomputes jurisdiction-specific amounts before issuing the credit to the customer.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos",
+                ":credit_memo_id",
+                "taxes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "credit_memo_id",
+                  "description": "(Required) UUID of the credit memo to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"taxes_calculated_at\": \"<dateTime>\",\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"tax_rates\": [\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"<string>\",\n          \"percentage\": \"<number>\",\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"<string>\"\n        },\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"<string>\",\n          \"percentage\": \"<number>\",\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22886bf6-45d5-4ca8-851d-a11d7549efcb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id",
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"taxes_calculated_at\": \"<dateTime>\",\n  \"items\": [\n    {\n      \"id\": \"267e4dc2-d5da-cb4b-52a0-6bb44373a76a\",\n      \"tax_rates\": [\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"VAT\"\n        },\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"SALES_TAX\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"applications\": [\n    {\n      \"id\": \"ddcf2b83-f775-df22-ab04-4c65a29d0f6b\",\n      \"credit_memo_id\": \"5de53d93-784f-7ab2-4966-e9285d2e5ff3\",\n      \"invoice_id\": \"416fcd70-b297-69c3-4509-776c0fc87e88\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"2010-06-18\",\n      \"invoice_number\": \"string\"\n    },\n    {\n      \"id\": \"323657d5-12b5-2e76-7d67-c57ccf91c49d\",\n      \"credit_memo_id\": \"d5854fba-4d7e-c83c-fab2-e3bc1971890a\",\n      \"invoice_id\": \"bebc351d-c6df-ff37-aa1e-73d546c1ad02\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1947-06-01\",\n      \"invoice_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"402018c2-eed9-36d5-6794-47cb097cbe0a\",\n  \"id\": \"c35fc816-0193-601b-6380-71a5d6fcd02e\",\n  \"credit_memo_date\": \"1976-12-23\",\n  \"credit_memo_number\": \"CM01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"7cc5f646-c2c7-d2c3-814e-5121bc4d2451\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2006-05-19\",\n          \"start\": \"1995-09-21\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"43542e7c-4262-34cf-b829-ac15084118bf\",\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"8029375e-3207-24bd-359d-90ffbebce1ac\",\n          \"field_value_id\": \"02dc7b06-99b1-1cb0-4c85-b8f18461acbb\"\n        },\n        {\n          \"field_id\": \"6e47cee7-845b-b518-b0c5-074c6130d7d5\",\n          \"field_value_id\": \"f9860610-0e83-990a-ef07-cbedcc90f9f9\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"string\",\n  \"subsidiary_id\": \"dbd5ff6d-72c9-c6de-91f0-0edec993fe6c\",\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"2017-12-23T05:01:21.408Z\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1995-05-11\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2499dcb-36ef-478a-a7b2-dbcffa9cc16c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id",
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"taxes_calculated_at\": \"<dateTime>\",\n  \"items\": [\n    {\n      \"id\": \"267e4dc2-d5da-cb4b-52a0-6bb44373a76a\",\n      \"tax_rates\": [\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"VAT\"\n        },\n        {\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"percentage\": 0,\n          \"tax_amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"SALES_TAX\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "877b3ea9-94c4-4194-963a-8f53036f11dd",
+          "name": "Unapplies all credit memo applications",
+          "request": {
+            "name": "Unapplies all credit memo applications",
+            "description": {
+              "content": "Removes every application from this credit memo, reverting all invoice allocations.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos",
+                ":credit_memo_id",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "credit_memo_id",
+                  "description": "(Required) UUID of the credit memo to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de46908e-7c62-4552-a393-4402fa6d663c",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "acb569c3-2ed2-44e0-8870-42eac43047f2",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64e02e6c-f6cc-42e1-95ba-d44b8bd29179",
+          "name": "Reconciles credit memo applications",
+          "request": {
+            "name": "Reconciles credit memo applications",
+            "description": {
+              "content": "Full reconcile of credit memo applications. The request body represents the desired set: missing applications are removed, new applications inserted, and existing applications updated when amount or application_date differ.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit-memos",
+                ":credit_memo_id",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "credit_memo_id",
+                  "description": "(Required) UUID of the credit memo to be used in this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applications\": [\n    {\n      \"invoice_id\": \"<uuid>\",\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"application_date\": \"<date>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d23643d6-d629-4649-9c40-51e9840641f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"invoice_id\": \"6ca4130c-9b32-cfa8-7337-ee3a94f2f9bc\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1998-02-03\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"city\": \"Nashville\",\n    \"country\": \"US\",\n    \"line1\": \"123 Main St\",\n    \"state\": \"TN\",\n    \"zip_code\": \"37201\",\n    \"line2\": \"Apt 4B\"\n  },\n  \"applications\": [\n    {\n      \"id\": \"ddcf2b83-f775-df22-ab04-4c65a29d0f6b\",\n      \"credit_memo_id\": \"5de53d93-784f-7ab2-4966-e9285d2e5ff3\",\n      \"invoice_id\": \"416fcd70-b297-69c3-4509-776c0fc87e88\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"2010-06-18\",\n      \"invoice_number\": \"string\"\n    },\n    {\n      \"id\": \"323657d5-12b5-2e76-7d67-c57ccf91c49d\",\n      \"credit_memo_id\": \"d5854fba-4d7e-c83c-fab2-e3bc1971890a\",\n      \"invoice_id\": \"bebc351d-c6df-ff37-aa1e-73d546c1ad02\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1947-06-01\",\n      \"invoice_number\": \"string\"\n    }\n  ],\n  \"applied_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"customer_id\": \"402018c2-eed9-36d5-6794-47cb097cbe0a\",\n  \"id\": \"c35fc816-0193-601b-6380-71a5d6fcd02e\",\n  \"credit_memo_date\": \"1976-12-23\",\n  \"credit_memo_number\": \"CM01\",\n  \"items\": [\n    {\n      \"description\": \"Description\",\n      \"net_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"id\": \"7cc5f646-c2c7-d2c3-814e-5121bc4d2451\",\n      \"quantity\": 1,\n      \"revenue\": {\n        \"period\": {\n          \"end\": \"2006-05-19\",\n          \"start\": \"1995-09-21\"\n        },\n        \"pattern\": \"EVEN_PERIOD\",\n        \"account_code\": \"11112\"\n      },\n      \"total_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"product_id\": \"43542e7c-4262-34cf-b829-ac15084118bf\",\n      \"taxed_amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"fields\": [\n        {\n          \"field_id\": \"8029375e-3207-24bd-359d-90ffbebce1ac\",\n          \"field_value_id\": \"02dc7b06-99b1-1cb0-4c85-b8f18461acbb\"\n        },\n        {\n          \"field_id\": \"6e47cee7-845b-b518-b0c5-074c6130d7d5\",\n          \"field_value_id\": \"f9860610-0e83-990a-ef07-cbedcc90f9f9\"\n        }\n      ]\n    }\n  ],\n  \"net_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"remaining_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"status\": \"string\",\n  \"subsidiary_id\": \"dbd5ff6d-72c9-c6de-91f0-0edec993fe6c\",\n  \"taxed_amount\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"total\": {\n    \"amount\": \"1.01\",\n    \"currency\": \"USD\"\n  },\n  \"updated_at\": \"2017-12-23T05:01:21.408Z\",\n  \"exchange_rate\": {\n    \"base\": \"USD\",\n    \"date\": \"1995-05-11\",\n    \"rate\": \"string\",\n    \"target\": \"USD\"\n  },\n  \"external_references\": [\n    {\n      \"type\": \"xyzSystemId\",\n      \"id\": \"234\",\n      \"url\": \"https://xyzsystempage.com/ids/234\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d483f97c-889c-46fe-9c2d-617629391a0e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit-memos",
+                    ":credit_memo_id",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "credit_memo_id",
+                      "description": "(Required) UUID of the credit memo to be used in this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"invoice_id\": \"6ca4130c-9b32-cfa8-7337-ee3a94f2f9bc\",\n      \"amount\": {\n        \"amount\": \"1.01\",\n        \"currency\": \"USD\"\n      },\n      \"application_date\": \"1998-02-03\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://rillet.io/forbidden\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"User does not have rights to perform this operation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rillet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "eb50c893-0eba-4487-976d-bc3922e3ea22",
+    "name": "Rillet Accounting API Key Credit Memos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
