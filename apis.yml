@@ -46,6 +46,17 @@ tags:
 - Accounts Receivable
 - Accounts Payable
 - Invoicing
+- Software-as-a-Service
+tags_raw:
+- Company
+- Fintech
+- ERP
+- Accounting
+- Finance
+- General Ledger
+- Accounts Receivable
+- Accounts Payable
+- Invoicing
 - SaaS
 apis:
 - aid: rillet:rillet-api-key-api
@@ -54,6 +65,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - APIKeys
+  tags_raw:
   - API Key
   properties:
   - type: OpenAPI
@@ -68,6 +81,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Bank Accounts
+  tags_raw:
   - Bank accounts
   properties:
   - type: OpenAPI
@@ -278,6 +293,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Invoice Payments
+  tags_raw:
   - Invoice payments
   properties:
   - type: OpenAPI
@@ -320,6 +337,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -334,6 +353,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -348,6 +369,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Reimbursement
+  tags_raw:
   - Reimbursements
   properties:
   - type: OpenAPI
@@ -390,6 +413,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Tax Rates
+  tags_raw:
   - Tax rates
   properties:
   - type: OpenAPI
