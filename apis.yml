@@ -478,6 +478,16 @@ apis:
     url: https://docs.api.rillet.com/docs/getting-started
   - type: APIReference
     url: https://docs.api.rillet.com/reference
+- aid: rillet:rillet-webhooks-api
+  name: Rillet Webhooks API
+  description: The Webhooks API from Rillet — 0 operation(s) for webhooks.
+  humanURL: https://docs.api.rillet.com/docs/getting-started
+  baseURL: https://api.rillet.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/rillet-webhooks-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rillet Accounting API Key Products API
+  title: Rillet Accounting Products API
   version: v4.0
 servers:
 - url: https://api.rillet.com
@@ -184,32 +184,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    TieredBilling:
-      type: object
-      required:
-      - type
-      - mode
-      - tiers
-      properties:
-        type:
-          type: string
-          default: TIERED
-        mode:
-          type: string
-          enum:
-          - GRADUATED
-          - METERED
-          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
-        tiers:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Tier'
-      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
-    AccountCode:
-      type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
     BillingScheme:
       discriminator:
         propertyName: type
@@ -219,23 +193,51 @@ components:
       oneOf:
       - $ref: '#/components/schemas/PerUnitBilling'
       - $ref: '#/components/schemas/TieredBilling'
-    Price:
-      discriminator:
-        propertyName: type
-        mapping:
-          FIXED_RECURRING: '#/components/schemas/FixedRecurringPrice'
-          ONE_TIME: '#/components/schemas/OneTimePrice'
-          USAGE: '#/components/schemas/UsagePrice'
-      oneOf:
-      - $ref: '#/components/schemas/FixedRecurringPrice'
-      - $ref: '#/components/schemas/OneTimePrice'
-      - $ref: '#/components/schemas/UsagePrice'
-      example:
-        type: FIXED_RECURRING
+    RevenuePattern:
+      type: string
+      enum:
+      - DAILY
+      - EVEN_PERIOD
+      description: DAILY means that the revenue is divided equally per day in the revenue period. EVEN_PERIOD means that the revenue is divided equally for each calendar month in the revenue period.
+    OneTimePrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: ONE_TIME
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
         amount:
-          amount: '10.00'
-          currency: USD
-        interval_months: 1
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    PerUnitBilling:
+      type: object
+      required:
+      - type
+      - amount
+      - units
+      properties:
+        type:
+          type: string
+          default: PER_UNIT
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        units:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 1
     ExternalReference:
       type: object
       required:
@@ -253,131 +255,6 @@ components:
           format: uri
           example: https://xyzsystempage.com/ids/234
       description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
-    FixedRecurringPrice:
-      allOf:
-      - $ref: '#/components/schemas/FixedPrice'
-      - $ref: '#/components/schemas/RecurringPrice'
-      - type: object
-        required:
-        - type
-        properties:
-          type:
-            type: string
-            default: FIXED_RECURRING
-    UsagePrice:
-      allOf:
-      - $ref: '#/components/schemas/RecurringPrice'
-      - type: object
-        required:
-        - type
-        - billing_scheme
-        properties:
-          type:
-            type: string
-            default: USAGE
-          billing_scheme:
-            $ref: '#/components/schemas/BillingScheme'
-    MonetaryAmount:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    Tier:
-      type: object
-      required:
-      - up_to
-      properties:
-        up_to:
-          type: integer
-          format: int32
-          minimum: 1
-          example: 10
-        flat_price:
-          $ref: '#/components/schemas/MonetaryAmount'
-        per_unit_price:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
-    Error:
-      type: object
-      required:
-      - type
-      - title
-      properties:
-        type:
-          type: string
-          format: uri
-          description: A URI reference that identifies the error type.
-          example: https://rillet.io/forbidden
-        title:
-          type: string
-          description: Summary of the problem.
-          example: Forbidden
-        status:
-          type: integer
-          description: The HTTP status code generated by the origin server for this occurrence of the error.
-          example: 403
-        detail:
-          type: string
-          description: Explanation specific to this occurrence of the error.
-          example: User does not have rights to perform this operation.
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    ProductRequest:
-      type: object
-      required:
-      - description
-      - include_in_arr_mrr
-      - name
-      - price
-      - revenue_pattern
-      - account_code
-      properties:
-        name:
-          maxLength: 250
-          minLength: 1
-          type: string
-          example: English subscription
-        description:
-          type: string
-          example: Subscription to english classes
-        price:
-          $ref: '#/components/schemas/Price'
-        include_in_arr_mrr:
-          type: boolean
-        revenue_pattern:
-          $ref: '#/components/schemas/RevenuePattern'
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
-        status:
-          type: string
-          default: ACTIVE
-          enum:
-          - ACTIVE
-          - INACTIVE
-        external_references:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalReference'
     FixedPrice:
       type: object
       required:
@@ -389,16 +266,10 @@ components:
       type: string
       description: Currency code following ISO-4217
       example: USD
-    OneTimePrice:
-      allOf:
-      - $ref: '#/components/schemas/FixedPrice'
-      - type: object
-        required:
-        - type
-        properties:
-          type:
-            type: string
-            default: ONE_TIME
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
     Product:
       type: object
       required:
@@ -438,29 +309,158 @@ components:
           - INACTIVE
         account_code:
           $ref: '#/components/schemas/AccountCode'
-    RevenuePattern:
-      type: string
-      enum:
-      - DAILY
-      - EVEN_PERIOD
-      description: DAILY means that the revenue is divided equally per day in the revenue period. EVEN_PERIOD means that the revenue is divided equally for each calendar month in the revenue period.
-    PerUnitBilling:
+    TieredBilling:
       type: object
       required:
       - type
-      - amount
-      - units
+      - mode
+      - tiers
       properties:
         type:
           type: string
-          default: PER_UNIT
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        units:
+          default: TIERED
+        mode:
+          type: string
+          enum:
+          - GRADUATED
+          - METERED
+          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
+        tiers:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Tier'
+      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    FixedRecurringPrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: FIXED_RECURRING
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    Tier:
+      type: object
+      required:
+      - up_to
+      properties:
+        up_to:
           type: integer
           format: int32
           minimum: 1
-          example: 1
+          example: 10
+        flat_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        per_unit_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
+    UsagePrice:
+      allOf:
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        - billing_scheme
+        properties:
+          type:
+            type: string
+            default: USAGE
+          billing_scheme:
+            $ref: '#/components/schemas/BillingScheme'
+    ProductRequest:
+      type: object
+      required:
+      - description
+      - include_in_arr_mrr
+      - name
+      - price
+      - revenue_pattern
+      - account_code
+      properties:
+        name:
+          maxLength: 250
+          minLength: 1
+          type: string
+          example: English subscription
+        description:
+          type: string
+          example: Subscription to english classes
+        price:
+          $ref: '#/components/schemas/Price'
+        include_in_arr_mrr:
+          type: boolean
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        status:
+          type: string
+          default: ACTIVE
+          enum:
+          - ACTIVE
+          - INACTIVE
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    Price:
+      discriminator:
+        propertyName: type
+        mapping:
+          FIXED_RECURRING: '#/components/schemas/FixedRecurringPrice'
+          ONE_TIME: '#/components/schemas/OneTimePrice'
+          USAGE: '#/components/schemas/UsagePrice'
+      oneOf:
+      - $ref: '#/components/schemas/FixedRecurringPrice'
+      - $ref: '#/components/schemas/OneTimePrice'
+      - $ref: '#/components/schemas/UsagePrice'
+      example:
+        type: FIXED_RECURRING
+        amount:
+          amount: '10.00'
+          currency: USD
+        interval_months: 1
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
     RecurringPrice:
       type: object
       required:
@@ -473,13 +473,6 @@ components:
           maximum: 12
           example: 1
   parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of rows to return in the page.
-      schema:
-        $ref: '#/components/schemas/PageLimit'
     cursor:
       name: cursor
       in: query
@@ -487,6 +480,13 @@ components:
       description: Pagination cursor to navigate through the full response.
       schema:
         $ref: '#/components/schemas/PageCursor'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
   securitySchemes:
     bearerAuth:
       type: http

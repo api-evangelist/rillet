@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rillet Accounting API Key Bill Payments API
+  title: Rillet Accounting Bill Payments API
   version: v4.0
 servers:
 - url: https://api.rillet.com
@@ -127,6 +127,28 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    BillPaymentRequest:
+      type: object
+      required:
+      - amount
+      - date
+      - account_code
+      properties:
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        date:
+          type: string
+          format: date
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
     BillPayment:
       type: object
       required:
@@ -152,6 +174,20 @@ components:
           format: date
         account_code:
           $ref: '#/components/schemas/AccountCode'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
     Error:
       type: object
       required:
@@ -175,42 +211,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    AccountCode:
-      type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    BillPaymentRequest:
-      type: object
-      required:
-      - amount
-      - date
-      - account_code
-      properties:
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        date:
-          type: string
-          format: date
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
   securitySchemes:
     bearerAuth:
       type: http

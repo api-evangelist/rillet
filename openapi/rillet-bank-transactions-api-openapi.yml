@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rillet Accounting API Key Bank Transactions API
+  title: Rillet Accounting Bank Transactions API
   version: v4.0
 servers:
 - url: https://api.rillet.com
@@ -215,6 +215,130 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    UpdateBankTransactionRequest:
+      type: object
+      required:
+      - bank_account_id
+      - date
+      - name
+      - merchant
+      - net_amount
+      properties:
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+          description: Transaction description
+        merchant:
+          type: string
+          description: Merchant or counterparty name
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Transaction amount with fees subtracted
+        fee:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Fee amount
+        pending:
+          type: boolean
+          description: Whether the transaction is still pending
+        excluded:
+          type: boolean
+          description: Whether the transaction is excluded from reconciliation
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    CreateBankTransactionRequest:
+      type: object
+      required:
+      - bank_account_id
+      - date
+      - name
+      - merchant
+      - net_amount
+      properties:
+        bank_account_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+          description: Transaction description
+        merchant:
+          type: string
+          description: Merchant or counterparty name
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Transaction amount with fees subtracted
+        fee:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Fee amount. Defaults to zero in the currency of net_amount.
+        pending:
+          type: boolean
+          description: Whether the transaction is still pending
+          default: false
+        excluded:
+          type: boolean
+          description: Whether the transaction is excluded from reconciliation
+          default: false
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
     BankTransaction:
       type: object
       required:
@@ -287,139 +411,7 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    UpdateBankTransactionRequest:
-      type: object
-      required:
-      - bank_account_id
-      - date
-      - name
-      - merchant
-      - net_amount
-      properties:
-        date:
-          type: string
-          format: date
-        name:
-          type: string
-          description: Transaction description
-        merchant:
-          type: string
-          description: Merchant or counterparty name
-        net_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-          description: Transaction amount with fees subtracted
-        fee:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-          description: Fee amount
-        pending:
-          type: boolean
-          description: Whether the transaction is still pending
-        excluded:
-          type: boolean
-          description: Whether the transaction is excluded from reconciliation
-        external_references:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalReference'
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    CreateBankTransactionRequest:
-      type: object
-      required:
-      - bank_account_id
-      - date
-      - name
-      - merchant
-      - net_amount
-      properties:
-        bank_account_id:
-          type: string
-          format: uuid
-        date:
-          type: string
-          format: date
-        name:
-          type: string
-          description: Transaction description
-        merchant:
-          type: string
-          description: Merchant or counterparty name
-        net_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-          description: Transaction amount with fees subtracted
-        fee:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-          description: Fee amount. Defaults to zero in the currency of net_amount.
-        pending:
-          type: boolean
-          description: Whether the transaction is still pending
-          default: false
-        excluded:
-          type: boolean
-          description: Whether the transaction is excluded from reconciliation
-          default: false
-        external_references:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalReference'
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
-    ExternalReference:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          example: xyzSystemId
-        id:
-          type: string
-          example: '234'
-        url:
-          type: string
-          format: uri
-          example: https://xyzsystempage.com/ids/234
-      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
   parameters:
-    subsidiary_id:
-      name: subsidiary_id
-      in: query
-      required: false
-      description: Subsidiary to be used when filtering data
-      schema:
-        type: string
-        format: uuid
     cursor:
       name: cursor
       in: query
@@ -434,6 +426,14 @@ components:
       description: Maximum number of rows to return in the page.
       schema:
         $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     bearerAuth:
       type: http

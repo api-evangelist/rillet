@@ -1,0 +1,2222 @@
+openapi: 3.2.0
+info:
+  title: Rillet Accounting Webhooks API
+  version: v4.0
+servers:
+- url: https://api.rillet.com
+  description: Production server url
+- url: https://sandbox.api.rillet.com
+  description: Test server url
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+paths: {}
+webhooks:
+  invoice-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: invoice-created-webhook
+      description: 'Webhook to notify when an invoice is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - INVOICE
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+        required: true
+      responses:
+        '200':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  invoice-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: invoice-updated-webhook
+      description: 'Webhook to notify when an invoice is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - INVOICE
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  invoice-payment-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: invoice-payment-updated-webhook
+      description: 'Webhook to notify when an invoice is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - INVOICE
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - PAYMENT_UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  invoice-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: invoice-deleted-webhook
+      description: 'Webhook to notify when an invoice is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - INVOICE
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted invoice
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  contract-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: contract-created-webhook
+      description: 'Webhook to notify when a contract is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CONTRACT
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookContract'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  contract-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: contract-updated-webhook
+      description: 'Webhook to notify when a contract is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CONTRACT
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookContract'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  contract-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: contract-deleted-webhook
+      description: 'Webhook to notify when a contract is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CONTRACT
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted contract
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  credit-memo-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: credit-memo-created-webhook
+      description: 'Webhook to notify when a credit memo is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CREDIT_MEMO
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditMemo'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  credit-memo-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: credit-memo-updated-webhook
+      description: 'Webhook to notify when a credit memo is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CREDIT_MEMO
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditMemo'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  credit-memo-payment-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: credit-memo-payment-updated-webhook
+      description: 'Webhook to notify when a credit memo payment is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CREDIT_MEMO
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - PAYMENT_UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditMemo'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  credit-memo-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: credit-memo-deleted-webhook
+      description: 'Webhook to notify when a credit memo is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CREDIT_MEMO
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted credit memo
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  customer-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: customer-created-webhook
+      description: 'Webhook to notify when a customer is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CUSTOMER
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  customer-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: customer-updated-webhook
+      description: 'Webhook to notify when a customer is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CUSTOMER
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  customer-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: customer-deleted-webhook
+      description: 'Webhook to notify when a customer is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - CUSTOMER
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted customer
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  bill-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: bill-created-webhook
+      description: 'Webhook to notify when a bill is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - BILL
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bill'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  bill-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: bill-updated-webhook
+      description: 'Webhook to notify when a bill is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - BILL
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bill'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  bill-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: bill-deleted-webhook
+      description: 'Webhook to notify when a bill is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - BILL
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted bill
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  vendor-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: vendor-created-webhook
+      description: 'Webhook to notify when a vendor is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - VENDOR
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorResponse'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  vendor-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: vendor-updated-webhook
+      description: 'Webhook to notify when a vendor is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - VENDOR
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorResponse'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  vendor-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: vendor-deleted-webhook
+      description: 'Webhook to notify when a vendor is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - VENDOR
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted vendor
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  journal-entry-created:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: journal-entry-created-webhook
+      description: 'Webhook to notify when a journal entry is created.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - JOURNAL_ENTRY
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - CREATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JournalEntry'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  journal-entry-updated:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: journal-entry-updated-webhook
+      description: 'Webhook to notify when a journal entry is updated.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - JOURNAL_ENTRY
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - UPDATED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JournalEntry'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  journal-entry-deleted:
+    post:
+      tags:
+      - Webhooks
+      x-blank-ext: 'No effect. Added to work around codegen bug: https://github.com/OpenAPITools/openapi-generator/issues/20175'
+      operationId: journal-entry-deleted-webhook
+      description: 'Webhook to notify when a journal entry is deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/X-Rillet-Signature'
+      - $ref: '#/components/parameters/X-Rillet-Timestamp'
+      - $ref: '#/components/parameters/X-Rillet-Id'
+      - $ref: '#/components/parameters/X-Rillet-Entity'
+        schema:
+          type: string
+          enum:
+          - JOURNAL_ENTRY
+      - $ref: '#/components/parameters/X-Rillet-Event'
+        schema:
+          type: string
+          enum:
+          - DELETED
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: The id of the deleted journal entry
+              type: string
+              format: uuid
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+components:
+  schemas:
+    WebhookContractItem:
+      type: object
+      required:
+      - id
+      - price
+      - product_id
+      - quantity
+      - revenue_pattern
+      - start_date
+      - status
+      - total_value
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+          minimum: 1
+          example: 1
+        total_value:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        revenue_pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+        discount:
+          $ref: '#/components/schemas/Discount'
+        tax_rate:
+          $ref: '#/components/schemas/TaxRate'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - AMENDED
+          - ACTIVE
+        amending:
+          type: string
+          format: uuid
+          description: When set, references the item this item is amending.
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    BillingScheme:
+      discriminator:
+        propertyName: type
+        mapping:
+          PER_UNIT: '#/components/schemas/PerUnitBilling'
+          TIERED: '#/components/schemas/TieredBilling'
+      oneOf:
+      - $ref: '#/components/schemas/PerUnitBilling'
+      - $ref: '#/components/schemas/TieredBilling'
+    RevenuePattern:
+      type: string
+      enum:
+      - DAILY
+      - EVEN_PERIOD
+      description: DAILY means that the revenue is divided equally per day in the revenue period. EVEN_PERIOD means that the revenue is divided equally for each calendar month in the revenue period.
+    VendorRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: MyVendor
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 180
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        ten_ninety_nine_eligible:
+          type: boolean
+        tax_id:
+          type: string
+          example: '123'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    JournalEntry:
+      type: object
+      required:
+      - id
+      - date
+      - name
+      - currency
+      - items
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        related_entity:
+          $ref: '#/components/schemas/JournalEntryRelatedEntity'
+        items:
+          type: array
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/JournalEntryItem'
+        date:
+          type: string
+          format: date
+          description: The date this journal entry was posted to the general ledger.
+        reversal_date:
+          type: string
+          format: date
+        attachmentUrl:
+          type: string
+          format: uri
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+    WebhookContract:
+      type: object
+      required:
+      - close_date
+      - customer_id
+      - id
+      - invoicing
+      - items
+      - name
+      - start_date
+      - status
+      - total_value
+      - subsidiary_id
+      properties:
+        id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: New API Contract
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/WebhookContractItem'
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        close_date:
+          type: string
+          format: date
+        invoicing:
+          $ref: '#/components/schemas/Invoicing'
+          description: Mandatory for contracts with scope different than REVENUE_RECOGNITION_ONLY.
+        usage_overage_invoicing:
+          $ref: '#/components/schemas/OverageInvoicing'
+          description: When set, allows the invoicing of usage overages at a separate frequency from the regular invoicing of the contract.
+        total_value:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        usage_commitment:
+          $ref: '#/components/schemas/UsageCommitment'
+    CalendarPeriod:
+      type: object
+      required:
+      - end
+      - start
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    QuarterlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - month_day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: QUARTERLY
+        month_day:
+          type: string
+          pattern: ^--\d{2}-\d{2}$
+          description: A string in --MM-dd format. Invoices will be created starting on that date and every 3 months.
+          example: --01-01
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    PerUnitBilling:
+      type: object
+      required:
+      - type
+      - amount
+      - units
+      properties:
+        type:
+          type: string
+          default: PER_UNIT
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        units:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 1
+    OneTimePrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: ONE_TIME
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    JournalEntryRelatedEntity:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - CUSTOMER
+          - VENDOR
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    MonthlyProratedInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: MONTHLY_PRORATED
+        day:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 31
+          example: 1
+      description: 'Monthly prorated invoicing is only available for contracts with usage products and a minimum usage commitment.
+
+        '
+    FixedPrice:
+      type: object
+      required:
+      - amount
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+    SemiAnnualInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - month_day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: SEMI_ANNUAL
+        month_day:
+          type: string
+          pattern: ^--\d{2}-\d{2}$
+          description: A string in --MM-dd format. Invoices will be created starting on that date and every 6 months.
+          example: --01-01
+    BillStatus:
+      type: string
+      enum:
+      - UNPAID
+      - PAID
+      - PARTIALLY_PAID
+      - CREDITED
+      - PARTIALLY_CREDITED
+      - APPLIED
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    OverageInvoicing:
+      oneOf:
+      - $ref: '#/components/schemas/OverageMonthlyInvoicing'
+      - $ref: '#/components/schemas/OverageMonthlyProratedInvoicing'
+      - $ref: '#/components/schemas/OverageQuarterlyInvoicing'
+      - $ref: '#/components/schemas/OverageSemiAnnualInvoicing'
+      - $ref: '#/components/schemas/OverageYearlyInvoicing'
+      discriminator:
+        propertyName: interval
+        mapping:
+          MONTHLY: '#/components/schemas/OverageMonthlyInvoicing'
+          MONTHLY_PRORATED: '#/components/schemas/OverageMonthlyProratedInvoicing'
+          QUARTERLY: '#/components/schemas/OverageQuarterlyInvoicing'
+          SEMI_ANNUAL: '#/components/schemas/OverageSemiAnnualInvoicing'
+          YEARLY: '#/components/schemas/OverageYearlyInvoicing'
+    CustomerRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Bob
+        name_on_invoice:
+          type: string
+          example: Bob Johnson
+        address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        emails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerEmail'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        send_invoices_automatically:
+          type: boolean
+          default: false
+          description: When set to true, invoices for this customer will be automatically sent via email on the invoice date.
+        send_payment_reminders:
+          type: boolean
+          default: false
+          description: When set to true, an email will be sent to customers periodically if they have not paid an invoice.
+        fields:
+          allOf:
+          - $ref: '#/components/schemas/FieldAssignments'
+          nullable: true
+    InvoiceStatus:
+      type: string
+      enum:
+      - UNPAID
+      - PAID
+      - PARTIALLY_PAID
+      - UNBILLED
+      - CREDITED
+      - PARTIALLY_CREDITED
+    CreditMemoApplication:
+      type: object
+      required:
+      - id
+      - credit_memo_id
+      - invoice_id
+      - amount
+      - application_date
+      properties:
+        id:
+          type: string
+          format: uuid
+        credit_memo_id:
+          type: string
+          format: uuid
+        invoice_id:
+          type: string
+          format: uuid
+        invoice_number:
+          type: string
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        application_date:
+          type: string
+          format: date
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
+          type: string
+        date:
+          type: string
+          format: date
+    Invoicing:
+      oneOf:
+      - $ref: '#/components/schemas/MonthlyInvoicing'
+      - $ref: '#/components/schemas/MonthlyProratedInvoicing'
+      - $ref: '#/components/schemas/QuarterlyInvoicing'
+      - $ref: '#/components/schemas/SemiAnnualInvoicing'
+      - $ref: '#/components/schemas/YearlyInvoicing'
+      discriminator:
+        propertyName: interval
+        mapping:
+          MONTHLY: '#/components/schemas/MonthlyInvoicing'
+          MONTHLY_PRORATED: '#/components/schemas/MonthlyProratedInvoicing'
+          QUARTERLY: '#/components/schemas/QuarterlyInvoicing'
+          SEMI_ANNUAL: '#/components/schemas/SemiAnnualInvoicing'
+          YEARLY: '#/components/schemas/YearlyInvoicing'
+    Invoice:
+      type: object
+      required:
+      - amount_due
+      - customer_id
+      - due_date
+      - id
+      - invoice_date
+      - invoice_number
+      - items
+      - net_amount
+      - overdue
+      - payment_terms
+      - status
+      - subsidiary_id
+      - subtotal
+      - taxed_amount
+      - total
+      - total_discount
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        invoice_number:
+          type: string
+          example: INV01
+        customer_id:
+          type: string
+          format: uuid
+        contract_id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+        due_date:
+          type: string
+          format: date
+        invoice_date:
+          type: string
+          format: date
+        address:
+          $ref: '#/components/schemas/Address'
+          description: Sender address
+        customer_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        bank_account:
+          $ref: '#/components/schemas/InvoicingBankAccount'
+        status:
+          $ref: '#/components/schemas/InvoiceStatus'
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        amount_due:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        subtotal:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total_discount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        purchase_order_number:
+          type: string
+          example: '1'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        memo:
+          type: string
+        overdue:
+          type: boolean
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+        sent_at:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp in UTC timezone (must end with ''Z'') marking when the invoice was first sent to the customer
+
+            from Rillet (either by a user action or by automation). Null if the invoice has never been sent from Rillet.
+
+            '
+    WebhookResponse:
+      description: A placeholder indicating a response from a webhook. The contents of this response are ignored.
+      type: string
+    UsageCommitment:
+      type: object
+      required:
+      - amount
+      - revenue_account
+      properties:
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        revenue_account:
+          $ref: '#/components/schemas/AccountCode'
+    TieredBilling:
+      type: object
+      required:
+      - type
+      - mode
+      - tiers
+      properties:
+        type:
+          type: string
+          default: TIERED
+        mode:
+          type: string
+          enum:
+          - GRADUATED
+          - METERED
+          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
+        tiers:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Tier'
+      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
+    OverageQuarterlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: QUARTERLY
+    FixedRecurringPrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: FIXED_RECURRING
+    OverageMonthlyProratedInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: MONTHLY_PRORATED
+      description: 'Monthly prorated invoicing is only available for contracts with usage products and a minimum usage commitment.
+
+        '
+    Bill:
+      allOf:
+      - $ref: '#/components/schemas/CreateBillRequest'
+      - type: object
+        required:
+        - id
+        - status
+        - updated_at
+        properties:
+          id:
+            type: string
+            format: uuid
+          status:
+            $ref: '#/components/schemas/BillStatus'
+          updated_at:
+            type: string
+            format: date-time
+            description: Timestamp when the bill was last modified
+          items:
+            type: array
+            minItems: 1
+            items:
+              $ref: '#/components/schemas/BillItem'
+    AmountDiscount:
+      type: object
+      required:
+      - amount_off
+      properties:
+        amount_off:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        type:
+          type: string
+          default: AMOUNT
+    VendorResponse:
+      allOf:
+      - $ref: '#/components/schemas/VendorRequest'
+      - type: object
+        required:
+        - id
+        - updated_at
+        properties:
+          id:
+            type: string
+            format: uuid
+          updated_at:
+            type: string
+            format: date-time
+    JournalEntryItem:
+      type: object
+      required:
+      - id
+      - amount
+      - account_id
+      - account_code
+      - side
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        original_transaction_amount:
+          allOf:
+          - $ref: '#/components/schemas/RoundedMonetaryAmount'
+          nullable: true
+          description: The line amount in its original transaction currency, when the line was booked in a currency other than the entry currency. Null otherwise.
+        account_id:
+          type: string
+          format: uuid
+          description: Immutable account identifier.
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        side:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    Address:
+      type: object
+      required:
+      - city
+      - country
+      - line1
+      - state
+      - zip_code
+      properties:
+        line1:
+          type: string
+          example: 123 Main St
+        line2:
+          type: string
+          example: Apt 4B
+        city:
+          type: string
+          example: Nashville
+        state:
+          type: string
+          example: TN
+          description: State or province code (e.g. 'TN', 'CA' for US; 'ON' for Canada). Required when address is provided.
+        zip_code:
+          type: string
+          example: '37201'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+    ContractStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - IN_EFFECT
+      - CANCELLED
+      - ENDED
+      - AMENDED
+    OverageMonthlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: MONTHLY
+    ExpenseTaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRate'
+      - type: object
+        required:
+        - coverage
+        properties:
+          tax_code:
+            type: string
+            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
+          coverage:
+            type: string
+            enum:
+            - INCLUSIVE
+            - EXCLUSIVE
+    CustomerEmail:
+      type: object
+      required:
+      - email
+      - type
+      properties:
+        email:
+          type: string
+          example: bobjohnson@somedomain.com
+        type:
+          type: string
+          enum:
+          - MAIN_SENDER
+          - CC
+          - BCC
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
+        description:
+          type: string
+    BillItemRequest:
+      type: object
+      required:
+      - account_code
+      - amount
+      properties:
+        description:
+          type: string
+          example: API Bill
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        tax_rate:
+          $ref: '#/components/schemas/ExpenseTaxRate'
+        service_period:
+          $ref: '#/components/schemas/CalendarPeriod'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    InvoiceItem:
+      type: object
+      required:
+      - description
+      - gross_rate
+      - id
+      - quantity
+      - revenue
+      - taxed_amount
+      - total_amount
+      - total_discount
+      - product_id
+      - external_references
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          example: Description
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total_discount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        gross_rate:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        quantity:
+          type: number
+          example: 1
+        product_id:
+          type: string
+          format: uuid
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    PercentageDiscount:
+      type: object
+      required:
+      - percentage_off
+      properties:
+        percentage_off:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+          example: 10
+        type:
+          type: string
+          default: PERCENTAGE
+    YearlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - month_day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: YEARLY
+        month_day:
+          type: string
+          pattern: ^--\d{2}-\d{2}$
+          description: A string in --MM-dd format
+          example: --01-01
+    Customer:
+      required:
+      - id
+      - name
+      - updated_at
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          updated_at:
+            type: string
+            format: date-time
+            description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+      - $ref: '#/components/schemas/CustomerRequest'
+    Tier:
+      type: object
+      required:
+      - up_to
+      properties:
+        up_to:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 10
+        flat_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        per_unit_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
+    BillItem:
+      allOf:
+      - $ref: '#/components/schemas/BillItemRequest'
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            format: uuid
+    UsagePrice:
+      allOf:
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        - billing_scheme
+        properties:
+          type:
+            type: string
+            default: USAGE
+          billing_scheme:
+            $ref: '#/components/schemas/BillingScheme'
+    MonthlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      - day
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: MONTHLY
+        day:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 31
+          example: 1
+    Price:
+      discriminator:
+        propertyName: type
+        mapping:
+          FIXED_RECURRING: '#/components/schemas/FixedRecurringPrice'
+          ONE_TIME: '#/components/schemas/OneTimePrice'
+          USAGE: '#/components/schemas/UsagePrice'
+      oneOf:
+      - $ref: '#/components/schemas/FixedRecurringPrice'
+      - $ref: '#/components/schemas/OneTimePrice'
+      - $ref: '#/components/schemas/UsagePrice'
+      example:
+        type: FIXED_RECURRING
+        amount:
+          amount: '10.00'
+          currency: USD
+        interval_months: 1
+    InvoicingBankAccount:
+      type: object
+      required:
+      - id
+      - ach_account
+      - ach_routing
+      - bank_name
+      properties:
+        id:
+          type: string
+          format: uuid
+        ach_account:
+          type: string
+        ach_routing:
+          type: string
+        bank_name:
+          type: string
+        bank_address:
+          type: string
+        swift_code:
+          type: string
+        payment_instructions:
+          type: string
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    Discount:
+      oneOf:
+      - $ref: '#/components/schemas/AmountDiscount'
+      - $ref: '#/components/schemas/PercentageDiscount'
+      discriminator:
+        propertyName: type
+        mapping:
+          AMOUNT: '#/components/schemas/AmountDiscount'
+          PERCENTAGE: '#/components/schemas/PercentageDiscount'
+      example:
+        type: AMOUNT
+        amount_off:
+          amount: '10.00'
+          currency: USD
+    CreateBillRequest:
+      type: object
+      required:
+      - vendor_id
+      - expense_number
+      - items
+      - bill_date
+      - due_date
+      properties:
+        vendor_id:
+          type: string
+          format: uuid
+        expense_number:
+          type: string
+          example: B123
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BillItemRequest'
+        bill_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        impact_date:
+          type: string
+          format: date
+        subsidiary_id:
+          type: string
+          format: uuid
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+    OverageYearlyInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: YEARLY
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    CreditMemo:
+      type: object
+      required:
+      - address
+      - applications
+      - applied_amount
+      - customer_id
+      - id
+      - credit_memo_date
+      - credit_memo_number
+      - items
+      - net_amount
+      - remaining_amount
+      - status
+      - subsidiary_id
+      - taxed_amount
+      - total
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        subsidiary_id:
+          type: string
+          format: uuid
+        credit_memo_number:
+          type: string
+          example: CM01
+        customer_id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreditMemoItem'
+        credit_memo_date:
+          type: string
+          format: date
+        address:
+          $ref: '#/components/schemas/Address'
+        status:
+          enum:
+          - UNAPPLIED
+          - PARTIALLY_APPLIED
+          - APPLIED
+          - REFUNDED
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        applied_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        remaining_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditMemoApplication'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+    CreditMemoItem:
+      type: object
+      required:
+      - description
+      - net_amount
+      - id
+      - quantity
+      - revenue
+      - total_amount
+      - product_id
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          example: Description
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        quantity:
+          type: number
+          example: 1
+        product_id:
+          type: string
+          format: uuid
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    ItemRevenue:
+      type: object
+      properties:
+        period:
+          $ref: '#/components/schemas/CalendarPeriod'
+          description: Represents the period in which the service was rendered. This period is used for revenue recognition – the revenue is spread over this period. If not provided, the period starts and ends on the invoice date.
+        pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+          description: If not provided, the one from the product will be used.
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+          description: If not provided, the one from the product will be used.
+    RecurringPrice:
+      type: object
+      required:
+      - interval_months
+      properties:
+        interval_months:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 12
+          example: 1
+    OverageSemiAnnualInvoicing:
+      type: object
+      required:
+      - payment_terms
+      - interval
+      properties:
+        payment_terms:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        interval:
+          type: string
+          default: SEMI_ANNUAL
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+  parameters:
+    X-Rillet-Signature:
+      name: X-Rillet-Signature
+      in: header
+      schema:
+        type: string
+      required: true
+      description: Signature of the webhook event. Computed using HMAC-SHA256 and AES encrypted with the configured webhook token. The contents of the body are prefixed with the timestamp and id before hashing.
+    X-Rillet-Entity:
+      name: X-Rillet-Entity
+      in: header
+      schema:
+        type: string
+      required: true
+      description: Entity type of the webhook event
+    X-Rillet-Timestamp:
+      name: X-Rillet-Timestamp
+      in: header
+      schema:
+        type: string
+        format: date-time
+      required: true
+      description: Timestamp of the webhook event in ISO-8601 format
+    X-Rillet-Id:
+      name: X-Rillet-Id
+      in: header
+      schema:
+        type: string
+        format: uuid
+      required: true
+      description: ID of the webhook event
+    X-Rillet-Event:
+      name: X-Rillet-Event
+      in: header
+      schema:
+        type: string
+      required: true
+      description: Event type of the webhook event
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-mcp-ready: true
+x-readme:
+  headers:
+  - key: X-Rillet-API-Version
+    value: '4'
