@@ -305,7 +305,7 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
-  - Invoice Payments
+  - Invoice payments
   tags_raw:
   - Invoice payments
   properties:
@@ -425,7 +425,7 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
-  - Tax Rates
+  - Tax rates
   tags_raw:
   - Tax rates
   properties:
@@ -484,6 +484,8 @@ apis:
   humanURL: https://docs.api.rillet.com/docs/getting-started
   baseURL: https://api.rillet.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
