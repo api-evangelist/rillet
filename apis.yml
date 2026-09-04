@@ -496,6 +496,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/rillet-capability-edges.yml
+  name: Rillet Business Capability Map
 - type: DeveloperPortal
   url: https://docs.api.rillet.com/docs/getting-started
 - type: Documentation
