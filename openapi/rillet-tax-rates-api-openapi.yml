@@ -10,12 +10,12 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Tax rates
+- name: Tax Rates
 paths:
   /tax-rates:
     get:
       tags:
-      - Tax rates
+      - Tax Rates
       operationId: list-all-tax-rates
       summary: Lists all tax rates
       description: Returns all available tax rates. Use the returned IDs when creating bills with specific tax codes.
@@ -48,6 +48,10 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
     Error:
       type: object
       required:
@@ -94,10 +98,6 @@ components:
         percentage:
           type: string
           example: '23.0000'
-    CountryCode:
-      type: string
-      description: Two-letter country code (ISO 3166-1 alpha-2).
-      example: US
   securitySchemes:
     bearerAuth:
       type: http

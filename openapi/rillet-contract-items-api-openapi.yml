@@ -52,9 +52,7 @@ paths:
       summary: Lists all contract item usage records
       description: 'Returns historical usage quantities for a contract item, newest first, with optional pagination cursors.
 
-        Use before upsert-a-usage-record or delete-a-usage-record to understand existing coverage for each date.
-
-        '
+        Use before upsert-a-usage-record or delete-a-usage-record to understand existing coverage for each date.'
       parameters:
       - name: contract_item_id
         in: path
@@ -89,9 +87,7 @@ paths:
       summary: Deletes a usage record
       description: 'Removes the usage entry for a single contract item on a specific calendar date.
 
-        This is narrower than upsert-a-usage-record and is ideal when you need to wipe a mistaken day without resending the entire usage payload.
-
-        '
+        This is narrower than upsert-a-usage-record and is ideal when you need to wipe a mistaken day without resending the entire usage payload.'
       parameters:
       - name: contract_item_id
         in: path
@@ -116,17 +112,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
   schemas:
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
     UsageRecords:
       type: object
       required:
@@ -138,10 +139,20 @@ components:
           items:
             $ref: '#/components/schemas/Usage'
       description: Allows you to update multiple dates at once.
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
     PageCursor:
       type: string
       description: If defined, a cursor to retrieve the next page.
       example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
     Usage:
       type: object
       required:
@@ -180,21 +191,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of rows to return in the page.
-      schema:
-        $ref: '#/components/schemas/PageLimit'
-    cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Pagination cursor to navigate through the full response.
-      schema:
-        $ref: '#/components/schemas/PageCursor'
   securitySchemes:
     bearerAuth:
       type: http

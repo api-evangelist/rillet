@@ -20,9 +20,7 @@ paths:
       summary: Gets custom fields
       description: 'Retrieves custom field definitions and their pick-list values for the organization.
 
-        Use the returned field ids with create-field-value and update-field-value when enriching core entities.
-
-        '
+        Use the returned field ids with create-field-value and update-field-value when enriching core entities.'
       parameters:
       - name: updated.gt
         in: query
@@ -52,9 +50,7 @@ paths:
       summary: Creates a field
       description: 'Defines a new custom field (text, number, pick list, etc.) that can be attached to supported Rillet entities for reporting and automation.
 
-        After creation, use create-field-value to seed allowed pick-list entries or default values teams should see in the UI.
-
-        '
+        After creation, use create-field-value to seed allowed pick-list entries or default values teams should see in the UI.'
       requestBody:
         required: true
         content:
@@ -91,9 +87,7 @@ paths:
       summary: Updates a field
       description: 'Changes labels, validation rules, or visibility metadata on an existing custom field without recreating historical values.
 
-        Coordinate with stakeholders before renaming because downstream integrations often key off the human-readable label.
-
-        '
+        Coordinate with stakeholders before renaming because downstream integrations often key off the human-readable label.'
       requestBody:
         required: true
         content:
@@ -130,9 +124,7 @@ paths:
       summary: Creates a field value
       description: 'Adds a selectable value to a pick-list style custom field so users and APIs can tag entities with consistent taxonomy.
 
-        Values inherit the field’s scope, so create them after the parent field exists and before importing records that reference the new code.
-
-        '
+        Values inherit the field’s scope, so create them after the parent field exists and before importing records that reference the new code.'
       requestBody:
         required: true
         content:
@@ -176,9 +168,7 @@ paths:
       summary: Updates a field value
       description: 'Renames or reorders a pick-list entry while preserving its underlying id so historical records stay linked to the same option.
 
-        Prefer this over delete-and-recreate when auditing requires stable references across reporting periods.
-
-        '
+        Prefer this over delete-and-recreate when auditing requires stable references across reporting periods.'
       requestBody:
         required: true
         content:
@@ -206,9 +196,7 @@ paths:
       summary: Deletes a field value
       description: 'Retires a pick-list option that should no longer be selectable while keeping older records intact for read-only history.
 
-        Confirm no automation or validation rules still require the value before removal to avoid breaking bulk imports.
-
-        '
+        Confirm no automation or validation rules still require the value before removal to avoid breaking bulk imports.'
       responses:
         '200':
           description: OK
@@ -225,6 +213,27 @@ paths:
       parameters: []
 components:
   schemas:
+    FieldSettingsMap:
+      type: object
+      description: 'The settings of the field. EXPENSES: Applies to Bills, Credit Card Transactions and Manual Entries. REVENUE: Applies to Customers, Contracts, Invoices and Credit Memos.'
+      properties:
+        EXPENSES:
+          $ref: '#/components/schemas/FieldSettings'
+        REVENUE:
+          $ref: '#/components/schemas/FieldSettings'
+    CreateFieldRequest:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateFieldRequestValue'
     FieldSettings:
       type: object
       required:
@@ -240,27 +249,14 @@ components:
           enum:
           - STANDALONE
           - FREE_TAG
-    CreateFieldValueRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-    CreateFieldRequest:
-      type: object
-      required:
-      - name
-      - values
-      properties:
-        name:
-          type: string
-          description: The name of the field.
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateFieldRequestValue'
     UpdateFieldValueRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    CreateFieldValueRequest:
       type: object
       required:
       - name
@@ -274,6 +270,15 @@ components:
       properties:
         name:
           type: string
+    FieldsResponse:
+      type: object
+      required:
+      - fields
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
     FieldValue:
       type: object
       required:
@@ -290,23 +295,6 @@ components:
         deactivated:
           type: boolean
           description: Whether the field value is deactivated. Deactivated values cannot be assigned to new entities but remain visible on existing entities.
-    FieldSettingsMap:
-      type: object
-      description: 'The settings of the field. EXPENSES: Applies to Bills, Credit Card Transactions and Manual Entries. REVENUE: Applies to Customers, Contracts, Invoices and Credit Memos.'
-      properties:
-        EXPENSES:
-          $ref: '#/components/schemas/FieldSettings'
-        REVENUE:
-          $ref: '#/components/schemas/FieldSettings'
-    FieldsResponse:
-      type: object
-      required:
-      - fields
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/Field'
     UpdateFieldRequest:
       type: object
       required:
@@ -316,6 +304,29 @@ components:
           type: string
         settings:
           $ref: '#/components/schemas/FieldSettingsMap'
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
     Field:
       type: object
       required:
@@ -341,29 +352,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
-    Error:
-      type: object
-      required:
-      - type
-      - title
-      properties:
-        type:
-          type: string
-          format: uri
-          description: A URI reference that identifies the error type.
-          example: https://rillet.io/forbidden
-        title:
-          type: string
-          description: Summary of the problem.
-          example: Forbidden
-        status:
-          type: integer
-          description: The HTTP status code generated by the origin server for this occurrence of the error.
-          example: 403
-        detail:
-          type: string
-          description: Explanation specific to this occurrence of the error.
-          example: User does not have rights to perform this operation.
   securitySchemes:
     bearerAuth:
       type: http

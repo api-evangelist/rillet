@@ -20,9 +20,7 @@ paths:
       summary: Creates a journal entry
       description: 'Posts a balanced manual journal entry with explicit debit and credit lines, posting date, and subsidiary scope for GL corrections.
 
-        Prefer dedicated AR or AP APIs when the business event already exists; reserve this for adjustments your automation cannot model yet.
-
-        '
+        Prefer dedicated AR or AP APIs when the business event already exists; reserve this for adjustments your automation cannot model yet.'
       requestBody:
         content:
           application/json:
@@ -50,9 +48,7 @@ paths:
       summary: Lists all journal entries
       description: 'Returns GL journal entries with rich filtering (subsidiary, account, date range, reconciliation state).
 
-        Use entry ids with retrieve-a-journal-entry before attempting updates or deletes.
-
-        '
+        Use entry ids with retrieve-a-journal-entry before attempting updates or deletes.'
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/cursor'
@@ -135,9 +131,7 @@ paths:
       summary: Retrieves a journal entry
       description: 'Retrieves a journal entry with every line, account reference, and reconciliation flag needed for close review or downstream edits.
 
-        Call before update-a-journal-entry so you can merge new edits with existing lines without accidentally dropping balances.
-
-        '
+        Call before update-a-journal-entry so you can merge new edits with existing lines without accidentally dropping balances.'
       parameters:
       - name: journal_entry_id
         in: path
@@ -165,9 +159,7 @@ paths:
       summary: Updates a journal entry
       description: 'Replaces the lines and header metadata on an existing manual journal entry, subject to the same balancing rules as creation.
 
-        Always include the complete line list retrieved beforehand because partial payloads can clear fields the API treats as optional.
-
-        '
+        Always include the complete line list retrieved beforehand because partial payloads can clear fields the API treats as optional.'
       parameters:
       - name: journal_entry_id
         in: path
@@ -201,9 +193,7 @@ paths:
       summary: Deletes a journal entry
       description: 'Deletes a manual journal entry that should be excluded from the ledger, typically prior to period lock while corrections remain allowed.
 
-        Verify dependent reconciliations or downstream consolidations no longer rely on the entry before removal.
-
-        '
+        Verify dependent reconciliations or downstream consolidations no longer rely on the entry before removal.'
       parameters:
       - name: journal_entry_id
         in: path
@@ -222,41 +212,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    JournalEntryItemRequest:
-      type: object
-      required:
-      - amount
-      - account_code
-      - side
-      properties:
-        description:
-          type: string
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
-        side:
-          type: string
-          enum:
-          - DEBIT
-          - CREDIT
-        fields:
-          $ref: '#/components/schemas/FieldAssignments'
-        vat_code:
-          type: string
-          description: Code or description of an existing VAT rate for the journal entry subsidiary's country. When provided, vat_type is required. VAT is always treated as inclusive.
-        vat_type:
-          type: string
-          description: VAT reporting type for this journal entry line. Required when vat_code is provided. Accepts Revenue, Revenues, Expense, or Expenses case-insensitively.
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
     UpdateJournalEntryRequest:
       type: object
       required:
@@ -285,6 +240,51 @@ components:
           format: uri
         exchange_rate:
           $ref: '#/components/schemas/ExchangeRate'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
+          type: string
+        date:
+          type: string
+          format: date
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
     JournalEntryItem:
       type: object
       required:
@@ -324,6 +324,101 @@ components:
       properties:
         next_cursor:
           $ref: '#/components/schemas/PageCursor'
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    CreateJournalEntryRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateJournalEntryRequest'
+      - type: object
+        required:
+        - date
+        - name
+        - currency
+        - items
+        properties:
+          subsidiary_id:
+            type: string
+            format: uuid
+          related_entity:
+            $ref: '#/components/schemas/JournalEntryRelatedEntity'
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    JournalEntryRelatedEntity:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+          - CUSTOMER
+          - VENDOR
+    JournalEntryItemRequest:
+      type: object
+      required:
+      - amount
+      - account_code
+      - side
+      properties:
+        description:
+          type: string
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        side:
+          type: string
+          enum:
+          - DEBIT
+          - CREDIT
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+        vat_code:
+          type: string
+          description: Code or description of an existing VAT rate for the journal entry subsidiary's country. When provided, vat_type is required. VAT is always treated as inclusive.
+        vat_type:
+          type: string
+          description: VAT reporting type for this journal entry line. Required when vat_code is provided. Accepts Revenue, Revenues, Expense, or Expenses case-insensitively.
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
     JournalEntry:
       type: object
       required:
@@ -367,119 +462,7 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    CreateJournalEntryRequest:
-      allOf:
-      - $ref: '#/components/schemas/UpdateJournalEntryRequest'
-      - type: object
-        required:
-        - date
-        - name
-        - currency
-        - items
-        properties:
-          subsidiary_id:
-            type: string
-            format: uuid
-          related_entity:
-            $ref: '#/components/schemas/JournalEntryRelatedEntity'
-    JournalEntryRelatedEntity:
-      type: object
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-          enum:
-          - CUSTOMER
-          - VENDOR
-    ExchangeRate:
-      type: object
-      required:
-      - base
-      - date
-      - rate
-      - target
-      properties:
-        base:
-          $ref: '#/components/schemas/CurrencyCode'
-        target:
-          $ref: '#/components/schemas/CurrencyCode'
-        rate:
-          type: string
-        date:
-          type: string
-          format: date
-    AccountCode:
-      type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
-    FieldAssignments:
-      type: array
-      items:
-        type: object
-        required:
-        - field_id
-        - field_value_id
-        properties:
-          field_id:
-            type: string
-            format: uuid
-          field_value_id:
-            type: string
-            format: uuid
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    Error:
-      type: object
-      required:
-      - type
-      - title
-      properties:
-        type:
-          type: string
-          format: uri
-          description: A URI reference that identifies the error type.
-          example: https://rillet.io/forbidden
-        title:
-          type: string
-          description: Summary of the problem.
-          example: Forbidden
-        status:
-          type: integer
-          description: The HTTP status code generated by the origin server for this occurrence of the error.
-          example: 403
-        detail:
-          type: string
-          description: Explanation specific to this occurrence of the error.
-          example: User does not have rights to perform this operation.
   parameters:
-    cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Pagination cursor to navigate through the full response.
-      schema:
-        $ref: '#/components/schemas/PageCursor'
     limit:
       name: limit
       in: query
@@ -495,6 +478,13 @@ components:
       schema:
         type: string
         format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
   securitySchemes:
     bearerAuth:
       type: http

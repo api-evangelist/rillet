@@ -20,9 +20,7 @@ paths:
       summary: Retrieves ARR waterfall report
       description: 'Returns the ARR waterfall dataset for the requested month with optional breakdown dimensions, subsidiary filters, and pagination cursors for large tenants.
 
-        Finance teams use this to explain beginning ARR, new business, expansion, contraction, and churn between periods.
-
-        '
+        Finance teams use this to explain beginning ARR, new business, expansion, contraction, and churn between periods.'
       parameters:
       - $ref: '#/components/parameters/month'
       - $ref: '#/components/parameters/status'
@@ -53,9 +51,7 @@ paths:
 
         Required parameters: from_date and to_date (ISO-8601 format YYYY-MM-DD). Both must be provided or the call will fail.
 
-        Example: from_date=2024-01-01, to_date=2024-12-31.
-
-        '
+        Example: from_date=2024-01-01, to_date=2024-12-31.'
       parameters:
       - $ref: '#/components/parameters/fromDate'
       - $ref: '#/components/parameters/toDate'
@@ -83,9 +79,7 @@ paths:
 
         Required parameter: as_of_date (ISO-8601 format YYYY-MM-DD). Must be provided or the call will fail.
 
-        Example: as_of_date=2024-12-31.
-
-        '
+        Example: as_of_date=2024-12-31.'
       parameters:
       - $ref: '#/components/parameters/asOfDate'
       - $ref: '#/components/parameters/subsidiary_id'
@@ -264,46 +258,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    CashFlowItem:
-      type: object
-      required:
-      - name
-      - amounts
-      properties:
-        name:
-          type: string
-          example: Net Income
-        amounts:
-          type: array
-          description: Amounts, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-    Revenue:
-      type: object
-      required:
-      - year_month
-      - amount
-      properties:
-        year_month:
-          type: string
-          description: Year and month for the requested report for this revenue total
-          format: yearMonth
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-    BreakdownMargin:
-      type: object
-      required:
-      - breakdown_id
-      - value
-      properties:
-        breakdown_id:
-          type: string
-          format: uuid
-          description: The ID of the breakdown this margin belongs to
-        value:
-          type: number
-          format: double
-          description: Margin as a percentage (0.0 to 1.0)
     ReportingJournalEntry:
       type: object
       required:
@@ -337,18 +291,76 @@ components:
         attachmentUrl:
           type: string
           format: uri
-    MonetaryAmount:
+    Revenue:
       type: object
       required:
+      - year_month
       - amount
-      - currency
       properties:
-        amount:
+        year_month:
           type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
-          example: '1.01'
+          description: Year and month for the requested report for this revenue total
+          format: yearMonth
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+    BreakdownBalance:
+      type: object
+      required:
+      - breakdown_id
+      - amount
+      properties:
+        breakdown_id:
+          type: string
+          format: uuid
+          description: The ID of the breakdown this balance belongs to
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+    IncomeStatementReport:
+      type: object
+      required:
+      - period
+      - currency
+      - breakdowns
+      - sections
+      - summaries
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
         currency:
           $ref: '#/components/schemas/CurrencyCode'
+        breakdowns:
+          type: array
+          description: The breakdown columns for this report. When no breakdown_by is specified, this contains a single PERIOD entry representing the total.
+          items:
+            $ref: '#/components/schemas/ReportBreakdown'
+        sections:
+          type: array
+          description: The sections of the income statement (e.g., Revenue, Cost of Goods Sold, Operating Expenses, Non-Operating)
+          items:
+            $ref: '#/components/schemas/NamedReportSection'
+        summaries:
+          type: array
+          description: Summary line items (e.g., Gross Profit, Net Income)
+          items:
+            $ref: '#/components/schemas/ReportSummaryLine'
+    TrialBalanceReport:
+      type: object
+      required:
+      - period
+      - currency
+      - accounts
+      - totals
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAccountBalance'
+        totals:
+          $ref: '#/components/schemas/ReportTotals'
     JournalEntryRelatedEntity:
       type: object
       required:
@@ -363,134 +375,10 @@ components:
           enum:
           - CUSTOMER
           - VENDOR
-    FieldAssignments:
-      type: array
-      items:
-        type: object
-        required:
-        - field_id
-        - field_value_id
-        properties:
-          field_id:
-            type: string
-            format: uuid
-          field_value_id:
-            type: string
-            format: uuid
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    CustomerRevenue:
-      type: object
-      required:
-      - id
-      - name
-      - totals
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        total:
-          $ref: '#/components/schemas/Revenue'
     CurrencyCode:
       type: string
       description: Currency code following ISO-4217
       example: USD
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    BalanceSheetReport:
-      type: object
-      required:
-      - as_of_date
-      - currency
-      - sections
-      properties:
-        as_of_date:
-          type: string
-          format: date
-          description: The date of the balance sheet
-          example: '2024-01-31'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        breakdowns:
-          type: array
-          description: The breakdown columns for this report. When no breakdown_by is specified, this contains a single PERIOD entry representing the total.
-          items:
-            $ref: '#/components/schemas/ReportBreakdown'
-        sections:
-          type: array
-          description: The sections of the balance sheet (e.g., Assets, Liabilities, Equity)
-          items:
-            $ref: '#/components/schemas/NamedReportSection'
-    ReportSummaryLine:
-      type: object
-      description: A named summary line item (e.g., gross profit, net income)
-      required:
-      - name
-      - amounts
-      properties:
-        name:
-          type: string
-          description: The name of this summary line
-          example: Gross Profit
-        amounts:
-          type: array
-          description: Summary amounts, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-        margins:
-          type: array
-          description: Optional margins as percentages (0.0 to 1.0), one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownMargin'
-    ReportBreakdownBy:
-      type: string
-      description: How to break down the report columns. If not specified, returns a single total column.
-      enum:
-      - SUBSIDIARY
-      - CUSTOM_FIELD
-    Breakdown:
-      type: string
-      enum:
-      - ARR
-      - MRR
-    ReportTotals:
-      type: object
-      required:
-      - beginning_balance
-      - debit_total
-      - credit_total
-      - ending_balance
-      properties:
-        beginning_balance:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        debit_total:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        credit_total:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        debit_fx_total:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-          description: Foreign exchange adjustment for debits
-        credit_fx_total:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-          description: Foreign exchange adjustment for credits
-        ending_balance:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
     Error:
       type: object
       required:
@@ -514,46 +402,105 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    ExecutivePLReport:
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    ReportPeriod:
       type: object
       required:
-      - period
-      - currency
-      - breakdowns
-      - sections
-      - summaries
+      - from_date
+      - to_date
       properties:
-        period:
-          $ref: '#/components/schemas/ReportPeriod'
+        from_date:
+          type: string
+          format: date
+          description: Start date of the report period
+          example: '2024-01-01'
+        to_date:
+          type: string
+          format: date
+          description: End date of the report period
+          example: '2024-01-31'
+    ReportBreakdownBy:
+      type: string
+      description: How to break down the report columns. If not specified, returns a single total column.
+      enum:
+      - SUBSIDIARY
+      - CUSTOM_FIELD
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    BreakdownMargin:
+      type: object
+      required:
+      - breakdown_id
+      - value
+      properties:
+        breakdown_id:
+          type: string
+          format: uuid
+          description: The ID of the breakdown this margin belongs to
+        value:
+          type: number
+          format: double
+          description: Margin as a percentage (0.0 to 1.0)
+    NamedCashFlowSection:
+      type: object
+      description: A named cash flow section containing line items with totals per breakdown
+      required:
+      - name
+      - totals
+      - items
+      properties:
+        name:
+          type: string
+          description: The name of this section
+          example: Operating Cash Flow
+        totals:
+          type: array
+          description: Section totals, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CashFlowItem'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
         currency:
           $ref: '#/components/schemas/CurrencyCode'
-        breakdowns:
-          type: array
-          description: The breakdown columns for this report. When no breakdown_by is specified, this contains a single PERIOD entry representing the total.
-          items:
-            $ref: '#/components/schemas/ReportBreakdown'
-        sections:
-          type: array
-          description: The sections of the executive P&L (e.g., Revenue, Cost of Goods Sold, Operating Expenses, Non-Operating)
-          items:
-            $ref: '#/components/schemas/NamedExecutivePLSection'
-        summaries:
-          type: array
-          description: Summary line items with optional margins (e.g., Gross Profit, Net Income)
-          items:
-            $ref: '#/components/schemas/ReportSummaryLine'
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    ReportAccountEntry:
+    ReportAccountBalance:
       type: object
       required:
       - id
       - code
       - name
-      - balances
+      - beginning_balance
+      - debit_total
+      - credit_total
+      - ending_balance
       properties:
         id:
           type: string
@@ -564,77 +511,20 @@ components:
         name:
           type: string
           example: Cash
-        balances:
-          type: array
-          description: Account balances, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-    ReportBreakdown:
-      type: object
-      description: Describes a breakdown column in the report (subsidiary or custom field)
-      required:
-      - type
-      - name
-      properties:
-        type:
-          type: string
-          enum:
-          - SUBSIDIARY
-          - CUSTOM_FIELD
-          - PERIOD
-          description: The type of breakdown
-        name:
-          type: string
-          description: Display name for this breakdown column
-          example: Acme Corp US
-        id:
-          type: string
-          format: uuid
-          description: The ID of the subsidiary or custom field value (if applicable)
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
-    TrialBalanceReport:
-      type: object
-      required:
-      - period
-      - currency
-      - accounts
-      - totals
-      properties:
-        period:
-          $ref: '#/components/schemas/ReportPeriod'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportAccountBalance'
-        totals:
-          $ref: '#/components/schemas/ReportTotals'
-    NamedExecutivePLSection:
-      type: object
-      description: A named executive P&L section containing line items with totals per breakdown
-      required:
-      - name
-      - totals
-      - items
-      properties:
-        name:
-          type: string
-          description: The name of this section
-          example: Revenue
-        totals:
-          type: array
-          description: Section totals, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExecutivePLItem'
+        beginning_balance:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        debit_total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        credit_total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        debit_fx_total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Foreign exchange adjustment for debits
+        credit_fx_total:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          description: Foreign exchange adjustment for credits
+        ending_balance:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
     ReportingJournalEntryItem:
       type: object
       required:
@@ -675,166 +565,77 @@ components:
           - CREDIT
         fields:
           $ref: '#/components/schemas/FieldAssignments'
-    IncomeStatementReport:
-      type: object
-      required:
-      - period
-      - currency
-      - breakdowns
-      - sections
-      - summaries
-      properties:
-        period:
-          $ref: '#/components/schemas/ReportPeriod'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        breakdowns:
-          type: array
-          description: The breakdown columns for this report. When no breakdown_by is specified, this contains a single PERIOD entry representing the total.
-          items:
-            $ref: '#/components/schemas/ReportBreakdown'
-        sections:
-          type: array
-          description: The sections of the income statement (e.g., Revenue, Cost of Goods Sold, Operating Expenses, Non-Operating)
-          items:
-            $ref: '#/components/schemas/NamedReportSection'
-        summaries:
-          type: array
-          description: Summary line items (e.g., Gross Profit, Net Income)
-          items:
-            $ref: '#/components/schemas/ReportSummaryLine'
-    NamedCashFlowSection:
-      type: object
-      description: A named cash flow section containing line items with totals per breakdown
-      required:
-      - name
-      - totals
-      - items
-      properties:
-        name:
-          type: string
-          description: The name of this section
-          example: Operating Cash Flow
-        totals:
-          type: array
-          description: Section totals, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CashFlowItem'
-    NamedReportSection:
-      type: object
-      description: A named section containing account groups with a total
-      required:
-      - name
-      - totals
-      - groups
-      properties:
-        name:
-          type: string
-          description: The name of this section
-          example: Assets
-        totals:
-          type: array
-          description: Section totals, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportAccountGroup'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportAccountEntry'
-    RevenueWaterfall:
-      type: object
-      required:
-      - customers
-      properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerRevenue'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    ReportAccountGroupNested:
+    ExecutivePLItem:
       type: object
       required:
       - name
-      - totals
-      - accounts
+      - code
+      - amounts
       properties:
         name:
           type: string
-          example: Current Assets
-        totals:
+          example: Product Revenue
+        code:
+          type: string
+          example: '4210'
+        amounts:
           type: array
-          description: Group totals, one per breakdown column.
+          description: Item amounts, one per breakdown column.
           items:
             $ref: '#/components/schemas/BreakdownBalance'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportAccountEntry'
-    Status:
-      type: string
-      enum:
-      - ACTIVE
-      - COMMITTED
-    ReportAccountGroup:
+    CustomerRevenue:
       type: object
       required:
+      - id
       - name
       - totals
-      - accounts
       properties:
-        name:
-          type: string
-          example: Current Assets
-        totals:
-          type: array
-          description: Group totals, one per breakdown column.
-          items:
-            $ref: '#/components/schemas/BreakdownBalance'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportAccountEntry'
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportAccountGroupNested'
-    ReportPeriod:
-      type: object
-      required:
-      - from_date
-      - to_date
-      properties:
-        from_date:
-          type: string
-          format: date
-          description: Start date of the report period
-          example: '2024-01-01'
-        to_date:
-          type: string
-          format: date
-          description: End date of the report period
-          example: '2024-01-31'
-    BreakdownBalance:
-      type: object
-      required:
-      - breakdown_id
-      - amount
-      properties:
-        breakdown_id:
+        id:
           type: string
           format: uuid
-          description: The ID of the breakdown this balance belongs to
+        name:
+          type: string
+        total:
+          $ref: '#/components/schemas/Revenue'
+    Breakdown:
+      type: string
+      enum:
+      - ARR
+      - MRR
+    ReportAccountEntry:
+      type: object
+      required:
+      - id
+      - code
+      - name
+      - balances
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          example: '1000'
+        name:
+          type: string
+          example: Cash
+        balances:
+          type: array
+          description: Account balances, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
         amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
     CashFlowStatementReport:
       type: object
       required:
@@ -863,26 +664,213 @@ components:
           description: Summary line items (e.g., Net Change in Cash, Opening Balance, Closing Balance, FX Effect on Cash)
           items:
             $ref: '#/components/schemas/CashFlowItem'
-    ReportAccountBalance:
+    RevenueWaterfall:
       type: object
       required:
-      - id
-      - code
+      - customers
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerRevenue'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    CashFlowItem:
+      type: object
+      required:
       - name
+      - amounts
+      properties:
+        name:
+          type: string
+          example: Net Income
+        amounts:
+          type: array
+          description: Amounts, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+    ReportBreakdown:
+      type: object
+      description: Describes a breakdown column in the report (subsidiary or custom field)
+      required:
+      - type
+      - name
+      properties:
+        type:
+          type: string
+          enum:
+          - SUBSIDIARY
+          - CUSTOM_FIELD
+          - PERIOD
+          description: The type of breakdown
+        name:
+          type: string
+          description: Display name for this breakdown column
+          example: Acme Corp US
+        id:
+          type: string
+          format: uuid
+          description: The ID of the subsidiary or custom field value (if applicable)
+    BalanceSheetReport:
+      type: object
+      required:
+      - as_of_date
+      - currency
+      - sections
+      properties:
+        as_of_date:
+          type: string
+          format: date
+          description: The date of the balance sheet
+          example: '2024-01-31'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        breakdowns:
+          type: array
+          description: The breakdown columns for this report. When no breakdown_by is specified, this contains a single PERIOD entry representing the total.
+          items:
+            $ref: '#/components/schemas/ReportBreakdown'
+        sections:
+          type: array
+          description: The sections of the balance sheet (e.g., Assets, Liabilities, Equity)
+          items:
+            $ref: '#/components/schemas/NamedReportSection'
+    NamedExecutivePLSection:
+      type: object
+      description: A named executive P&L section containing line items with totals per breakdown
+      required:
+      - name
+      - totals
+      - items
+      properties:
+        name:
+          type: string
+          description: The name of this section
+          example: Revenue
+        totals:
+          type: array
+          description: Section totals, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExecutivePLItem'
+    Status:
+      type: string
+      enum:
+      - ACTIVE
+      - COMMITTED
+    ReportSummaryLine:
+      type: object
+      description: A named summary line item (e.g., gross profit, net income)
+      required:
+      - name
+      - amounts
+      properties:
+        name:
+          type: string
+          description: The name of this summary line
+          example: Gross Profit
+        amounts:
+          type: array
+          description: Summary amounts, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+        margins:
+          type: array
+          description: Optional margins as percentages (0.0 to 1.0), one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownMargin'
+    ReportAccountGroupNested:
+      type: object
+      required:
+      - name
+      - totals
+      - accounts
+      properties:
+        name:
+          type: string
+          example: Current Assets
+        totals:
+          type: array
+          description: Group totals, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAccountEntry'
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    ReportAccountGroup:
+      type: object
+      required:
+      - name
+      - totals
+      - accounts
+      properties:
+        name:
+          type: string
+          example: Current Assets
+        totals:
+          type: array
+          description: Group totals, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAccountEntry'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAccountGroupNested'
+    NamedReportSection:
+      type: object
+      description: A named section containing account groups with a total
+      required:
+      - name
+      - totals
+      - groups
+      properties:
+        name:
+          type: string
+          description: The name of this section
+          example: Assets
+        totals:
+          type: array
+          description: Section totals, one per breakdown column.
+          items:
+            $ref: '#/components/schemas/BreakdownBalance'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAccountGroup'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAccountEntry'
+    ReportTotals:
+      type: object
+      required:
       - beginning_balance
       - debit_total
       - credit_total
       - ending_balance
       properties:
-        id:
-          type: string
-          format: uuid
-        code:
-          type: string
-          example: '1000'
-        name:
-          type: string
-          example: Cash
         beginning_balance:
           $ref: '#/components/schemas/RoundedMonetaryAmount'
         debit_total:
@@ -897,59 +885,47 @@ components:
           description: Foreign exchange adjustment for credits
         ending_balance:
           $ref: '#/components/schemas/RoundedMonetaryAmount'
-    AccountCode:
-      type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
-    ExecutivePLItem:
+    ExecutivePLReport:
       type: object
       required:
-      - name
-      - code
-      - amounts
+      - period
+      - currency
+      - breakdowns
+      - sections
+      - summaries
       properties:
-        name:
-          type: string
-          example: Product Revenue
-        code:
-          type: string
-          example: '4210'
-        amounts:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        breakdowns:
           type: array
-          description: Item amounts, one per breakdown column.
+          description: The breakdown columns for this report. When no breakdown_by is specified, this contains a single PERIOD entry representing the total.
           items:
-            $ref: '#/components/schemas/BreakdownBalance'
+            $ref: '#/components/schemas/ReportBreakdown'
+        sections:
+          type: array
+          description: The sections of the executive P&L (e.g., Revenue, Cost of Goods Sold, Operating Expenses, Non-Operating)
+          items:
+            $ref: '#/components/schemas/NamedExecutivePLSection'
+        summaries:
+          type: array
+          description: Summary line items with optional margins (e.g., Gross Profit, Net Income)
+          items:
+            $ref: '#/components/schemas/ReportSummaryLine'
   parameters:
-    toDate:
-      name: to_date
-      in: query
-      required: true
-      description: End date for the report period. Uses ISO-8601 format (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2024-01-31'
-    asOfDate:
-      name: as_of_date
-      in: query
-      required: true
-      description: The date for the point-in-time report. Uses ISO-8601 format (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2024-01-31'
-    cursor:
-      name: cursor
+    breakdownBy:
+      name: breakdown_by
       in: query
       required: false
-      description: Pagination cursor to navigate through the full response.
+      description: How to break down the report columns. If not specified, returns a single total column.
       schema:
-        $ref: '#/components/schemas/PageCursor'
-    subsidiary_id:
-      name: subsidiary_id
+        $ref: '#/components/schemas/ReportBreakdownBy'
+    customFieldId:
+      name: custom_field_id
       in: query
       required: false
-      description: Subsidiary to be used when filtering data
+      description: The ID of the custom field to break down by. Required when breakdown_by is CUSTOM_FIELD.
       schema:
         type: string
         format: uuid
@@ -961,6 +937,29 @@ components:
       schema:
         type: string
         format: yearMonth
+    asOfDate:
+      name: as_of_date
+      in: query
+      required: true
+      description: The date for the point-in-time report. Uses ISO-8601 format (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2024-01-31'
+    status:
+      name: status
+      in: query
+      required: true
+      description: whether to include committed or active entries
+      schema:
+        $ref: '#/components/schemas/Status'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
     fromDate:
       name: from_date
       in: query
@@ -970,28 +969,15 @@ components:
         type: string
         format: date
       example: '2024-01-01'
-    customFieldId:
-      name: custom_field_id
-      in: query
-      required: false
-      description: The ID of the custom field to break down by. Required when breakdown_by is CUSTOM_FIELD.
-      schema:
-        type: string
-        format: uuid
-    status:
-      name: status
+    toDate:
+      name: to_date
       in: query
       required: true
-      description: whether to include committed or active entries
+      description: End date for the report period. Uses ISO-8601 format (YYYY-MM-DD).
       schema:
-        $ref: '#/components/schemas/Status'
-    breakdownBy:
-      name: breakdown_by
-      in: query
-      required: false
-      description: How to break down the report columns. If not specified, returns a single total column.
-      schema:
-        $ref: '#/components/schemas/ReportBreakdownBy'
+        type: string
+        format: date
+      example: '2024-01-31'
     breakdown:
       name: breakdown
       in: query
@@ -999,13 +985,21 @@ components:
       description: whether annual or monthly breakdowns
       schema:
         $ref: '#/components/schemas/Breakdown'
-    limit:
-      name: limit
+    subsidiary_id:
+      name: subsidiary_id
       in: query
       required: false
-      description: Maximum number of rows to return in the page.
+      description: Subsidiary to be used when filtering data
       schema:
-        $ref: '#/components/schemas/PageLimit'
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
   securitySchemes:
     bearerAuth:
       type: http

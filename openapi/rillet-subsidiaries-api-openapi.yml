@@ -22,9 +22,7 @@ paths:
 
         Use this to discover subsidiary UUIDs before calling endpoints that accept subsidiary_id (contracts, invoices, reports).
 
-        Each subsidiary carries currency and timezone used for localized accounting and reporting.
-
-        '
+        Each subsidiary carries currency and timezone used for localized accounting and reporting.'
       responses:
         '200':
           description: OK
@@ -54,9 +52,7 @@ paths:
       summary: Retrieves a subsidiary
       description: 'Returns one subsidiary by id for the authenticated organization.
 
-        Call list-all-subsidiaries first if you need to resolve which subsidiary id to use.
-
-        '
+        Call list-all-subsidiaries first if you need to resolve which subsidiary id to use.'
       parameters:
       - name: subsidiary_id
         in: path
@@ -79,10 +75,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
     Subsidiary:
       type: object
       required:
@@ -130,6 +122,10 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
   securitySchemes:
     bearerAuth:
       type: http

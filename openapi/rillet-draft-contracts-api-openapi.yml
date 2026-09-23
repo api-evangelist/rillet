@@ -50,9 +50,7 @@ paths:
 
         matches `POST /draft-contracts` — items and external_references on the existing record are fully replaced.
 
-        Returns 404 if the id is not a draft contract in the organization.
-
-        '
+        Returns 404 if the id is not a draft contract in the organization.'
       requestBody:
         content:
           application/json:
@@ -97,9 +95,7 @@ paths:
       summary: Lists all draft contracts
       description: 'Returns draft contracts with cursor pagination. Draft contracts are staged records that appear in the Rillet UI under
 
-        "Draft" for a human to approve or reject before they become active contracts.
-
-        '
+        "Draft" for a human to approve or reject before they become active contracts.'
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/cursor'
@@ -173,9 +169,7 @@ paths:
 
         Promotion to an active contract happens through the Rillet UI. The public API does not currently expose a
 
-        programmatic promotion endpoint.
-
-        '
+        programmatic promotion endpoint.'
       requestBody:
         content:
           application/json:
@@ -198,156 +192,31 @@ paths:
       parameters: []
 components:
   schemas:
-    BillingScheme:
+    Discount:
+      oneOf:
+      - $ref: '#/components/schemas/AmountDiscount'
+      - $ref: '#/components/schemas/PercentageDiscount'
       discriminator:
         propertyName: type
         mapping:
-          PER_UNIT: '#/components/schemas/PerUnitBilling'
-          TIERED: '#/components/schemas/TieredBilling'
-      oneOf:
-      - $ref: '#/components/schemas/PerUnitBilling'
-      - $ref: '#/components/schemas/TieredBilling'
-    DraftContractItem:
-      type: object
-      required:
-      - id
-      - product_id
-      - price
-      - quantity
-      properties:
-        id:
-          type: string
-          format: uuid
-        product_id:
-          type: string
-          format: uuid
-        price:
-          $ref: '#/components/schemas/Price'
-        quantity:
-          type: number
-        discount:
-          $ref: '#/components/schemas/Discount'
-        start_date:
-          type: string
-          format: date
-        end_date:
-          type: string
-          format: date
-    ContractScope:
-      type: string
-      enum:
-      - FULL
-      - REVENUE_RECOGNITION_ONLY
-      description: The "FULL" scope includes revenue recognition and invoicing handled in Rillet. With the "REVENUE_RECOGNITION_ONLY" scope, invoicing is handled outside Rillet.
-    OneTimePrice:
+          AMOUNT: '#/components/schemas/AmountDiscount'
+          PERCENTAGE: '#/components/schemas/PercentageDiscount'
+      example:
+        type: AMOUNT
+        amount_off:
+          amount: '10.00'
+          currency: USD
+    FixedRecurringPrice:
       allOf:
       - $ref: '#/components/schemas/FixedPrice'
+      - $ref: '#/components/schemas/RecurringPrice'
       - type: object
         required:
         - type
         properties:
           type:
             type: string
-            default: ONE_TIME
-    MonetaryAmount:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    PerUnitBilling:
-      type: object
-      required:
-      - type
-      - amount
-      - units
-      properties:
-        type:
-          type: string
-          default: PER_UNIT
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        units:
-          type: integer
-          format: int32
-          minimum: 1
-          example: 1
-    ExternalReference:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          example: xyzSystemId
-        id:
-          type: string
-          example: '234'
-        url:
-          type: string
-          format: uri
-          example: https://xyzsystempage.com/ids/234
-      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    FixedPrice:
-      type: object
-      required:
-      - amount
-      properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    DraftContractItemRequest:
-      type: object
-      required:
-      - product_id
-      - price
-      - quantity
-      properties:
-        product_id:
-          type: string
-          format: uuid
-        price:
-          $ref: '#/components/schemas/Price'
-        quantity:
-          type: number
-          minimum: 1
-          example: 1
-        discount:
-          $ref: '#/components/schemas/Discount'
-        start_date:
-          type: string
-          format: date
-        end_date:
-          type: string
-          format: date
+            default: FIXED_RECURRING
     CreateDraftContractRequest:
       type: object
       required:
@@ -403,28 +272,17 @@ components:
           description: Contract line items. At least one item is required.
           items:
             $ref: '#/components/schemas/DraftContractItemRequest'
-    TieredBilling:
+    FixedPrice:
       type: object
       required:
-      - type
-      - mode
-      - tiers
+      - amount
       properties:
-        type:
-          type: string
-          default: TIERED
-        mode:
-          type: string
-          enum:
-          - GRADUATED
-          - METERED
-          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
-        tiers:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Tier'
-      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
     Error:
       type: object
       required:
@@ -448,79 +306,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    FixedRecurringPrice:
-      allOf:
-      - $ref: '#/components/schemas/FixedPrice'
-      - $ref: '#/components/schemas/RecurringPrice'
-      - type: object
-        required:
-        - type
-        properties:
-          type:
-            type: string
-            default: FIXED_RECURRING
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    AmountDiscount:
-      type: object
-      required:
-      - amount_off
-      properties:
-        amount_off:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        type:
-          type: string
-          default: AMOUNT
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
-    PercentageDiscount:
-      type: object
-      required:
-      - percentage_off
-      properties:
-        percentage_off:
-          type: number
-          format: double
-          minimum: 0
-          maximum: 100
-          example: 10
-        type:
-          type: string
-          default: PERCENTAGE
-    Tier:
-      type: object
-      required:
-      - up_to
-      properties:
-        up_to:
-          type: integer
-          format: int32
-          minimum: 1
-          example: 10
-        flat_price:
-          $ref: '#/components/schemas/MonetaryAmount'
-        per_unit_price:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
-    UsagePrice:
-      allOf:
-      - $ref: '#/components/schemas/RecurringPrice'
-      - type: object
-        required:
-        - type
-        - billing_scheme
-        properties:
-          type:
-            type: string
-            default: USAGE
-          billing_scheme:
-            $ref: '#/components/schemas/BillingScheme'
     Price:
       discriminator:
         propertyName: type
@@ -538,20 +323,64 @@ components:
           amount: '10.00'
           currency: USD
         interval_months: 1
-    Discount:
-      oneOf:
-      - $ref: '#/components/schemas/AmountDiscount'
-      - $ref: '#/components/schemas/PercentageDiscount'
-      discriminator:
-        propertyName: type
-        mapping:
-          AMOUNT: '#/components/schemas/AmountDiscount'
-          PERCENTAGE: '#/components/schemas/PercentageDiscount'
-      example:
-        type: AMOUNT
-        amount_off:
-          amount: '10.00'
-          currency: USD
+    Tier:
+      type: object
+      required:
+      - up_to
+      properties:
+        up_to:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 10
+        flat_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+        per_unit_price:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: At least one of flatPrice or perUnitPrice has to be defined. flatPrice is the price for the entire tier. perUnitPrice is price for units relevant to the tier.
+    RecurringPrice:
+      type: object
+      required:
+      - interval_months
+      properties:
+        interval_months:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 12
+          example: 1
+    OneTimePrice:
+      allOf:
+      - $ref: '#/components/schemas/FixedPrice'
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            default: ONE_TIME
+    TieredBilling:
+      type: object
+      required:
+      - type
+      - mode
+      - tiers
+      properties:
+        type:
+          type: string
+          default: TIERED
+        mode:
+          type: string
+          enum:
+          - GRADUATED
+          - METERED
+          description: In metered tiering, the maximum quantity within a period determines the price. In graduated tiering, pricing changes as the quantity grows – the price from each tier up to the reported quantity is accumulated.
+        tiers:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Tier'
+      description: All tiers except for the highest have to define a value for upTo. There cannot be more than one tier with the same upTo value.
     DraftContract:
       type: object
       required:
@@ -606,17 +435,182 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DraftContractItem'
-    RecurringPrice:
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    ExternalReference:
       type: object
       required:
-      - interval_months
+      - type
+      - id
       properties:
-        interval_months:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    UsagePrice:
+      allOf:
+      - $ref: '#/components/schemas/RecurringPrice'
+      - type: object
+        required:
+        - type
+        - billing_scheme
+        properties:
+          type:
+            type: string
+            default: USAGE
+          billing_scheme:
+            $ref: '#/components/schemas/BillingScheme'
+    PercentageDiscount:
+      type: object
+      required:
+      - percentage_off
+      properties:
+        percentage_off:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+          example: 10
+        type:
+          type: string
+          default: PERCENTAGE
+    AmountDiscount:
+      type: object
+      required:
+      - amount_off
+      properties:
+        amount_off:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        type:
+          type: string
+          default: AMOUNT
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    DraftContractItem:
+      type: object
+      required:
+      - id
+      - product_id
+      - price
+      - quantity
+      properties:
+        id:
+          type: string
+          format: uuid
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+        discount:
+          $ref: '#/components/schemas/Discount'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    ContractScope:
+      type: string
+      enum:
+      - FULL
+      - REVENUE_RECOGNITION_ONLY
+      description: The "FULL" scope includes revenue recognition and invoicing handled in Rillet. With the "REVENUE_RECOGNITION_ONLY" scope, invoicing is handled outside Rillet.
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
+    PerUnitBilling:
+      type: object
+      required:
+      - type
+      - amount
+      - units
+      properties:
+        type:
+          type: string
+          default: PER_UNIT
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        units:
           type: integer
           format: int32
           minimum: 1
-          maximum: 12
           example: 1
+    DraftContractItemRequest:
+      type: object
+      required:
+      - product_id
+      - price
+      - quantity
+      properties:
+        product_id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Price'
+        quantity:
+          type: number
+          minimum: 1
+          example: 1
+        discount:
+          $ref: '#/components/schemas/Discount'
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+    BillingScheme:
+      discriminator:
+        propertyName: type
+        mapping:
+          PER_UNIT: '#/components/schemas/PerUnitBilling'
+          TIERED: '#/components/schemas/TieredBilling'
+      oneOf:
+      - $ref: '#/components/schemas/PerUnitBilling'
+      - $ref: '#/components/schemas/TieredBilling'
   parameters:
     cursor:
       name: cursor
@@ -625,6 +619,13 @@ components:
       description: Pagination cursor to navigate through the full response.
       schema:
         $ref: '#/components/schemas/PageCursor'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
     subsidiary_id:
       name: subsidiary_id
       in: query
@@ -633,13 +634,6 @@ components:
       schema:
         type: string
         format: uuid
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of rows to return in the page.
-      schema:
-        $ref: '#/components/schemas/PageLimit'
   securitySchemes:
     bearerAuth:
       type: http

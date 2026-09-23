@@ -20,9 +20,7 @@ paths:
       summary: Lists all credit memos
       description: 'Returns customer credit memos with pagination and filters for application state, customer, and subsidiaries.
 
-        Use credit memo ids with retrieve-a-credit-memo before updates or when applying credits to invoices.
-
-        '
+        Use credit memo ids with retrieve-a-credit-memo before updates or when applying credits to invoices.'
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/cursor'
@@ -64,9 +62,7 @@ paths:
       summary: Creates a credit memo
       description: 'Opens a customer credit memo that reduces receivable exposure before you allocate it to specific invoices.
 
-        Capture subsidiary, customer, line-level reasons, and tax treatment so finance can audit why the balance changed.
-
-        '
+        Capture subsidiary, customer, line-level reasons, and tax treatment so finance can audit why the balance changed.'
       requestBody:
         content:
           application/json:
@@ -95,9 +91,7 @@ paths:
       summary: Retrieves a credit memo
       description: 'Loads the full credit memo payload, including remaining balance, applications, and tax metadata you must echo on PUT updates.
 
-        Always retrieve before editing because update-a-credit-memo replaces the entire resource when fields are omitted.
-
-        '
+        Always retrieve before editing because update-a-credit-memo replaces the entire resource when fields are omitted.'
       parameters:
       - name: credit_memo_id
         in: path
@@ -125,9 +119,7 @@ paths:
       summary: Deletes a credit memo
       description: 'Removes a credit memo that should no longer affect AR balances, typically while it is still draft or unused.
 
-        Confirm no invoice applications or downstream revenue adjustments depend on this memo before calling delete.
-
-        '
+        Confirm no invoice applications or downstream revenue adjustments depend on this memo before calling delete.'
       parameters:
       - name: credit_memo_id
         in: path
@@ -155,9 +147,7 @@ paths:
 
         existing data. Always call retrieve-a-credit-memo first to fetch the current record,
 
-        then include ALL existing fields in your update request along with your changes.
-
-        '
+        then include ALL existing fields in your update request along with your changes.'
       parameters:
       - name: credit_memo_id
         in: path
@@ -192,9 +182,7 @@ paths:
       summary: Updates credit memo taxes
       description: 'Refreshes tax quotes on an existing credit memo using the same structured payload as invoice tax updates, stamped with taxesCalculatedAt for auditability.
 
-        Use after line items change or when your tax engine recomputes jurisdiction-specific amounts before issuing the credit to the customer.
-
-        '
+        Use after line items change or when your tax engine recomputes jurisdiction-specific amounts before issuing the credit to the customer.'
       parameters:
       - name: credit_memo_id
         in: path
@@ -228,9 +216,7 @@ paths:
       operationId: delete-credit-memo-applications
       x-skip-mcp: true
       summary: Unapplies all credit memo applications
-      description: 'Removes every application from this credit memo, reverting all invoice allocations.
-
-        '
+      description: Removes every application from this credit memo, reverting all invoice allocations.
       parameters:
       - name: credit_memo_id
         in: path
@@ -254,9 +240,7 @@ paths:
       operationId: apply-credit-memo
       x-skip-mcp: true
       summary: Reconciles credit memo applications
-      description: 'Full reconcile of credit memo applications. The request body represents the desired set: missing applications are removed, new applications inserted, and existing applications updated when amount or application_date differ.
-
-        '
+      description: 'Full reconcile of credit memo applications. The request body represents the desired set: missing applications are removed, new applications inserted, and existing applications updated when amount or application_date differ.'
       parameters:
       - name: credit_memo_id
         in: path
@@ -292,172 +276,6 @@ components:
       - DAILY
       - EVEN_PERIOD
       description: DAILY means that the revenue is divided equally per day in the revenue period. EVEN_PERIOD means that the revenue is divided equally for each calendar month in the revenue period.
-    UpdateTaxesRequest:
-      type: object
-      required:
-      - taxes_calculated_at
-      - items
-      properties:
-        taxes_calculated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
-        items:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/UpdateItemTaxesRequest'
-    CalendarPeriod:
-      type: object
-      required:
-      - end
-      - start
-      properties:
-        start:
-          type: string
-          format: date
-        end:
-          type: string
-          format: date
-    MonetaryAmount:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    ExternalReference:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          example: xyzSystemId
-        id:
-          type: string
-          example: '234'
-        url:
-          type: string
-          format: uri
-          example: https://xyzsystempage.com/ids/234
-      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
-    FieldAssignments:
-      type: array
-      items:
-        type: object
-        required:
-        - field_id
-        - field_value_id
-        properties:
-          field_id:
-            type: string
-            format: uuid
-          field_value_id:
-            type: string
-            format: uuid
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-    CreditMemoItemPriceRequest:
-      type: object
-      required:
-      - product_id
-      - quantity
-      - amount_per_unit
-      properties:
-        product_id:
-          type: string
-          format: uuid
-        quantity:
-          type: number
-          minimum: 0
-        amount_per_unit:
-          $ref: '#/components/schemas/MonetaryAmount'
-          description: This amount shows up a *rate* on the credit memo, after applying the discount.
-    CreateCreditMemoItemRequest:
-      type: object
-      required:
-      - description
-      - price
-      properties:
-        description:
-          type: string
-        price:
-          $ref: '#/components/schemas/CreditMemoItemPriceRequest'
-        revenue:
-          $ref: '#/components/schemas/ItemRevenue'
-        tax_rate:
-          $ref: '#/components/schemas/TaxRateWithOptionalAmount'
-        fields:
-          $ref: '#/components/schemas/FieldAssignments'
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    CreditMemoApplication:
-      type: object
-      required:
-      - id
-      - credit_memo_id
-      - invoice_id
-      - amount
-      - application_date
-      properties:
-        id:
-          type: string
-          format: uuid
-        credit_memo_id:
-          type: string
-          format: uuid
-        invoice_id:
-          type: string
-          format: uuid
-        invoice_number:
-          type: string
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        application_date:
-          type: string
-          format: date
-    ExchangeRate:
-      type: object
-      required:
-      - base
-      - date
-      - rate
-      - target
-      properties:
-        base:
-          $ref: '#/components/schemas/CurrencyCode'
-        target:
-          $ref: '#/components/schemas/CurrencyCode'
-        rate:
-          type: string
-        date:
-          type: string
-          format: date
     CreateCreditMemoRequest:
       type: object
       required:
@@ -489,6 +307,41 @@ components:
             $ref: '#/components/schemas/ExternalReference'
         exchange_rate:
           $ref: '#/components/schemas/ExchangeRate'
+    CreateCreditMemoItemRequest:
+      type: object
+      required:
+      - description
+      - price
+      properties:
+        description:
+          type: string
+        price:
+          $ref: '#/components/schemas/CreditMemoItemPriceRequest'
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        tax_rate:
+          $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    UpdateTaxesRequest:
+      type: object
+      required:
+      - taxes_calculated_at
+      - items
+      properties:
+        taxes_calculated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/UpdateItemTaxesRequest'
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
     Error:
       type: object
       required:
@@ -512,86 +365,69 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    UpdateCreditMemoRequest:
+    CreditMemoItemPriceRequest:
       type: object
       required:
-      - credit_memo_date
-      - items
+      - product_id
+      - quantity
+      - amount_per_unit
       properties:
-        items:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/CreateCreditMemoItemRequest'
-        credit_memo_date:
+        product_id:
           type: string
-          format: date
-        external_references:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalReference'
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
-    Address:
-      type: object
-      required:
-      - city
-      - country
-      - line1
-      - state
-      - zip_code
-      properties:
-        line1:
-          type: string
-          example: 123 Main St
-        line2:
-          type: string
-          example: Apt 4B
-        city:
-          type: string
-          example: Nashville
-        state:
-          type: string
-          example: TN
-          description: State or province code (e.g. 'TN', 'CA' for US; 'ON' for Canada). Required when address is provided.
-        zip_code:
-          type: string
-          example: '37201'
-        country:
-          $ref: '#/components/schemas/CountryCode'
-    TaxRateWithOptionalAmount:
-      type: object
-      required:
-      - country
-      - description
-      - percentage
-      - type
-      properties:
-        percentage:
+          format: uuid
+        quantity:
           type: number
           minimum: 0
-          maximum: 100
-          example: 0
-        tax_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        type:
+        amount_per_unit:
+          $ref: '#/components/schemas/MonetaryAmount'
+          description: This amount shows up a *rate* on the credit memo, after applying the discount.
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    ItemRevenue:
+      type: object
+      properties:
+        period:
+          $ref: '#/components/schemas/CalendarPeriod'
+          description: Represents the period in which the service was rendered. This period is used for revenue recognition – the revenue is spread over this period. If not provided, the period starts and ends on the invoice date.
+        pattern:
+          $ref: '#/components/schemas/RevenuePattern'
+          description: If not provided, the one from the product will be used.
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+          description: If not provided, the one from the product will be used.
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
           type: string
-          enum:
-          - VAT
-          - SALES_TAX
-        description:
+        date:
           type: string
+          format: date
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
     CreditMemoApplicationRequest:
       type: object
       required:
@@ -607,6 +443,39 @@ components:
         application_date:
           type: string
           format: date
+    CreditMemoItem:
+      type: object
+      required:
+      - description
+      - net_amount
+      - id
+      - quantity
+      - revenue
+      - total_amount
+      - product_id
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          example: Description
+        revenue:
+          $ref: '#/components/schemas/ItemRevenue'
+        total_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        taxed_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        net_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        quantity:
+          type: number
+          example: 1
+        product_id:
+          type: string
+          format: uuid
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
     ApplyCreditMemoRequest:
       type: object
       required:
@@ -617,11 +486,43 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/CreditMemoApplicationRequest'
-    TaxRate:
-      allOf:
-      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+    CalendarPeriod:
+      type: object
       required:
-      - tax_amount
+      - end
+      - start
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    CreditMemoApplication:
+      type: object
+      required:
+      - id
+      - credit_memo_id
+      - invoice_id
+      - amount
+      - application_date
+      properties:
+        id:
+          type: string
+          format: uuid
+        credit_memo_id:
+          type: string
+          format: uuid
+        invoice_id:
+          type: string
+          format: uuid
+        invoice_number:
+          type: string
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        application_date:
+          type: string
+          format: date
     AccountCode:
       type: string
       description: The account code found in the Chart of Accounts
@@ -698,51 +599,129 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
-    CreditMemoItem:
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    ExternalReference:
       type: object
       required:
-      - description
-      - net_amount
+      - type
       - id
-      - quantity
-      - revenue
-      - total_amount
-      - product_id
       properties:
+        type:
+          type: string
+          example: xyzSystemId
         id:
           type: string
-          format: uuid
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    Address:
+      type: object
+      required:
+      - city
+      - country
+      - line1
+      - state
+      - zip_code
+      properties:
+        line1:
+          type: string
+          example: 123 Main St
+        line2:
+          type: string
+          example: Apt 4B
+        city:
+          type: string
+          example: Nashville
+        state:
+          type: string
+          example: TN
+          description: State or province code (e.g. 'TN', 'CA' for US; 'ON' for Canada). Required when address is provided.
+        zip_code:
+          type: string
+          example: '37201'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    MonetaryAmount:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. (e.g. '1.01' in $ currency represents 1$ and 1 cent.)
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
+    UpdateCreditMemoRequest:
+      type: object
+      required:
+      - credit_memo_date
+      - items
+      properties:
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateCreditMemoItemRequest'
+        credit_memo_date:
+          type: string
+          format: date
+        external_references:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
         description:
           type: string
-          example: Description
-        revenue:
-          $ref: '#/components/schemas/ItemRevenue'
-        total_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        taxed_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        net_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        quantity:
-          type: number
-          example: 1
-        product_id:
-          type: string
-          format: uuid
-        fields:
-          $ref: '#/components/schemas/FieldAssignments'
-    ItemRevenue:
-      type: object
-      properties:
-        period:
-          $ref: '#/components/schemas/CalendarPeriod'
-          description: Represents the period in which the service was rendered. This period is used for revenue recognition – the revenue is spread over this period. If not provided, the period starts and ends on the invoice date.
-        pattern:
-          $ref: '#/components/schemas/RevenuePattern'
-          description: If not provided, the one from the product will be used.
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
-          description: If not provided, the one from the product will be used.
     UpdateItemTaxesRequest:
       type: object
       required:
@@ -756,18 +735,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TaxRate'
-    CountryCode:
+    Pagination:
+      type: object
+      properties:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    PageCursor:
       type: string
-      description: Two-letter country code (ISO 3166-1 alpha-2).
-      example: US
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
   parameters:
-    cursor:
-      name: cursor
+    limit:
+      name: limit
       in: query
       required: false
-      description: Pagination cursor to navigate through the full response.
+      description: Maximum number of rows to return in the page.
       schema:
-        $ref: '#/components/schemas/PageCursor'
+        $ref: '#/components/schemas/PageLimit'
     subsidiary_id:
       name: subsidiary_id
       in: query
@@ -776,13 +760,13 @@ components:
       schema:
         type: string
         format: uuid
-    limit:
-      name: limit
+    cursor:
+      name: cursor
       in: query
       required: false
-      description: Maximum number of rows to return in the page.
+      description: Pagination cursor to navigate through the full response.
       schema:
-        $ref: '#/components/schemas/PageLimit'
+        $ref: '#/components/schemas/PageCursor'
   securitySchemes:
     bearerAuth:
       type: http

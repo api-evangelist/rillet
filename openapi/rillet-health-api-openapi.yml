@@ -20,9 +20,7 @@ paths:
       summary: Returns service health
       description: 'Lightweight liveness probe that returns HTTP 200 when the service process is running, without exercising downstream databases or queues.
 
-        Use for load balancer health checks where you only need to know the JVM responded.
-
-        '
+        Use for load balancer health checks where you only need to know the JVM responded.'
       responses:
         '200':
           description: OK

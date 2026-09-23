@@ -20,9 +20,7 @@ paths:
       summary: Lists bill payments
       description: 'Enumerates disbursements recorded against a specific bill, useful when reconciling vendor statements to internal cash movements.
 
-        Combine with retrieve-a-bill to understand remaining balance after each payment posts.
-
-        '
+        Combine with retrieve-a-bill to understand remaining balance after each payment posts.'
       parameters:
       - name: bill_id
         in: path
@@ -61,9 +59,7 @@ paths:
         Provide funding source details consistent with your configured payment rails so downstream bank reconciliation stays accurate.
 
 
-        IMPORTANT: Notice this operation has a redundancy between the `bill_id` path parameter and the `billId` attribute in the request body, which takes precedence and is used in internal logic. When executing this operation, both IDs must match, otherwise the request will be rejected. This is a legacy redundancy and will be removed in future versions of this operation.
-
-        '
+        IMPORTANT: Notice this operation has a redundancy between the `bill_id` path parameter and the `billId` attribute in the request body, which takes precedence and is used in internal logic. When executing this operation, both IDs must match, otherwise the request will be rejected. This is a legacy redundancy and will be removed in future versions of this operation.'
       parameters:
       - name: bill_id
         in: path
@@ -98,9 +94,7 @@ paths:
       summary: Deletes a bill payment
       description: 'Reverses a previously recorded bill payment when the disbursement failed or was duplicated, restoring the bill balance accordingly.
 
-        Treat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.
-
-        '
+        Treat this as a corrective action with the same controls you apply to voiding treasury transactions in your close process.'
       parameters:
       - name: bill_id
         in: path
@@ -127,10 +121,20 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
     BillPaymentRequest:
       type: object
       required:
@@ -145,10 +149,6 @@ components:
           format: date
         account_code:
           $ref: '#/components/schemas/AccountCode'
-    AccountCode:
-      type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
     BillPayment:
       type: object
       required:
@@ -174,20 +174,14 @@ components:
           format: date
         account_code:
           $ref: '#/components/schemas/AccountCode'
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
     Error:
       type: object
       required:

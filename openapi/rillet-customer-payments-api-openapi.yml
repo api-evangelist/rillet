@@ -74,24 +74,23 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    CustomerPaymentMethod:
+    SetupUpAutoPaymentRequest:
+      type: object
+      optional:
+      - subsidiary_id
+      properties:
+        subsidiary_id:
+          type: string
+          format: uuid
+    PaymentSetupResponse:
       type: object
       required:
-      - chargeable
-      - payment_type
+      - setup_url
       properties:
-        last_four_digits:
+        setup_url:
           type: string
-          description: The last four digits of the payment method.
-        chargeable:
-          type: boolean
-          description: Whether the payment method can be used or not. If false, further action from the customer might be required.
-        payment_type:
-          type: string
-          enum:
-          - CARD
-          - BANK_ACCOUNT
-          - OTHER
+          format: uri
+          description: URL to the payment setup portal
     Error:
       type: object
       required:
@@ -115,23 +114,24 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    PaymentSetupResponse:
+    CustomerPaymentMethod:
       type: object
       required:
-      - setup_url
+      - chargeable
+      - payment_type
       properties:
-        setup_url:
+        last_four_digits:
           type: string
-          format: uri
-          description: URL to the payment setup portal
-    SetupUpAutoPaymentRequest:
-      type: object
-      optional:
-      - subsidiary_id
-      properties:
-        subsidiary_id:
+          description: The last four digits of the payment method.
+        chargeable:
+          type: boolean
+          description: Whether the payment method can be used or not. If false, further action from the customer might be required.
+        payment_type:
           type: string
-          format: uuid
+          enum:
+          - CARD
+          - BANK_ACCOUNT
+          - OTHER
   securitySchemes:
     bearerAuth:
       type: http

@@ -68,7 +68,8 @@
     "rillet-accounting-api-openapi.json: declared missing tag: Vendor Credit Applications",
     "rillet-accounting-api-openapi.json: declared missing tag: Vendor Credits",
     "rillet-accounting-api-openapi.json: declared missing tag: Vendors",
-    "rillet-accounting-api-openapi.json: declared missing tag: Webhooks"
+    "rillet-accounting-api-openapi.json: declared missing tag: Webhooks",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "rillet-api-key-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -98,6 +99,7 @@
     "rillet-tax-rates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rillet-vendor-credit-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rillet-vendor-credits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "rillet-vendors-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+    "rillet-vendors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rillet-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

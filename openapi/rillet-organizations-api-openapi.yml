@@ -20,9 +20,7 @@ paths:
       summary: Retrieves an organization
       description: 'Returns the organization profile for the API credentials in use (the “current” org).
 
-        Use this to confirm organization id, display name, and other org-level settings in integrations.
-
-        '
+        Use this to confirm organization id, display name, and other org-level settings in integrations.'
       responses:
         '200':
           description: OK
@@ -43,25 +41,6 @@ components:
       type: string
       description: Currency code following ISO-4217
       example: USD
-    Organization:
-      type: object
-      required:
-      - id
-      - currency
-      - timezone
-      - trade_name
-      properties:
-        id:
-          type: string
-          format: uuid
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        timezone:
-          type: string
-          example: America/New_York
-        trade_name:
-          type: string
-          example: Rillet Inc.
     Error:
       type: object
       required:
@@ -85,6 +64,25 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
+    Organization:
+      type: object
+      required:
+      - id
+      - currency
+      - timezone
+      - trade_name
+      properties:
+        id:
+          type: string
+          format: uuid
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        timezone:
+          type: string
+          example: America/New_York
+        trade_name:
+          type: string
+          example: Rillet Inc.
   securitySchemes:
     bearerAuth:
       type: http

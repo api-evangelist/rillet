@@ -20,9 +20,7 @@ paths:
       summary: Lists all charges
       description: 'Pages card or out-of-pocket employee charges awaiting policy review, subsidiary allocation, or conversion into reimbursable payables.
 
-        Filter by subsidiary_id or updated.gt when syncing corporate card feeds into downstream expense automation.
-
-        '
+        Filter by subsidiary_id or updated.gt when syncing corporate card feeds into downstream expense automation.'
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/cursor'
@@ -91,9 +89,7 @@ paths:
       summary: Retrieves a charge
       description: 'Fetches a single charge with merchant metadata, amounts, and workflow state so reviewers can decide coding before reimbursement.
 
-        Use this after list-all-charges surfaces an id that needs manual inspection or attachment to a bill.
-
-        '
+        Use this after list-all-charges surfaces an id that needs manual inspection or attachment to a bill.'
       parameters:
       - name: charge_id
         in: path
@@ -121,9 +117,7 @@ paths:
       summary: Deletes a charge
       description: 'Drops a charge that should not influence spend reporting, for example duplicate imports from a card processor feed.
 
-        Ensure finance agrees the underlying bank activity will not be re-imported before removing the charge permanently.
-
-        '
+        Ensure finance agrees the underlying bank activity will not be re-imported before removing the charge permanently.'
       parameters:
       - name: charge_id
         in: path
@@ -141,151 +135,45 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Pagination cursor to navigate through the full response.
-      schema:
-        $ref: '#/components/schemas/PageCursor'
-    subsidiary_id:
-      name: subsidiary_id
-      in: query
-      required: false
-      description: Subsidiary to be used when filtering data
-      schema:
-        type: string
-        format: uuid
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of rows to return in the page.
-      schema:
-        $ref: '#/components/schemas/PageLimit'
   schemas:
-    CalendarPeriod:
+    ChargeItemRequest:
       type: object
       required:
-      - end
-      - start
-      properties:
-        start:
-          type: string
-          format: date
-        end:
-          type: string
-          format: date
-    ExternalReference:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          example: xyzSystemId
-        id:
-          type: string
-          example: '234'
-        url:
-          type: string
-          format: uri
-          example: https://xyzsystempage.com/ids/234
-      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
-    ChargeStatus:
-      type: string
-      enum:
-      - UNPAID
-      - PAID
-      - PARTIALLY_PAID
-    FieldAssignments:
-      type: array
-      items:
-        type: object
-        required:
-        - field_id
-        - field_value_id
-        properties:
-          field_id:
-            type: string
-            format: uuid
-          field_value_id:
-            type: string
-            format: uuid
-    RoundedMonetaryAmount:
-      type: object
-      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
-      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
-      required:
+      - account_code
       - amount
-      - currency
       properties:
-        amount:
+        description:
           type: string
-          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
-          example: '1.01'
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          example: API Charge
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        tax_rate:
+          $ref: '#/components/schemas/ExpenseTaxRate'
+        service_period:
+          $ref: '#/components/schemas/CalendarPeriod'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    ExpenseTaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRate'
+      - type: object
+        required:
+        - coverage
+        properties:
+          tax_code:
+            type: string
+            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
+          coverage:
+            type: string
+            enum:
+            - INCLUSIVE
+            - EXCLUSIVE
     CurrencyCode:
       type: string
       description: Currency code following ISO-4217
       example: USD
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    ExchangeRate:
-      type: object
-      required:
-      - base
-      - date
-      - rate
-      - target
-      properties:
-        base:
-          $ref: '#/components/schemas/CurrencyCode'
-        target:
-          $ref: '#/components/schemas/CurrencyCode'
-        rate:
-          type: string
-        date:
-          type: string
-          format: date
-    Error:
-      type: object
-      required:
-      - type
-      - title
-      properties:
-        type:
-          type: string
-          format: uri
-          description: A URI reference that identifies the error type.
-          example: https://rillet.io/forbidden
-        title:
-          type: string
-          description: Summary of the problem.
-          example: Forbidden
-        status:
-          type: integer
-          description: The HTTP status code generated by the origin server for this occurrence of the error.
-          example: 403
-        detail:
-          type: string
-          description: Explanation specific to this occurrence of the error.
-          example: User does not have rights to perform this operation.
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
-    Pagination:
-      type: object
-      properties:
-        next_cursor:
-          $ref: '#/components/schemas/PageCursor'
     ChargeRequest:
       type: object
       required:
@@ -320,21 +208,50 @@ components:
             $ref: '#/components/schemas/ExternalReference'
         exchange_rate:
           $ref: '#/components/schemas/ExchangeRate'
-    ExpenseTaxRate:
-      allOf:
-      - $ref: '#/components/schemas/TaxRate'
-      - type: object
-        required:
-        - coverage
-        properties:
-          tax_code:
-            type: string
-            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
-          coverage:
-            type: string
-            enum:
-            - INCLUSIVE
-            - EXCLUSIVE
+    Error:
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the error type.
+          example: https://rillet.io/forbidden
+        title:
+          type: string
+          description: Summary of the problem.
+          example: Forbidden
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the error.
+          example: 403
+        detail:
+          type: string
+          description: Explanation specific to this occurrence of the error.
+          example: User does not have rights to perform this operation.
+    CountryCode:
+      type: string
+      description: Two-letter country code (ISO 3166-1 alpha-2).
+      example: US
+    ExchangeRate:
+      type: object
+      required:
+      - base
+      - date
+      - rate
+      - target
+      properties:
+        base:
+          $ref: '#/components/schemas/CurrencyCode'
+        target:
+          $ref: '#/components/schemas/CurrencyCode'
+        rate:
+          type: string
+        date:
+          type: string
+          format: date
     ChargeItem:
       allOf:
       - $ref: '#/components/schemas/ChargeItemRequest'
@@ -345,6 +262,83 @@ components:
           id:
             type: string
             format: uuid
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    CalendarPeriod:
+      type: object
+      required:
+      - end
+      - start
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
+    RoundedMonetaryAmount:
+      type: object
+      description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
+      x-class-extra-annotation: '@io.rillet.common.infra.validators.IsRoundedAmount'
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: Monetary amount in decimal format, using a period (.) as the decimal separator. Must be rounded to the currency's default decimal places (e.g. '1.01' in USD represents 1 dollar and 1 cent).
+          example: '1.01'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+    ExternalReference:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          example: xyzSystemId
+        id:
+          type: string
+          example: '234'
+        url:
+          type: string
+          format: uri
+          example: https://xyzsystempage.com/ids/234
+      description: For requests, only pre-defined custom IDs are accepted. In responses, an object imported through an integration (e.g. Stripe) would return the provider's object ID.
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    ChargeStatus:
+      type: string
+      enum:
+      - UNPAID
+      - PAID
+      - PARTIALLY_PAID
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
     TaxRateWithOptionalAmount:
       type: object
       required:
@@ -369,34 +363,15 @@ components:
           - SALES_TAX
         description:
           type: string
-    TaxRate:
-      allOf:
-      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
-      required:
-      - tax_amount
-    ChargeItemRequest:
+    Pagination:
       type: object
-      required:
-      - account_code
-      - amount
       properties:
-        description:
-          type: string
-          example: API Charge
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        tax_rate:
-          $ref: '#/components/schemas/ExpenseTaxRate'
-        service_period:
-          $ref: '#/components/schemas/CalendarPeriod'
-        fields:
-          $ref: '#/components/schemas/FieldAssignments'
-    AccountCode:
+        next_cursor:
+          $ref: '#/components/schemas/PageCursor'
+    PageCursor:
       type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
     Charge:
       allOf:
       - $ref: '#/components/schemas/ChargeRequest'
@@ -420,10 +395,29 @@ components:
             minItems: 1
             items:
               $ref: '#/components/schemas/ChargeItem'
-    CountryCode:
-      type: string
-      description: Two-letter country code (ISO 3166-1 alpha-2).
-      example: US
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
   securitySchemes:
     bearerAuth:
       type: http

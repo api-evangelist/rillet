@@ -10,19 +10,17 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Bank accounts
+- name: Bank Accounts
 paths:
   /bank-accounts:
     get:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: list-all-bank-accounts
       summary: Lists all bank accounts
       description: 'Returns cash bank accounts configured for the organization, optionally filtered by subsidiary.
 
-        Bank account ids anchor transaction import, reconciliation, and treasury automations.
-
-        '
+        Bank account ids anchor transaction import, reconciliation, and treasury automations.'
       parameters:
       - $ref: '#/components/parameters/subsidiary_id'
       responses:
@@ -47,14 +45,12 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: create-a-bank-account
       summary: Creates a bank account
       description: 'Registers a treasury bank account with currency, institution identifiers, and linkage to the GL cash account used during transaction import.
 
-        Accurate mapping here ensures invoice payments, bill payments, and bank feeds all post to the same cash subledger.
-
-        '
+        Accurate mapping here ensures invoice payments, bill payments, and bank feeds all post to the same cash subledger.'
       requestBody:
         content:
           application/json:
@@ -78,14 +74,12 @@ paths:
   /bank-accounts/{bank_account_id}:
     get:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: retrieve-a-bank-account
       summary: Retrieves a bank account
       description: 'Returns configuration and status for a single bank account, including identifiers downstream connectors need when refreshing balances.
 
-        Use before deleting or updating metadata so you preserve institution codes and default subsidiary routing.
-
-        '
+        Use before deleting or updating metadata so you preserve institution codes and default subsidiary routing.'
       parameters:
       - name: bank_account_id
         in: path
@@ -108,14 +102,12 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: delete-a-bank-account
       summary: Deletes a bank account
       description: 'Removes a bank account definition when the entity closed the account or you mistakenly created a duplicate connector mapping.
 
-        Ensure no scheduled payments or open reconciliation batches still target this bank account before deletion.
-
-        '
+        Ensure no scheduled payments or open reconciliation batches still target this bank account before deletion.'
       parameters:
       - name: bank_account_id
         in: path
@@ -133,45 +125,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
   schemas:
-    CreateBankAccountRequest:
-      type: object
-      required:
-      - name
-      - currency
-      - bank_name
-      - subsidiary_id
-      - account_code
-      properties:
-        name:
-          type: string
-          description: The bank account name
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        bank_name:
-          type: string
-        subsidiary_id:
-          type: string
-          format: uuid
-        account_code:
-          type: string
-          description: The account code found in the Chart of Accounts
-        mask:
-          type: string
-          description: Last digits of the bank account number
-        transactions_start_date:
-          type: string
-          format: date
-          description: The earliest date from which bank transactions are tracked for this account. Defaults to the date of creation when omitted.
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
-    BankAccountStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
     BankAccount:
       type: object
       required:
@@ -207,6 +170,44 @@ components:
           description: The earliest date from which bank transactions are tracked for this account. Omitted for pre-existing accounts that have no recorded start date.
         status:
           $ref: '#/components/schemas/BankAccountStatus'
+    CreateBankAccountRequest:
+      type: object
+      required:
+      - name
+      - currency
+      - bank_name
+      - subsidiary_id
+      - account_code
+      properties:
+        name:
+          type: string
+          description: The bank account name
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        bank_name:
+          type: string
+        subsidiary_id:
+          type: string
+          format: uuid
+        account_code:
+          type: string
+          description: The account code found in the Chart of Accounts
+        mask:
+          type: string
+          description: Last digits of the bank account number
+        transactions_start_date:
+          type: string
+          format: date
+          description: The earliest date from which bank transactions are tracked for this account. Defaults to the date of creation when omitted.
+    BankAccountStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
     Error:
       type: object
       required:
@@ -230,15 +231,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-  parameters:
-    subsidiary_id:
-      name: subsidiary_id
-      in: query
-      required: false
-      description: Subsidiary to be used when filtering data
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     bearerAuth:
       type: http
