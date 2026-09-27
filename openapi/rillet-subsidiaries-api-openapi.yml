@@ -99,6 +99,10 @@ components:
           type: string
           enum:
           - LEGAL_ENTITY
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
     Error:
       type: object
       required:
@@ -122,10 +126,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
   securitySchemes:
     bearerAuth:
       type: http

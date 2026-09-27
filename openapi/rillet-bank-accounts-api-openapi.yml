@@ -125,16 +125,45 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    subsidiary_id:
-      name: subsidiary_id
-      in: query
-      required: false
-      description: Subsidiary to be used when filtering data
-      schema:
-        type: string
-        format: uuid
   schemas:
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
+    CreateBankAccountRequest:
+      type: object
+      required:
+      - name
+      - currency
+      - bank_name
+      - subsidiary_id
+      - account_code
+      properties:
+        name:
+          type: string
+          description: The bank account name
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        bank_name:
+          type: string
+        subsidiary_id:
+          type: string
+          format: uuid
+        account_code:
+          type: string
+          description: The account code found in the Chart of Accounts
+        mask:
+          type: string
+          description: Last digits of the bank account number
+        transactions_start_date:
+          type: string
+          format: date
+          description: The earliest date from which bank transactions are tracked for this account. Defaults to the date of creation when omitted.
+    BankAccountStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
     BankAccount:
       type: object
       required:
@@ -170,44 +199,6 @@ components:
           description: The earliest date from which bank transactions are tracked for this account. Omitted for pre-existing accounts that have no recorded start date.
         status:
           $ref: '#/components/schemas/BankAccountStatus'
-    CreateBankAccountRequest:
-      type: object
-      required:
-      - name
-      - currency
-      - bank_name
-      - subsidiary_id
-      - account_code
-      properties:
-        name:
-          type: string
-          description: The bank account name
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        bank_name:
-          type: string
-        subsidiary_id:
-          type: string
-          format: uuid
-        account_code:
-          type: string
-          description: The account code found in the Chart of Accounts
-        mask:
-          type: string
-          description: Last digits of the bank account number
-        transactions_start_date:
-          type: string
-          format: date
-          description: The earliest date from which bank transactions are tracked for this account. Defaults to the date of creation when omitted.
-    BankAccountStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
     Error:
       type: object
       required:
@@ -231,6 +222,15 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
+  parameters:
+    subsidiary_id:
+      name: subsidiary_id
+      in: query
+      required: false
+      description: Subsidiary to be used when filtering data
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     bearerAuth:
       type: http

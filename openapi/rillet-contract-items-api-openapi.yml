@@ -112,22 +112,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of rows to return in the page.
-      schema:
-        $ref: '#/components/schemas/PageLimit'
-    cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Pagination cursor to navigate through the full response.
-      schema:
-        $ref: '#/components/schemas/PageCursor'
   schemas:
+    PageCursor:
+      type: string
+      description: If defined, a cursor to retrieve the next page.
+      example: iLQvkEj3sh3UiweC
     UsageRecords:
       type: object
       required:
@@ -144,15 +133,6 @@ components:
       properties:
         next_cursor:
           $ref: '#/components/schemas/PageCursor'
-    PageCursor:
-      type: string
-      description: If defined, a cursor to retrieve the next page.
-      example: iLQvkEj3sh3UiweC
-    PageLimit:
-      type: integer
-      minimum: 1
-      maximum: 100
-      default: 25
     Usage:
       type: object
       required:
@@ -168,6 +148,11 @@ components:
           minimum: 0
           exclusiveMinimum: true
           example: 1
+    PageLimit:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 25
     Error:
       type: object
       required:
@@ -191,6 +176,21 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Pagination cursor to navigate through the full response.
+      schema:
+        $ref: '#/components/schemas/PageCursor'
+    limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of rows to return in the page.
+      schema:
+        $ref: '#/components/schemas/PageLimit'
   securitySchemes:
     bearerAuth:
       type: http
