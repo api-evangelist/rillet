@@ -121,31 +121,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    BillPayment:
-      type: object
-      required:
-      - id
-      - status
-      - bill_id
-      - amount
-      properties:
-        id:
-          type: string
-          format: uuid
-        status:
-          enum:
-          - CLEARED
-          - UNCLEARED
-        bill_id:
-          type: string
-          format: uuid
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        date:
-          type: string
-          format: date
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
     RoundedMonetaryAmount:
       type: object
       description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
@@ -164,13 +139,24 @@ components:
       type: string
       description: Currency code following ISO-4217
       example: USD
-    BillPaymentRequest:
+    BillPayment:
       type: object
       required:
+      - id
+      - status
+      - bill_id
       - amount
-      - date
-      - account_code
       properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          enum:
+          - CLEARED
+          - UNCLEARED
+        bill_id:
+          type: string
+          format: uuid
         amount:
           $ref: '#/components/schemas/RoundedMonetaryAmount'
         date:
@@ -205,6 +191,20 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
+    BillPaymentRequest:
+      type: object
+      required:
+      - amount
+      - date
+      - account_code
+      properties:
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        date:
+          type: string
+          format: date
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
   securitySchemes:
     bearerAuth:
       type: http
