@@ -213,6 +213,88 @@ paths:
       parameters: []
 components:
   schemas:
+    UpdateFieldRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        settings:
+          $ref: '#/components/schemas/FieldSettingsMap'
+    UpdateFieldValueRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    FieldSettings:
+      type: object
+      required:
+      - mandatory
+      - display
+      properties:
+        mandatory:
+          type: boolean
+          description: Whether the field is mandatory. A free tagging field cannot be mandatory.
+        display:
+          type: string
+          description: 'The display type of the field. STANDALONE: Field values are displayed separately as a single select option. Recommended for fields that apply to all transactions. FREE_TAG: Field values are grouped and displayed as multi-selectable tags. Recommended for fields that do not apply to all transactions.'
+          enum:
+          - STANDALONE
+          - FREE_TAG
+    FieldSettingsMap:
+      type: object
+      description: 'The settings of the field. EXPENSES: Applies to Bills, Credit Card Transactions and Manual Entries. REVENUE: Applies to Customers, Contracts, Invoices and Credit Memos.'
+      properties:
+        EXPENSES:
+          $ref: '#/components/schemas/FieldSettings'
+        REVENUE:
+          $ref: '#/components/schemas/FieldSettings'
+    CreateFieldRequestValue:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    CreateFieldRequest:
+      type: object
+      required:
+      - name
+      - values
+      properties:
+        name:
+          type: string
+          description: The name of the field.
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateFieldRequestValue'
+    CreateFieldValueRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    FieldValue:
+      type: object
+      required:
+      - id
+      - name
+      - deactivated
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of the field value.
+        deactivated:
+          type: boolean
+          description: Whether the field value is deactivated. Deactivated values cannot be assigned to new entities but remain visible on existing entities.
     FieldsResponse:
       type: object
       required:
@@ -222,13 +304,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    CreateFieldValueRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
     Field:
       type: object
       required:
@@ -254,59 +329,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp in UTC timezone (must end with 'Z')
-    FieldSettings:
-      type: object
-      required:
-      - mandatory
-      - display
-      properties:
-        mandatory:
-          type: boolean
-          description: Whether the field is mandatory. A free tagging field cannot be mandatory.
-        display:
-          type: string
-          description: 'The display type of the field. STANDALONE: Field values are displayed separately as a single select option. Recommended for fields that apply to all transactions. FREE_TAG: Field values are grouped and displayed as multi-selectable tags. Recommended for fields that do not apply to all transactions.'
-          enum:
-          - STANDALONE
-          - FREE_TAG
-    FieldValue:
-      type: object
-      required:
-      - id
-      - name
-      - deactivated
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          description: The name of the field value.
-        deactivated:
-          type: boolean
-          description: Whether the field value is deactivated. Deactivated values cannot be assigned to new entities but remain visible on existing entities.
-    CreateFieldRequest:
-      type: object
-      required:
-      - name
-      - values
-      properties:
-        name:
-          type: string
-          description: The name of the field.
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateFieldRequestValue'
-    UpdateFieldRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        settings:
-          $ref: '#/components/schemas/FieldSettingsMap'
     Error:
       type: object
       required:
@@ -330,28 +352,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    CreateFieldRequestValue:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-    FieldSettingsMap:
-      type: object
-      description: 'The settings of the field. EXPENSES: Applies to Bills, Credit Card Transactions and Manual Entries. REVENUE: Applies to Customers, Contracts, Invoices and Credit Memos.'
-      properties:
-        EXPENSES:
-          $ref: '#/components/schemas/FieldSettings'
-        REVENUE:
-          $ref: '#/components/schemas/FieldSettings'
-    UpdateFieldValueRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

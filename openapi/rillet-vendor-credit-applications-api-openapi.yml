@@ -50,6 +50,10 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    AccountCode:
+      type: string
+      description: The account code found in the Chart of Accounts
+      example: '11112'
     RoundedMonetaryAmount:
       type: object
       description: A monetary amount that must be rounded to the currency's default decimal places (e.g., 2 decimal places for USD).
@@ -64,10 +68,108 @@ components:
           example: '1.01'
         currency:
           $ref: '#/components/schemas/CurrencyCode'
+    VendorCreditLineItemRequest:
+      type: object
+      required:
+      - account_code
+      - amount
+      properties:
+        account_code:
+          $ref: '#/components/schemas/AccountCode'
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        description:
+          type: string
+        tax_rate:
+          $ref: '#/components/schemas/ExpenseTaxRate'
+        fields:
+          $ref: '#/components/schemas/FieldAssignments'
+    ExpenseTaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRate'
+      - type: object
+        required:
+        - coverage
+        properties:
+          tax_code:
+            type: string
+            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
+          coverage:
+            type: string
+            enum:
+            - INCLUSIVE
+            - EXCLUSIVE
+    TaxRate:
+      allOf:
+      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
+      required:
+      - tax_amount
+    TaxRateWithOptionalAmount:
+      type: object
+      required:
+      - country
+      - description
+      - percentage
+      - type
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          example: 0
+        tax_amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          type: string
+          enum:
+          - VAT
+          - SALES_TAX
+        description:
+          type: string
     CountryCode:
       type: string
       description: Two-letter country code (ISO 3166-1 alpha-2).
       example: US
+    ApplyVendorCreditRequest:
+      type: object
+      required:
+      - applications
+      properties:
+        applications:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/VendorCreditApplicationRequest'
+    FieldAssignments:
+      type: array
+      items:
+        type: object
+        required:
+        - field_id
+        - field_value_id
+        properties:
+          field_id:
+            type: string
+            format: uuid
+          field_value_id:
+            type: string
+            format: uuid
+    CreateVendorCreditRequest:
+      allOf:
+      - $ref: '#/components/schemas/BaseVendorCreditRequest'
+      - type: object
+        required:
+        - subsidiary_id
+        - vendor_id
+        properties:
+          vendor_id:
+            type: string
+            format: uuid
+          subsidiary_id:
+            type: string
+            format: uuid
     VendorCreditApplication:
       type: object
       required:
@@ -93,54 +195,21 @@ components:
         application_date:
           type: string
           format: date
-    VendorCreditLineItemRequest:
-      type: object
-      required:
-      - account_code
-      - amount
-      properties:
-        account_code:
-          $ref: '#/components/schemas/AccountCode'
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        description:
-          type: string
-        tax_rate:
-          $ref: '#/components/schemas/ExpenseTaxRate'
-        fields:
-          $ref: '#/components/schemas/FieldAssignments'
-    CreateVendorCreditRequest:
-      allOf:
-      - $ref: '#/components/schemas/BaseVendorCreditRequest'
-      - type: object
-        required:
-        - subsidiary_id
-        - vendor_id
-        properties:
-          vendor_id:
-            type: string
-            format: uuid
-          subsidiary_id:
-            type: string
-            format: uuid
-    VendorCreditLineItem:
-      allOf:
-      - $ref: '#/components/schemas/VendorCreditLineItemRequest'
-      - type: object
-        required:
-        - id
-        properties:
-          id:
-            type: string
-            format: uuid
-          net_amount:
-            $ref: '#/components/schemas/RoundedMonetaryAmount'
-          tax_amount:
-            $ref: '#/components/schemas/RoundedMonetaryAmount'
     CurrencyCode:
       type: string
       description: Currency code following ISO-4217
       example: USD
+    VendorCreditApplicationRequest:
+      type: object
+      required:
+      - bill_id
+      - amount
+      properties:
+        bill_id:
+          type: string
+          format: uuid
+        amount:
+          $ref: '#/components/schemas/RoundedMonetaryAmount'
     VendorCredit:
       allOf:
       - $ref: '#/components/schemas/CreateVendorCreditRequest'
@@ -180,30 +249,13 @@ components:
             type: string
             format: date-time
             description: Timestamp when the vendor credit was last modified
-    TaxRateWithOptionalAmount:
-      type: object
-      required:
-      - country
-      - description
-      - percentage
-      - type
-      properties:
-        percentage:
-          type: number
-          minimum: 0
-          maximum: 100
-          example: 0
-        tax_amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        type:
-          type: string
-          enum:
-          - VAT
-          - SALES_TAX
-        description:
-          type: string
+    VendorCreditStatus:
+      type: string
+      enum:
+      - UNAPPLIED
+      - PARTIALLY_APPLIED
+      - REFUNDED
+      - APPLIED
     BaseVendorCreditRequest:
       type: object
       required:
@@ -228,46 +280,20 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/VendorCreditLineItemRequest'
-    VendorCreditApplicationRequest:
-      type: object
-      required:
-      - bill_id
-      - amount
-      properties:
-        bill_id:
-          type: string
-          format: uuid
-        amount:
-          $ref: '#/components/schemas/RoundedMonetaryAmount'
-    FieldAssignments:
-      type: array
-      items:
-        type: object
-        required:
-        - field_id
-        - field_value_id
-        properties:
-          field_id:
-            type: string
-            format: uuid
-          field_value_id:
-            type: string
-            format: uuid
-    ExpenseTaxRate:
+    VendorCreditLineItem:
       allOf:
-      - $ref: '#/components/schemas/TaxRate'
+      - $ref: '#/components/schemas/VendorCreditLineItemRequest'
       - type: object
         required:
-        - coverage
+        - id
         properties:
-          tax_code:
+          id:
             type: string
-            description: Code of a predefined tax rate. When provided, the rate's percentage, country, and description are used instead of the inline values.
-          coverage:
-            type: string
-            enum:
-            - INCLUSIVE
-            - EXCLUSIVE
+            format: uuid
+          net_amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
+          tax_amount:
+            $ref: '#/components/schemas/RoundedMonetaryAmount'
     Error:
       type: object
       required:
@@ -291,32 +317,6 @@ components:
           type: string
           description: Explanation specific to this occurrence of the error.
           example: User does not have rights to perform this operation.
-    AccountCode:
-      type: string
-      description: The account code found in the Chart of Accounts
-      example: '11112'
-    TaxRate:
-      allOf:
-      - $ref: '#/components/schemas/TaxRateWithOptionalAmount'
-      required:
-      - tax_amount
-    VendorCreditStatus:
-      type: string
-      enum:
-      - UNAPPLIED
-      - PARTIALLY_APPLIED
-      - REFUNDED
-      - APPLIED
-    ApplyVendorCreditRequest:
-      type: object
-      required:
-      - applications
-      properties:
-        applications:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/VendorCreditApplicationRequest'
   securitySchemes:
     bearerAuth:
       type: http

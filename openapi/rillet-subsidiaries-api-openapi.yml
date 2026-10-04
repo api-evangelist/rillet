@@ -75,6 +75,10 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    CurrencyCode:
+      type: string
+      description: Currency code following ISO-4217
+      example: USD
     Subsidiary:
       type: object
       required:
@@ -99,10 +103,6 @@ components:
           type: string
           enum:
           - LEGAL_ENTITY
-    CurrencyCode:
-      type: string
-      description: Currency code following ISO-4217
-      example: USD
     Error:
       type: object
       required:
